@@ -1,0 +1,83 @@
+{
+    "name": "@cybearl/cypack",
+    "version": "2024.11.1",
+    "description": "The centralized Cybearl application and API service utilities in a single well-optimized package.",
+    "author": "Cybearl <[email protected]> (https://www.cybearl.com/)",
+    "license": "MIT",
+    "private": false,
+    "keywords": [
+        "cybearl",
+        "cypack",
+        "utilities"
+    ],
+    "homepage": "https://github.com/cybearl/cypack",
+    "repository": "https://github.com/cybearl/cypack",
+    "bugs": "https://github.com/cybearl/cypack/issues",
+    "publishConfig": {
+        "registry": "https://gitlab.com/api/v4/projects/59071566/packages/npm/"
+    },
+    "main": "index.js",
+    "module": "index.mjs",
+    "types": "index.d.ts",
+    "engines": {
+        "node": ">=20"
+    },
+    "files": [
+        "*"
+    ],
+    "exports": {
+        ".": {
+            "import": "./index.mjs",
+            "require": "./index.js"
+        }
+    },
+    "scripts": {
+        "v-bump": "yarn version --patch",
+        "build": "tsup",
+        "watch": "tsup --watch",
+        "lint": "biome lint .",
+        "lint:fix": "biome lint . --apply",
+        "format": "biome format .",
+        "format:fix": "biome format --write .",
+        "typecheck": "tsc --noEmit"
+    },
+    "dependencies": {
+        "dedent-js": "^1.0.1",
+        "loglevel": "^1.9.2",
+        "server-only": "^0.0.1"
+    },
+    "peerDependencies": {
+        "typescript": ">=5.0.0"
+    },
+    "peerDependenciesMeta": {
+        "typescript": {
+            "optional": true
+        }
+    },
+    "devDependencies": {
+        "@babel/core": "^7.26.0",
+        "@babel/plugin-syntax-flow": "^7.26.0",
+        "@babel/plugin-transform-private-property-in-object": "^7.24.7",
+        "@babel/plugin-transform-react-jsx": "^7.25.9",
+        "@babel/plugin-transform-unicode-property-regex": "^7.25.9",
+        "@biomejs/biome": "^1.9.4",
+        "@types/copyfiles": "^2.4.4",
+        "@types/node": "^22.8.7",
+        "@types/react": "^18.3.10",
+        "@types/react-dom": "^18.3.0",
+        "@types/valid-url": "^1.0.7",
+        "autoprefixer": "^10.4.20",
+        "concurrently": "^9.0.1",
+        "copyfiles": "^2.4.1",
+        "cross-env": "^7.0.3",
+        "postcss": "^8.4.47",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "tailwindcss": "^3.4.13",
+        "tailwindcss-animate": "^1.0.7",
+        "tsconfig-paths-webpack-plugin": "^4.1.0",
+        "tsup": "^8.3.0",
+        "typescript": "^5.6.2",
+        "webpack": "^5.95.0"
+    }
+}
