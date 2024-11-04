@@ -1,6 +1,6 @@
 {
     "name": "@cybearl/cypack",
-    "version": "2024.11.1",
+    "version": "2024.11.2",
     "description": "The centralized Cybearl application and API service utilities in a single well-optimized package.",
     "author": "Cybearl <[email protected]> (https://www.cybearl.com/)",
     "license": "MIT",
