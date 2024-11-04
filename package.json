@@ -14,7 +14,7 @@
     "repository": "https://github.com/cybearl/cypack",
     "bugs": "https://github.com/cybearl/cypack/issues",
     "publishConfig": {
-        "registry": "https://gitlab.com/api/v4/projects/59071566/packages/npm/"
+        "registry": "https://npm.pkg.github.com/@cybearl"
     },
     "main": "index.js",
     "module": "index.mjs",
