@@ -1,6 +1,6 @@
 {
     "name": "@cybearl/cypack",
-    "version": "2024.11.2",
+    "version": "2024.11.3",
     "description": "The centralized Cybearl application and API service utilities in a single well-optimized package.",
     "author": "Cybearl <[email protected]> (https://www.cybearl.com/)",
     "license": "MIT",
@@ -47,7 +47,7 @@
         "server-only": "^0.0.1"
     },
     "peerDependencies": {
-        "typescript": ">=5.0.0"
+        "typescript": ">=5.4.0"
     },
     "peerDependenciesMeta": {
         "typescript": {
