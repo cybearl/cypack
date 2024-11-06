@@ -1,18 +1,12 @@
 name: GitHub Package Registry Publish Workflow
 
-# on:
-#   workflow_dispatch:
-#   release:
-#     types: [published]
-#   push:
-#     tags:
-#       - v*
-
-# For now, publish on every push to main branch
 on:
+  workflow_dispatch:
+  release:
+    types: [published]
   push:
-    branches:
-      - main
+    tags:
+      - v*
 
 jobs:
   publish-gpr:
