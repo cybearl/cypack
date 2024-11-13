@@ -1,4 +1,5 @@
 import { type Status, type StatusResponse, getStatus } from "@/cgas/status"
+import * as constants from "@/general/constants"
 import {
 	BaseErrors,
 	type ErrorObj,
@@ -6,6 +7,8 @@ import {
 	formatErrorResponse,
 	stringifyError,
 } from "@/general/errors"
+import { getHostname } from "@/general/host"
+import { appPath, buildPath, rootPath } from "@/general/paths"
 import useAnimationFrame from "@/react/hooks/useAnimationFrame"
 import useCanvas from "@/react/hooks/useCanvas"
 import useInterval from "@/react/hooks/useInterval"
@@ -15,23 +18,34 @@ import type { FailedRequest, RequestResult, SuccessfulRequest } from "@/types/re
 /**
  * Space for the Cybearl General API System (CGAS).
  */
-export const cgas = {
+export const cyCGAS = {
 	getStatus,
 }
 
 /**
  * Space for general utilities.
  */
-export const general = {
-	formatErrorResponse,
-	stringifyError,
-	BaseErrors,
+export const cyGeneral = {
+	host: {
+		getHostname,
+	},
+	errors: {
+		BaseErrors,
+		formatErrorResponse,
+		stringifyError,
+	},
+	paths: {
+		rootPath,
+		appPath,
+		buildPath,
+	},
+	constants: constants,
 }
 
 /**
  * Space for React.
  */
-export const react = {
+export const cyReact = {
 	useAnimationFrame,
 	useCanvas,
 	useInterval,
