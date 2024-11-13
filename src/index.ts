@@ -8,7 +8,8 @@ import {
 	stringifyError,
 } from "@/general/errors"
 import { getHostname } from "@/general/host"
-import { appPath, buildPath, rootPath } from "@/general/paths"
+import { stringify } from "@/general/json"
+import { addParamsToUrl } from "@/general/urls"
 import useAnimationFrame from "@/react/hooks/useAnimationFrame"
 import useCanvas from "@/react/hooks/useCanvas"
 import useInterval from "@/react/hooks/useInterval"
@@ -26,20 +27,21 @@ export const cyCGAS = {
  * Space for general utilities.
  */
 export const cyGeneral = {
-	host: {
-		getHostname,
-	},
+	constants,
 	errors: {
 		BaseErrors,
 		formatErrorResponse,
 		stringifyError,
 	},
-	paths: {
-		rootPath,
-		appPath,
-		buildPath,
+	host: {
+		getHostname,
 	},
-	constants: constants,
+	json: {
+		stringify,
+	},
+	urls: {
+		addParamsToUrl,
+	},
 }
 
 /**
