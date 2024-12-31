@@ -1,4 +1,5 @@
 import { type Status, type StatusResponse, getStatus } from "@/cgas/status"
+import Bench, { type BenchmarkResult, type BenchmarkResults } from "@/general/bench"
 import * as constants from "@/general/constants"
 import {
 	BaseErrors,
@@ -7,8 +8,10 @@ import {
 	formatErrorResponse,
 	stringifyError,
 } from "@/general/errors"
+import { formatHRTime, formatPercentage, formatTime, formatUnit } from "@/general/formats"
 import { getHostname } from "@/general/host"
 import { stringify } from "@/general/json"
+import logger from "@/general/logger"
 import { addParamsToUrl } from "@/general/urls"
 import useAnimationFrame from "@/react/hooks/useAnimationFrame"
 import useCanvas from "@/react/hooks/useCanvas"
@@ -27,11 +30,18 @@ export const cyCGAS = {
  * Space for general utilities.
  */
 export const cyGeneral = {
+	Bench,
 	constants,
 	errors: {
 		BaseErrors,
 		formatErrorResponse,
 		stringifyError,
+	},
+	formats: {
+		formatUnit,
+		formatHRTime,
+		formatTime,
+		formatPercentage,
 	},
 	host: {
 		getHostname,
@@ -39,6 +49,7 @@ export const cyGeneral = {
 	json: {
 		stringify,
 	},
+	logger,
 	urls: {
 		addParamsToUrl,
 	},
@@ -61,6 +72,9 @@ export type {
 	// CGAS - Status
 	Status,
 	StatusResponse,
+	// General - Bench
+	BenchmarkResult,
+	BenchmarkResults,
 	// General - Errors
 	ErrorObj,
 	ErrorObjAdditionalData,
