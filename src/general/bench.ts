@@ -17,6 +17,9 @@ export type BenchmarkResults = {
 	[fn: string]: BenchmarkResult
 }
 
+/**
+ * A class that provides a simple way to benchmark functions.
+ */
 export default class Bench {
 	/**
 	 * The duration of the benchmark in milliseconds.
