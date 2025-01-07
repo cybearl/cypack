@@ -20,12 +20,14 @@ import useMouseCoordinates from "@/react/hooks/useMouseCoordinates"
 import type { FailedRequest, RequestResult, SuccessfulRequest } from "@/types/requests"
 
 export default {
-	// CGAS
-	getCGASStatus,
-
 	// Bench
 	Bench,
+
+	// Configurations
 	constants,
+
+	// CGAS
+	getCGASStatus,
 
 	// Errors
 	BaseErrors,
