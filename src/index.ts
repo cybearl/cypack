@@ -19,39 +19,30 @@ import useInterval from "@/react/hooks/useInterval"
 import useMouseCoordinates from "@/react/hooks/useMouseCoordinates"
 import type { FailedRequest, RequestResult, SuccessfulRequest } from "@/types/requests"
 
-export default {
+export {
 	// Bench
 	Bench,
-
 	// Configurations
 	constants,
-
 	// CGAS
 	getCGASStatus,
-
 	// Errors
 	BaseErrors,
 	formatErrorResponse,
 	stringifyError,
-
 	// Formats
 	formatUnit,
 	formatHRTime,
 	formatTime,
 	formatPercentage,
-
 	// Host
 	getHostname,
-
 	// JSON
 	stringify,
-
 	// Logger
 	logger,
-
 	// URLs
 	addParamsToUrl,
-
 	// React hooks
 	useAnimationFrame,
 	useCanvas,
