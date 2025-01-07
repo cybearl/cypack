@@ -14,6 +14,8 @@ This package is **not** published on the NPM registry. To install it, you news t
 redirect any `@cybearl` package to the GitHub package registry. If you don't have one, create it in the root of your project and add the following line:
 ```
 @cybearl:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+always-auth=true
 ```
 
 ### 1. Install the package:
