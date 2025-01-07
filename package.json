@@ -12,7 +12,9 @@
         "utilities"
     ],
     "homepage": "https://github.com/cybearl/cypack",
-    "repository": "https://github.com/cybearl/cypack",
+    "repository": {
+        "url": "https://github.com/cybearl/cypack"
+    },
     "bugs": "https://github.com/cybearl/cypack/issues",
     "publishConfig": {
         "registry": "https://npm.pkg.github.com/@cybearl"
