@@ -6,13 +6,13 @@
  * - `in-maintenance`: The application is in maintenance mode and not available to the public.
  * - `in-development`: The application is in development mode and not available to the public.
  */
-export type Status = "enabled" | "disabled" | "in-maintenance" | "in-development"
+export type CGASStatus = "enabled" | "disabled" | "in-maintenance" | "in-development"
 
 /**
  * The Cybearl General API System (CGAS) status response.
  */
-export type StatusResponse = {
-	status: Status
+export type CGASStatusResponse = {
+	status: CGASStatus
 	marker: string
 	timestamp: string
 	version: {
@@ -25,13 +25,13 @@ export type StatusResponse = {
 /**
  * Returns the current status of the application.
  */
-export function getStatus(
-	status: Status,
+export function getCGASStatus(
+	status: CGASStatus,
 	marker: string,
 	version: string | undefined,
 	message?: string,
 	markerOnly?: boolean,
-): StatusResponse | string {
+): CGASStatusResponse | string {
 	if (markerOnly) return marker
 
 	return {

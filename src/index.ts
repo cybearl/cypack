@@ -1,4 +1,4 @@
-import { type Status, type StatusResponse, getStatus } from "@/cgas/status"
+import { type CGASStatus, type CGASStatusResponse, getCGASStatus } from "@/cgas/status"
 import Bench, { type BenchmarkResult, type BenchmarkResults } from "@/general/bench"
 import * as constants from "@/general/constants"
 import {
@@ -19,46 +19,38 @@ import useInterval from "@/react/hooks/useInterval"
 import useMouseCoordinates from "@/react/hooks/useMouseCoordinates"
 import type { FailedRequest, RequestResult, SuccessfulRequest } from "@/types/requests"
 
-/**
- * Space for the Cybearl General API System (CGAS).
- */
-export const cyCGAS = {
-	getStatus,
-}
+export default {
+	// CGAS
+	getCGASStatus,
 
-/**
- * Space for general utilities.
- */
-export const cyGeneral = {
+	// Bench
 	Bench,
 	constants,
-	errors: {
-		BaseErrors,
-		formatErrorResponse,
-		stringifyError,
-	},
-	formats: {
-		formatUnit,
-		formatHRTime,
-		formatTime,
-		formatPercentage,
-	},
-	host: {
-		getHostname,
-	},
-	json: {
-		stringify,
-	},
-	logger,
-	urls: {
-		addParamsToUrl,
-	},
-}
 
-/**
- * Space for React.
- */
-export const cyReact = {
+	// Errors
+	BaseErrors,
+	formatErrorResponse,
+	stringifyError,
+
+	// Formats
+	formatUnit,
+	formatHRTime,
+	formatTime,
+	formatPercentage,
+
+	// Host
+	getHostname,
+
+	// JSON
+	stringify,
+
+	// Logger
+	logger,
+
+	// URLs
+	addParamsToUrl,
+
+	// React hooks
 	useAnimationFrame,
 	useCanvas,
 	useInterval,
@@ -69,16 +61,16 @@ export const cyReact = {
  * All types of the package.
  */
 export type {
-	// CGAS - Status
-	Status,
-	StatusResponse,
-	// General - Bench
+	// CGAS
+	CGASStatus,
+	CGASStatusResponse,
+	// Bench
 	BenchmarkResult,
 	BenchmarkResults,
-	// General - Errors
+	// Errors
 	ErrorObj,
 	ErrorObjAdditionalData,
-	// General - Requests
+	// Requests
 	SuccessfulRequest,
 	FailedRequest,
 	RequestResult,
