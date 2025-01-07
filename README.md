@@ -17,6 +17,7 @@ redirect any `@cybearl` package to the GitHub package registry. If you don't hav
 //npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
 always-auth=true
 ```
+Note that, as the package is public, any token will do, even if you're not in the Cybearl organization.
 
 ### 1. Install the package:
 ```bash
