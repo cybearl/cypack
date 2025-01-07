@@ -21,7 +21,7 @@ yarn add @cybearl/cypack
 Categories and utilities
 ------------------------
 
-#### Utilities for the Cybearl General API System
+### Utilities for the Cybearl General API System
 - `getCGASStatus`: Returns the current status of the application, or the application marker only if specified,
   in the Cybearl General API System (CGAS) format.
 
