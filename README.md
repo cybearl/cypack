@@ -9,6 +9,13 @@ This package includes multiple centralized utilities for the Cybearl application
 
 Integration into your project
 -----------------------------
+### 0. NPM RC file:
+This package is **not** published on the NPM registry. To install it, you news to have an `.npmrc` file in your project that
+redirect any `@cybearl` package to the GitHub package registry. If you don't have one, create it in the root of your project and add the following line:
+```
+@cybearl:registry=https://npm.pkg.github.com
+```
+
 ### 1. Install the package:
 ```bash
 npm install @cybearl/cypack
