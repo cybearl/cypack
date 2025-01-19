@@ -1,3 +1,5 @@
+import type { RequestResult } from "@/types/requests"
+
 /**
  * Status of the application (allows to enable/disable the application),
  * It can either be:
@@ -44,4 +46,22 @@ export function getCGASStatus(
 		},
 		message: message ?? "The application is running smoothly.",
 	}
+}
+
+/**
+ * Get the status of the application.
+ * @param markerOnly Whether to only return the marker (optional, defaults to false).
+ * @param baseUrl The base URL of the CGAS API (optional, defaults to "/api/cgas").
+ * @returns The status of the application, or the marker if `markerOnly` is true.
+ */
+export async function getStatus(markerOnly: true, baseUrl?: string): Promise<RequestResult<string>>
+export async function getStatus(markerOnly?: false, baseUrl?: string): Promise<RequestResult<CGASStatusResponse>>
+export async function getStatus(
+	markerOnly = false,
+	baseUrl = "/api/cgas",
+): Promise<RequestResult<CGASStatusResponse | string>> {
+	const response = await fetch(`${baseUrl}/status?markerOnly=${markerOnly}`)
+
+	const result = await response.json()
+	return result
 }
