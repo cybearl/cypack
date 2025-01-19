@@ -41,5 +41,6 @@ jobs:
       - name: Publish to GitHub Package Registry
         working-directory: ./dist
         run: npm publish --access public
+        continue-on-error: true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

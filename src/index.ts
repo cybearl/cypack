@@ -1,4 +1,4 @@
-import { type CGASStatus, type CGASStatusResponse, getCGASStatus } from "@/cgas/status"
+import { type CGASStatus, type CGASStatusResponse, generateCGASStatus, getCGASStatus } from "@/cgas/status"
 import Bench, { type BenchmarkResult, type BenchmarkResults } from "@/general/bench"
 import * as constants from "@/general/constants"
 import {
@@ -27,6 +27,7 @@ export {
 	// Configurations
 	constants,
 	// CGAS
+	generateCGASStatus,
 	getCGASStatus,
 	// Errors
 	BaseErrors,
