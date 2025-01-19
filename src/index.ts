@@ -8,11 +8,13 @@ import {
 	formatErrorResponse,
 	stringifyError,
 } from "@/general/errors"
-import { formatHRTime, formatPercentage, formatTime, formatUnit } from "@/general/formats"
+import { formatHRTime, formatPercentage, formatTime, formatUnit, truncateString } from "@/general/formats"
 import { getHostname } from "@/general/host"
 import { stringify } from "@/general/json"
 import logger from "@/general/logger"
-import { addParamsToUrl } from "@/general/urls"
+import { mapRange } from "@/general/maths"
+import { shadeColor } from "@/general/styling"
+import { addParamsToUrl, currentUrlOrigin } from "@/general/urls"
 import useAnimationFrame from "@/react/hooks/useAnimationFrame"
 import useCanvas from "@/react/hooks/useCanvas"
 import useInterval from "@/react/hooks/useInterval"
@@ -35,14 +37,20 @@ export {
 	formatHRTime,
 	formatTime,
 	formatPercentage,
+	truncateString,
 	// Host
 	getHostname,
 	// JSON
 	stringify,
 	// Logger
 	logger,
+	// Maths
+	mapRange,
+	// Styling
+	shadeColor,
 	// URLs
 	addParamsToUrl,
+	currentUrlOrigin,
 	// React hooks
 	useAnimationFrame,
 	useCanvas,

@@ -56,6 +56,17 @@ export function stringifyError(error: ErrorObj, message?: string, additionalData
 /**
  * Contains all the standard available errors for the application, it serves as a base
  * to extend with your custom errors.
+ *
+ * The recommended way is to create an `AppErrors` object that extends this one, preferably
+ * at a place similar to `lib/utils/errors.ts`:
+ * ```typescript
+ * import { BaseErrors } from "@cybearl/cypack"
+ *
+ * export const AppErrors = {
+ *     ...BaseErrors,
+ *     // Add your custom errors here
+ * }
+ * ```
  */
 export const BaseErrors = {
 	//=======
