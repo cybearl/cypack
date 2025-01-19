@@ -24,6 +24,6 @@ export function addParamsToUrl(
 }
 
 /**
- * Get the current URL origin.
+ * Get the current URL origin or null if it's not available.
  */
-export const currentUrlOrigin = typeof window !== "undefined" && window.location.origin ? window.location.origin : ""
+export const currentUrlOrigin = typeof window !== "undefined" && window.location.origin ? window.location.origin : null

@@ -30,16 +30,15 @@ yarn add @cybearl/cypack
 
 Categories and utilities
 ------------------------
-
-### Utilities for the Cybearl General API System
-- `getCGASStatus`: Returns the current status of the application, or the application marker only if specified,
-  in the Cybearl General API System (CGAS) format.
-
 ### Benchmark utilities
 - `Bench`: A class that provides a simple way to benchmark functions.
 
 ### Configuration utilities
 - `constants`: Multiple constants used throughout the application (user password length, etc.).
+
+### Cybearl General API System
+- `getCGASStatus`: Returns the current status of the application, or the application marker only if specified,
+  in the Cybearl General API System (CGAS) format.
 
 ### Error utilities
 Contains a set of base error that follows the Cybearl error format, and other error-related utilities.
@@ -53,6 +52,7 @@ Contains a set of utilities to format numbers, time, and other values.
 - `formatHRTime`: Format a high-resolution time, into a responsive string with the en-US locale format.
 - `formatTime`: Format a time in milliseconds into a responsive string with the en-US locale format.
 - `formatPercentage`: Formats a number as a percentage.
+- `truncateString`: Truncate a string to a specified length.
 
 ### Host-related utilities
 Contains utilities to get the hostname and other host-related information.
@@ -66,9 +66,18 @@ Contains utilities to parse and stringify JSON objects.
 Contains a simple multi-level logger that logs to the console based on `Winston`.
 - `logger`: A simple multi-level logger that logs to the console based on `Winston`.
 
+### Math utilities
+Contains utilities to perform mathematical operations.
+- `mapRange`: Maps a number from one range to another.
+
+### Styling utilities
+Contains utilities to manipulate CSS styles.
+- `shadeColor`: Shades a color by a percentage.
+
 ### URLs utilities
 Contains utilities to manipulate URLs.
 - `addParamsToUrl`: Allows to add query parameters to a URL.
+- `currentUrlOrigin`: Get the current URL origin or null if it's not available.
 
 ### React hooks
 Contains a set of React hooks that can be used in React components.
