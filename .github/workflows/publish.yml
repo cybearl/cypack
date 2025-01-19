@@ -2,8 +2,9 @@ name: GitHub Package Registry Publish Workflow
 
 on:
   workflow_dispatch:
-  release:
-    types: [published]
+  push:
+    tags:
+      - v*
 
 jobs:
   publish-gpr:
