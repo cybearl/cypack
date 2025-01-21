@@ -29,19 +29,19 @@
     ],
     "exports": {
         "./backend": {
+            "types": "./backend.d.ts",
             "import": "./backend.mjs",
-            "require": "./backend.js",
-            "types": "./backend.d.ts"
+            "require": "./backend.js"
         },
         "./frontend": {
+            "types": "./frontend.d.ts",
             "import": "./frontend.mjs",
-            "require": "./frontend.js",
-            "types": "./frontend.d.ts"
+            "require": "./frontend.js"
         },
         ".": {
+            "types": "./index.d.ts",
             "import": "./index.mjs",
-            "require": "./index.js",
-            "types": "./index.d.ts"
+            "require": "./index.js"
         }
     },
     "scripts": {
