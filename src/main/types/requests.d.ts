@@ -1,4 +1,4 @@
-import type { ErrorObj } from "@/general/errors"
+import type { ErrorObj } from "@/backend/errors"
 
 /**
  * The type for a successful request, containing the data of type T.

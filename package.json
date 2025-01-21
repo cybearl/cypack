@@ -29,13 +29,17 @@
         "*"
     ],
     "exports": {
-        ".": {
-            "import": "./index.mjs",
-            "require": "./index.js"
-        },
         "./backend": {
             "import": "./backend.mjs",
             "require": "./backend.js"
+        },
+        "./frontend": {
+            "import": "./frontend.mjs",
+            "require": "./frontend.js"
+        },
+        ".": {
+            "import": "./index.mjs",
+            "require": "./index.js"
         }
     },
     "scripts": {

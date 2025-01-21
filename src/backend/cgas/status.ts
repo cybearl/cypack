@@ -1,4 +1,4 @@
-import type { RequestResult } from "@/types/requests"
+import type { RequestResult } from "@/main/types/requests"
 
 /**
  * The type for the CGAS status string, it can either be:

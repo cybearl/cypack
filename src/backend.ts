@@ -10,7 +10,6 @@ import {
 import { getHostname } from "@/backend/host"
 import logger from "@/backend/logger"
 import { assertServer } from "@/main/checks"
-import type { FailedRequest, RequestResult, SuccessfulRequest } from "@/types/requests"
 
 // Checking that any code importing this module is running on a server environment
 assertServer()
@@ -41,8 +40,4 @@ export type {
 	// Errors
 	ErrorObj,
 	ErrorObjAdditionalData,
-	// Requests
-	SuccessfulRequest,
-	FailedRequest,
-	RequestResult,
 }

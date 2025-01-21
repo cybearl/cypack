@@ -8,6 +8,13 @@ export function isServer() {
 }
 
 /**
+ * Returns true if the code is running in a client environment.
+ */
+export function isClient() {
+	return !isServer()
+}
+
+/**
  * Check if the code is running in a server environment.
  * @throws An error if the code is **not** running in a server environment.
  */

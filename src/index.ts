@@ -5,12 +5,8 @@ import { formatHRTime, formatPercentage, formatTime, formatUnit, truncateString 
 
 import { stringify } from "@/main/json"
 import { mapRange } from "@/main/maths"
-import useAnimationFrame from "@/main/react/hooks/useAnimationFrame"
-import useCanvas from "@/main/react/hooks/useCanvas"
-import useInterval from "@/main/react/hooks/useInterval"
-import useMouseCoordinates from "@/main/react/hooks/useMouseCoordinates"
 import { shadeColor } from "@/main/styling"
-import { addParamsToUrl, currentUrlOrigin } from "@/main/urls"
+import type { FailedRequest, RequestResult, SuccessfulRequest } from "@/main/types/requests"
 
 export {
 	// Checks
@@ -30,12 +26,11 @@ export {
 	mapRange,
 	// Styling
 	shadeColor,
-	// URLs
-	addParamsToUrl,
-	currentUrlOrigin,
-	// React hooks
-	useAnimationFrame,
-	useCanvas,
-	useInterval,
-	useMouseCoordinates,
+}
+
+export type {
+	// Requests
+	SuccessfulRequest,
+	FailedRequest,
+	RequestResult,
 }
