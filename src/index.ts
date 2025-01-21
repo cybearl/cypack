@@ -6,6 +6,7 @@ import { formatHRTime, formatPercentage, formatTime, formatUnit, truncateString 
 import { stringify } from "@/main/json"
 import { mapRange } from "@/main/maths"
 import { shadeColor } from "@/main/styling"
+import type { CGASStatus, CGASStatusString } from "@/main/types/cgas"
 import type { FailedRequest, RequestResult, SuccessfulRequest } from "@/main/types/requests"
 
 export {
@@ -29,6 +30,9 @@ export {
 }
 
 export type {
+	// CGAS
+	CGASStatusString,
+	CGASStatus,
 	// Requests
 	SuccessfulRequest,
 	FailedRequest,

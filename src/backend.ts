@@ -1,5 +1,5 @@
 import Bench, { type BenchmarkResult, type BenchmarkResults } from "@/backend/bench"
-import { type CGASStatus, type CGASStatusString, generateCGASStatus, getCGASStatus } from "@/backend/cgas/status"
+import { generateCGASStatus } from "@/backend/cgas/status"
 import {
 	BaseErrors,
 	type ErrorObj,
@@ -19,7 +19,6 @@ export {
 	Bench,
 	// CGAS
 	generateCGASStatus,
-	getCGASStatus,
 	// Errors
 	BaseErrors,
 	formatErrorResponse,
@@ -34,9 +33,6 @@ export type {
 	// Bench
 	BenchmarkResult,
 	BenchmarkResults,
-	// CGAS
-	CGASStatusString,
-	CGASStatus,
 	// Errors
 	ErrorObj,
 	ErrorObjAdditionalData,
