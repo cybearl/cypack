@@ -2,7 +2,7 @@ import copyfiles from "copyfiles"
 import { defineConfig } from "tsup"
 
 export default defineConfig(options => ({
-	entry: ["src/backend.ts", "src/frontend.ts"],
+	entry: ["src/backend.ts", "src/index.ts"],
 	format: ["cjs", "esm"],
 	minify: !options.watch,
 	splitting: false,

@@ -1,5 +1,5 @@
-import { formatHRTime, formatPercentage, formatUnit } from "@/general/formats"
-import logger from "@/general/logger"
+import logger from "@/backend/logger"
+import { formatHRTime, formatPercentage, formatUnit } from "@/main/formats"
 
 /**
  * The type of the benchmark function result.

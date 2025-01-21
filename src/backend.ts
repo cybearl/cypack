@@ -1,15 +1,19 @@
-import { type CGASStatus, type CGASStatusString, generateCGASStatus, getCGASStatus } from "@/cgas/status"
-import Bench, { type BenchmarkResult, type BenchmarkResults } from "@/general/bench"
+import Bench, { type BenchmarkResult, type BenchmarkResults } from "@/backend/bench"
+import { type CGASStatus, type CGASStatusString, generateCGASStatus, getCGASStatus } from "@/backend/cgas/status"
 import {
 	BaseErrors,
 	type ErrorObj,
 	type ErrorObjAdditionalData,
 	formatErrorResponse,
 	stringifyError,
-} from "@/general/errors"
-import { getHostname } from "@/general/host"
-import logger from "@/general/logger"
+} from "@/backend/errors"
+import { getHostname } from "@/backend/host"
+import logger from "@/backend/logger"
+import { assertServer } from "@/main/checks"
 import type { FailedRequest, RequestResult, SuccessfulRequest } from "@/types/requests"
+
+// Checking that any code importing this module is running on a server environment
+assertServer()
 
 export {
 	// Bench

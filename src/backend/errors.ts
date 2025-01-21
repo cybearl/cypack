@@ -158,6 +158,12 @@ export const BaseErrors = {
 		message: "Internal server error.",
 		data: null,
 	},
+	BACKEND_FUNCTION_RUNNING_ON_CLIENT: {
+		status: 500,
+		name: "BackendFunctionRunningOnClient",
+		message: "A function reserved for the backend is running on the client.",
+		data: null,
+	},
 
 	//=======
 	//  501
