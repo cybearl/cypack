@@ -43,5 +43,8 @@
         "**/pubspec.lock": true,
         "packages/contracts/cache": true,
         "**/.vscode": true
-    }
+    },
+    "cSpell.words": [
+        "Colorette"
+    ]
 }
