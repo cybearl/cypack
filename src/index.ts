@@ -4,6 +4,7 @@ import * as constants from "@/main/constants"
 import { formatHRTime, formatPercentage, formatTime, formatUnit, truncateString } from "@/main/formats"
 
 import { stringify } from "@/main/json"
+import logger from "@/main/logger"
 import { mapRange } from "@/main/maths"
 import { shadeColor } from "@/main/styling"
 import type { CGASStatus, CGASStatusString } from "@/main/types/cgas"
@@ -23,6 +24,8 @@ export {
 	truncateString,
 	// JSON
 	stringify,
+	// Logger
+	logger,
 	// Maths
 	mapRange,
 	// Styling

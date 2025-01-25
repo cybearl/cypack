@@ -1,5 +1,5 @@
-import logger from "@/backend/logger"
 import { formatHRTime, formatPercentage, formatUnit } from "@/main/formats"
+import logger from "@/main/logger"
 
 /**
  * The type of the benchmark function result.
@@ -131,9 +131,9 @@ export default class Bench {
 
 			const indicatorPadding = 10
 			if (percentage >= 90) logger.debug(log + "(fastest)".padStart(indicatorPadding, " "))
-			else if (percentage >= 60) logger.silly(log + "(fast)".padStart(indicatorPadding, " "))
-			else if (percentage >= 30) logger.info(log + "(medium)".padStart(indicatorPadding, " "))
-			else if (percentage >= 10) logger.warn(log + "(slow)".padStart(indicatorPadding, " "))
+			else if (percentage >= 60) logger.info(log + "(fast)".padStart(indicatorPadding, " "))
+			else if (percentage >= 30) logger.warn(log + "(medium)".padStart(indicatorPadding, " "))
+			else if (percentage >= 10) logger.error(log + "(slow)".padStart(indicatorPadding, " "))
 			else logger.error(log + "(slowest)".padStart(indicatorPadding, " "))
 		}
 
