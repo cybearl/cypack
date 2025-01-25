@@ -1,7 +1,7 @@
 {
     "name": "@cybearl/cypack",
     "productName": "CyPack",
-    "version": "2025.1.4",
+    "version": "2025.1.5",
     "description": "The centralized Cybearl application and API service utilities in a single well-optimized package.",
     "author": "Cybearl <[email protected]> (https://www.cybearl.com/)",
     "license": "MIT",
@@ -57,6 +57,7 @@
         "check-types": "tsc --noEmit"
     },
     "dependencies": {
+        "dateformat": "^5.0.3",
         "dedent-js": "^1.0.1",
         "logform": "^2.7.0",
         "loglevel": "^1.9.2",
@@ -78,6 +79,7 @@
         "@babel/plugin-transform-unicode-property-regex": "^7.25.9",
         "@biomejs/biome": "^1.9.4",
         "@types/copyfiles": "^2.4.4",
+        "@types/dateformat": "^5.0.3",
         "@types/node": "^22.10.5",
         "@types/react": "^18.3.18",
         "@types/react-dom": "^18.3.5",

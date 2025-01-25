@@ -729,6 +729,11 @@
   resolved "https://registry.yarnpkg.com/@types/copyfiles/-/copyfiles-2.4.4.tgz#b9ea88ec9ef615a43992aa7eaedceeb74f8aebee"
   integrity sha512-2PhDCltCORlPrpM3gxZ0XuYaDcCOU46SQ7E89uzgbJ4jhpzpya/ssIY0jBA/gHtvh3SE4dxW8aMitQk0/ewlIw==
 
+"@types/dateformat@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@types/dateformat/-/dateformat-5.0.3.tgz#7e622b176c377592577a1393dace20320acf1039"
+  integrity sha512-hvskLa9ObgUwJe0rtfkyBbU+VIK8Ia3BACsxRsp4CPnyPBAOyIHbqImfBGFfaVVxn82wGx5SD8Twll6jMc/BaQ==
+
 "@types/eslint-scope@^3.7.7":
   version "3.7.7"
   resolved "https://registry.yarnpkg.com/@types/eslint-scope/-/eslint-scope-3.7.7.tgz#3108bd5f18b0cdb277c867b3dd449c9ed7079ac5"
@@ -1230,6 +1235,11 @@ dateformat@^4.6.3:
   version "4.6.3"
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-4.6.3.tgz#556fa6497e5217fedb78821424f8a1c22fa3f4b5"
   integrity sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==
+
+dateformat@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-5.0.3.tgz#fe2223eff3cc70ce716931cb3038b59a9280696e"
+  integrity sha512-Kvr6HmPXUMerlLcLF+Pwq3K7apHpYmGDVqrxcDasBg86UcKeTSNWbEzU8bwdXnxnR44FtMhJAxI4Bov6Y/KUfA==
 
 debug@^4.1.0, debug@^4.3.1, debug@^4.3.7:
   version "4.3.7"
