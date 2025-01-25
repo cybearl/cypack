@@ -4,7 +4,8 @@ import { defineConfig } from "tsup"
 export default defineConfig(options => ({
 	entry: ["src/backend.ts", "src/frontend.ts", "src/index.ts"],
 	format: ["cjs", "esm"],
-	minify: !options.watch,
+	// minify: !options.watch,
+	minify: false,
 	splitting: false,
 	treeshake: true,
 	sourcemap: true,

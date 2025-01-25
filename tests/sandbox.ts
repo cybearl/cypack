@@ -1,4 +1,4 @@
-import logger from "../src/main/logger"
+import logger from "../src/backend/logger"
 
 logger.trace({ fesse: "prout" }, "This is a message")
 logger.debug("This is a message")
