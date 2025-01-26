@@ -41,7 +41,6 @@ Note that the package is divided into three modules:
 ### Checks utilities (main)
 - `isServer`: Check if the code is running on the server.
 - `isClient`: Check if the code is running on the client.
-- `assertServer`: Assert that the code is running on the server, throwing an error if it's not.
 
 ### Configuration utilities (main)
 - `constants`: Multiple constants used throughout the application (user password length, etc.).

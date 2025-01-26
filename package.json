@@ -6,11 +6,6 @@
     "author": "Cybearl <[email protected]> (https://www.cybearl.com/)",
     "license": "MIT",
     "private": false,
-    "keywords": [
-        "cybearl",
-        "cypack",
-        "utilities"
-    ],
     "homepage": "https://github.com/cybearl/cypack",
     "repository": {
         "url": "https://github.com/cybearl/cypack"
@@ -19,29 +14,33 @@
     "publishConfig": {
         "registry": "https://npm.pkg.github.com/@cybearl"
     },
+    "keywords": [
+        "cybearl",
+        "cypack",
+        "utilities"
+    ],
     "type": "module",
-    "sideEffects": false,
     "engines": {
         "node": ">=20"
     },
     "files": [
         "*"
     ],
+    "main": "index.js",
+    "module": "index.js",
     "exports": {
         "./backend": {
             "types": "./backend.d.ts",
-            "import": "./backend.mjs",
-            "require": "./backend.js"
+            "node": "./backend.js",
+            "default": "./empty.js"
         },
         "./frontend": {
             "types": "./frontend.d.ts",
-            "import": "./frontend.mjs",
-            "require": "./frontend.js"
+            "import": "./frontend.js"
         },
         ".": {
             "types": "./index.d.ts",
-            "import": "./index.mjs",
-            "require": "./index.js"
+            "import": "./index.js"
         }
     },
     "scripts": {
@@ -59,8 +58,6 @@
         "colorette": "^2.0.20",
         "dateformat": "^5.0.3",
         "dedent-js": "^1.0.1",
-        "logform": "^2.7.0",
-        "loglevel": "^1.9.2",
         "pino": "^9.6.0",
         "pino-pretty": "^13.0.0"
     },

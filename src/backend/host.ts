@@ -1,5 +1,5 @@
-import cp from "node:child_process"
-import os from "node:os"
+import { execSync } from "node:child_process"
+import { hostname } from "node:os"
 
 /**
  * Get the name of the host on which the application is running.
@@ -10,12 +10,12 @@ export function getHostname() {
 		case "win32":
 			return process.env.COMPUTERNAME
 		case "darwin":
-			return cp.execSync("scutil --get ComputerName").toString().trim()
+			return execSync("scutil --get ComputerName").toString().trim()
 		case "linux": {
-			const prettyName = cp.execSync("hostnamectl --pretty").toString().trim()
-			return prettyName === "" ? os.hostname() : prettyName
+			const prettyName = execSync("hostnamectl --pretty").toString().trim()
+			return prettyName === "" ? hostname() : prettyName
 		}
 		default:
-			return os.hostname()
+			return hostname()
 	}
 }

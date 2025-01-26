@@ -1,4 +1,4 @@
-import { assertServer, isServer } from "@/main/checks"
+import { isClient, isServer } from "@/main/checks"
 import * as constants from "@/main/constants"
 
 import { formatHRTime, formatPercentage, formatTime, formatUnit, truncateString } from "@/main/formats"
@@ -11,8 +11,8 @@ import type { FailedRequest, RequestResult, SuccessfulRequest } from "@/main/typ
 
 export {
 	// Checks
+	isClient,
 	isServer,
-	assertServer,
 	// Configurations
 	constants,
 	// Formats

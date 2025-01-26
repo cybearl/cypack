@@ -9,10 +9,6 @@ import {
 } from "@/backend/errors"
 import { getHostname } from "@/backend/host"
 import logger from "@/backend/logger"
-import { assertServer } from "@/main/checks"
-
-// Checking that any code importing this module is running on a server environment
-assertServer()
 
 export {
 	// Bench
