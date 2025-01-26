@@ -19,8 +19,8 @@
     "publishConfig": {
         "registry": "https://npm.pkg.github.com/@cybearl"
     },
-    "main": "index.js",
-    "module": "index.mjs",
+    "type": "module",
+    "sideEffects": false,
     "engines": {
         "node": ">=20"
     },
@@ -44,7 +44,6 @@
             "require": "./index.js"
         }
     },
-    "sideEffects": false,
     "scripts": {
         "v-bump": "yarn version --patch",
         "build": "tsup",

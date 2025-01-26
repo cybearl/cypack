@@ -3,7 +3,7 @@ import { defineConfig } from "tsup"
 
 export default defineConfig(options => ({
 	entry: ["src/backend.ts", "src/frontend.ts", "src/index.ts"],
-	format: ["cjs", "esm"],
+	format: ["esm"],
 	// minify: !options.watch,
 	minify: false,
 	splitting: false,
