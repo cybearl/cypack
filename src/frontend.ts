@@ -1,5 +1,5 @@
 import { getCGASStatus } from "@/frontend/cgas/status"
-import CybearlLogo from "@/frontend/react/components/CybearlLogo"
+import Logo from "@/frontend/react/components/Logo"
 import useAnimationFrame from "@/frontend/react/hooks/useAnimationFrame"
 import useCanvas from "@/frontend/react/hooks/useCanvas"
 import useInterval from "@/frontend/react/hooks/useInterval"
@@ -10,7 +10,7 @@ export {
 	// CGAS
 	getCGASStatus,
 	// React components
-	CybearlLogo,
+	Logo,
 	// React hooks
 	useAnimationFrame,
 	useCanvas,

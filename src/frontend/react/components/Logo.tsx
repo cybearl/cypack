@@ -2,11 +2,12 @@ import Image from "next/image"
 import { useMemo } from "react"
 
 /**
- * The props for the Cybearl logo component.
+ * The props for the logo component.
  */
-type CybearlLogoProps = {
-	className?: string
+type LogoProps = {
+	source: string
 
+	className?: string
 	width?: number
 	height?: number
 	fill?: boolean
@@ -16,18 +17,19 @@ type CybearlLogoProps = {
 }
 
 /**
- * The official Cybearl logo.
+ * The logo component.
  */
-export default function CybearlLogo({
-	className,
+export default function Logo({
+	source,
 
+	className,
 	width,
 	height,
 	fill = true,
 	objectFit = "cover",
 	quality,
 	blur = "none",
-}: CybearlLogoProps) {
+}: LogoProps) {
 	const imgQuality = useMemo(() => {
 		switch (quality) {
 			case "xs":
@@ -62,7 +64,7 @@ export default function CybearlLogo({
 
 	return (
 		<Image
-			src="/assets/images/cybearl_logo.webp"
+			src={source}
 			alt={`logo${quality ? `-${quality}` : ""}`}
 			width={width}
 			height={height}
