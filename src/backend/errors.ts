@@ -1,17 +1,4 @@
-/**
- * The type definition for additional data that can be attached to an error object.
- */
-export type ErrorObjAdditionalData = { [key: string]: unknown } | string | string[] | number | number[] | null
-
-/**
- * The type definition for an error object.
- */
-export type ErrorObj = {
-	status: number
-	name: string
-	message: string
-	data: unknown
-}
+import type { ErrorObj, ErrorObjAdditionalData } from "@/main/types/requests"
 
 /**
  * Formats an `ErrorObj` into a standard error sent back by an API endpoint.

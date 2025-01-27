@@ -1,12 +1,6 @@
 import Bench, { type BenchmarkResult, type BenchmarkResults } from "@/backend/bench"
 import { generateCGASStatus } from "@/backend/cgas/status"
-import {
-	BaseErrors,
-	type ErrorObj,
-	type ErrorObjAdditionalData,
-	formatErrorResponse,
-	stringifyError,
-} from "@/backend/errors"
+import { BaseErrors, formatErrorResponse, stringifyError } from "@/backend/errors"
 import { getHostname } from "@/backend/host"
 import logger from "@/backend/logger"
 
@@ -29,7 +23,4 @@ export type {
 	// Bench
 	BenchmarkResult,
 	BenchmarkResults,
-	// Errors
-	ErrorObj,
-	ErrorObjAdditionalData,
 }

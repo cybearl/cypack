@@ -7,7 +7,13 @@ import { stringify } from "@/main/json"
 import { mapRange } from "@/main/maths"
 import { shadeColor } from "@/main/styling"
 import type { CGASStatus, CGASStatusString } from "@/main/types/cgas"
-import type { FailedRequest, RequestResult, SuccessfulRequest } from "@/main/types/requests"
+import type {
+	ErrorObj,
+	ErrorObjAdditionalData,
+	FailedRequest,
+	RequestResult,
+	SuccessfulRequest,
+} from "@/main/types/requests"
 
 export {
 	// Checks
@@ -33,6 +39,9 @@ export type {
 	// CGAS
 	CGASStatusString,
 	CGASStatus,
+	// Errors
+	ErrorObj,
+	ErrorObjAdditionalData,
 	// Requests
 	SuccessfulRequest,
 	FailedRequest,
