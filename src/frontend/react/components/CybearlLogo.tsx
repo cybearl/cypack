@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { useMemo } from "react"
 
 /**
  * The props for the Cybearl logo component.
@@ -15,9 +16,9 @@ type CybearlLogoProps = {
 }
 
 /**
- * The official animated Cybearl logo.
+ * The official Cybearl logo.
  */
-export default function CybearlAnimatedLogo({
+export default function CybearlLogo({
 	className,
 
 	width,
@@ -27,9 +28,7 @@ export default function CybearlAnimatedLogo({
 	quality,
 	blur = "none",
 }: CybearlLogoProps) {
-	const getAlt = () => `logo${quality ? `-${quality}` : ""}`
-
-	const getQuality = () => {
+	const imgQuality = useMemo(() => {
 		switch (quality) {
 			case "xs":
 				return "32px"
@@ -44,9 +43,9 @@ export default function CybearlAnimatedLogo({
 			default:
 				return quality
 		}
-	}
+	}, [])
 
-	const getBlur = () => {
+	const imgBlur = useMemo(() => {
 		switch (blur) {
 			case "xs":
 				return "16px"
@@ -59,19 +58,19 @@ export default function CybearlAnimatedLogo({
 			default:
 				return blur
 		}
-	}
+	}, [])
 
 	return (
 		<Image
 			src="/assets/images/cybearl_logo.webp"
-			alt={getAlt()}
+			alt={`logo${quality ? `-${quality}` : ""}`}
 			width={width}
 			height={height}
 			fill={(width === undefined && height === undefined) || fill}
 			objectFit={objectFit}
 			className={className}
-			sizes={getQuality()}
-			style={{ filter: `blur(${getBlur()})` }}
+			sizes={imgQuality}
+			style={{ filter: `blur(${imgBlur})` }}
 		/>
 	)
 }
