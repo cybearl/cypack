@@ -102,7 +102,6 @@ Contains a set of React hooks that can be used in React components.
 - `CGASStatusString`: The type for the CGAS status string (`enabled`, `disabled`, `in-maintenance`, `in-development`).
 - `CGASStatus`: The Cybearl General API System (CGAS) status response.
 - `ErrorObj`: The type definition for an error object.
-- `ErrorObjAdditionalData`: The type definition for additional data that can be attached to an error object.
 - `SuccessfulRequest`: The type for a successful request, containing the data of type T.
 - `FailedRequest`: The type for a failed request, containing the error message and the error object.
 - `RequestResult`: Returns a failed request in case the `success` field is set to `false`,

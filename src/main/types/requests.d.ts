@@ -1,9 +1,4 @@
 /**
- * The type definition for additional data that can be attached to an error object.
- */
-export type ErrorObjAdditionalData = { [key: string]: unknown } | string | string[] | number | number[] | null
-
-/**
  * The type definition for an error object.
  */
 export type ErrorObj = {

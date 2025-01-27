@@ -1,9 +1,9 @@
-import type { ErrorObj, ErrorObjAdditionalData } from "@/main/types/requests"
+import type { ErrorObj } from "@/main/types/requests"
 
 /**
  * Formats an `ErrorObj` into a standard error sent back by an API endpoint.
  */
-export function formatErrorResponse(error: ErrorObj, customMessage?: string, additionalData?: ErrorObjAdditionalData) {
+export function formatErrorResponse(error: ErrorObj, customMessage?: string, additionalData?: unknown) {
 	let err: ErrorObj
 	if (additionalData) err = { ...error, data: additionalData }
 	else err = error
@@ -22,7 +22,7 @@ export function formatErrorResponse(error: ErrorObj, customMessage?: string, add
  * @param additionalData Additional data to include in the error (optional).
  * @returns The formatted error string.
  */
-export function stringifyError(error: ErrorObj, message?: string, additionalData?: ErrorObjAdditionalData): string {
+export function stringifyError(error: ErrorObj, message?: string, additionalData?: unknown): string {
 	if (message) error.message = message
 
 	let err: ErrorObj
