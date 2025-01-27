@@ -171,4 +171,4 @@ export const BaseErrors = {
 		message: "Bandwidth limit exceeded.",
 		data: null,
 	},
-}
+} as const satisfies Record<string, ErrorObj>
