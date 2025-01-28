@@ -32,7 +32,6 @@ export default defineConfig([
 		entry: ["src/frontend.ts"],
 		platform: "browser",
 		target: "es2020",
-		// inject: ["src/shims/browser.ts"],
 	},
 
 	// Main entry config
