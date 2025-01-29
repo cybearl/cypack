@@ -119,8 +119,9 @@ function formatMessage(log: LogDescriptor, colors: Colorette): string {
 				.join("\n")
 	}
 
-	const finalLog = color(`${formattedDate}${formattedLevel}${log.msg}${formattedForeign}`)
-	if (effect) return effect(finalLog)
+	let finalLog = color(`${formattedDate}${formattedLevel}${log.msg}${formattedForeign}`)
+	if (effect) finalLog = effect(finalLog)
+
 	return finalLog
 }
 
@@ -132,7 +133,7 @@ const stream = pretty({
 	crlf: false,
 	colorize: true,
 	include: "",
-	messageFormat: (log, _, __, { colors }) => formatMessage(log, colors),
+	// messageFormat: (log, _, __, { colors }) => formatMessage(log, colors),
 })
 
 /**

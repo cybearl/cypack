@@ -17,17 +17,20 @@
             "correctness": {
                 "useExhaustiveDependencies": "off",
                 "noUnusedVariables": "warn",
-                "noUnusedImports": "warn"
+                "noUnusedImports": "warn",
+                "noConstructorReturn": "off"
             },
             "style": {
                 "noNegationElse": "warn",
-                "useFragmentSyntax": "off"
+                "useFragmentSyntax": "off",
+                "noParameterAssign": "off"
             },
             "suspicious": {
                 "noArrayIndexKey": "off",
                 "noConsoleLog": "warn",
                 "noEmptyBlockStatements": "error",
-                "useAwait": "error"
+                "useAwait": "error",
+                "noFocusedTests": "info"
             }
         }
     },

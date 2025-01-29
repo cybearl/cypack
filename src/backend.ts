@@ -1,12 +1,18 @@
 import Bench, { type BenchmarkResult, type BenchmarkResults } from "@/backend/bench"
 import { generateCGASStatus } from "@/backend/cgas/status"
+import CyBuffer, { type Bit, type Endianness, type StringEncoding } from "@/backend/cybuffer"
 import { BaseErrors, formatErrorResponse, stringifyError } from "@/backend/errors"
 import { getHostname } from "@/backend/host"
 import logger from "@/backend/logger"
+import CONSTANTS from "@/main/constants"
 
 export {
 	// Bench
 	Bench,
+	// Constants
+	CONSTANTS,
+	// CyBuffer
+	CyBuffer,
 	// CGAS
 	generateCGASStatus,
 	// Errors
@@ -23,4 +29,8 @@ export type {
 	// Bench
 	BenchmarkResult,
 	BenchmarkResults,
+	// CyBuffer
+	Bit,
+	Endianness,
+	StringEncoding,
 }
