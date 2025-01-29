@@ -32,7 +32,6 @@
         }
     },
     "javascript": {
-        "jsxRuntime": "reactClassic",
         "formatter": {
             "enabled": true,
             "semicolons": "asNeeded",
@@ -53,7 +52,6 @@
     },
     "files": {
         "ignore": [
-            ".next/**/*",
             "dist/**/*",
             "node_modules/**/*",
             "src/biome.json"

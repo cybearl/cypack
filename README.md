@@ -2,7 +2,7 @@
   <br />
   <a href="https://www.cybearl.com" target="_blank"><img width="100px" src="https://cybearl.com/_next/image?url=%2Fimages%2Flogo.webp&w=640&q=75" /></a>
   <h2 align="center">@cybearl/cypack</h2>
-  <p align="center">The centralized Cybearl application and API service utilities<br />in a single well-optimized package.</p>
+  <p align="center">A set of general utilities for Cybearl projects.</p>
 </p>
 
 This package includes multiple centralized utilities for the Cybearl application and API service. It is designed to be a single package that can be used in both the client and server side of the application. It is also designed to be well-optimized and well-documented for easy use.
@@ -47,6 +47,8 @@ Note that the package is divided into three modules:
 
 ### Cybearl General API System (backend)
 - `generateCGASStatus`: Generates a Cybearl General API System (CGAS) status object.
+
+### Cybearl General API System (frontend)
 - `getCGASStatus`: Returns the current status of the application, or the application marker only if specified,
   in the Cybearl General API System (CGAS) format.
 
@@ -88,13 +90,6 @@ Contains utilities to manipulate CSS styles.
 Contains utilities to manipulate URLs.
 - `addParamsToUrl`: Allows to add query parameters to a URL.
 - `currentUrlOrigin`: Get the current URL origin or null if it's not available.
-
-### React hooks (frontend)
-Contains a set of React hooks that can be used in React components.
-- `useAnimationFrame`: A React hook that runs a callback function on every animation frame.
-- `useCanvas`: A React hook that creates a canvas element and provides a 2D rendering context.
-- `useInterval`: A React hook that runs a callback function at a specified interval.
-- `useMouseCoordinates`: A React hook that provides the current mouse coordinates.
 
 ### Related types
 - `BenchmarkResult`: The type of the benchmark function result.

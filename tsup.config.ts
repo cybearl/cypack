@@ -53,12 +53,6 @@ export default defineConfig([
 			copyfiles(["./LICENSE", "./dist"], () => null)
 			console.info("> Copied LICENSE to dist")
 
-			copyfiles(["./postcss.config.js", "./dist"], () => null)
-			console.info("> Copied postcss.config.js to dist")
-
-			copyfiles(["./tailwind.config.js", "./dist"], () => null)
-			console.info("> Copied tailwind.config.js to dist")
-
 			console.info("> Copied all config files\n")
 		},
 	},

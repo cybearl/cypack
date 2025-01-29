@@ -14,7 +14,6 @@ export async function getCGASStatus(
 	baseUrl = "/api/cgas",
 ): Promise<RequestResult<CGASStatus | string>> {
 	const response = await fetch(`${baseUrl}/status?markerOnly=${markerOnly}`)
-
 	const result = await response.json()
-	return result
+	return result as RequestResult<CGASStatus | string>
 }
