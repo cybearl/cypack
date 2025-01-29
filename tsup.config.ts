@@ -31,7 +31,7 @@ export default defineConfig([
 		...commonConfig,
 		entry: ["src/frontend.ts"],
 		platform: "browser",
-		target: "es2020",
+		target: "esnext",
 	},
 
 	// Main entry config
@@ -39,7 +39,7 @@ export default defineConfig([
 		...commonConfig,
 		entry: ["src/index.ts"],
 		platform: "neutral",
-		target: "es2020",
+		target: "esnext",
 		external: ["*"], // Main entry should not have any dependencies
 		async onSuccess() {
 			console.info("\nIncluding miscellaneous files to dist:")
