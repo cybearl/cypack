@@ -1,7 +1,7 @@
 {
     "name": "@cybearl/cypack",
     "productName": "CyPack",
-    "version": "2025.1.1",
+    "version": "2025.1.4",
     "description": "A set of general utilities for Cybearl projects.",
     "author": "Cybearl <[email protected]> (https://www.cybearl.com/)",
     "license": "MIT",
@@ -68,7 +68,6 @@
         "@babel/core": "^7.26.7",
         "@babel/plugin-syntax-flow": "^7.26.0",
         "@babel/plugin-transform-private-property-in-object": "^7.25.9",
-        "@babel/plugin-transform-react-jsx": "^7.25.9",
         "@babel/plugin-transform-unicode-property-regex": "^7.25.9",
         "@biomejs/biome": "^1.9.4",
         "@types/copyfiles": "^2.4.4",
