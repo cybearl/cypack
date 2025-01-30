@@ -122,7 +122,9 @@ function formatMessage(log: LogDescriptor, colors: Colorette): string {
 	let finalLog = color(`${formattedDate}${formattedLevel}${log.msg}${formattedForeign}`)
 	if (effect) finalLog = effect(finalLog)
 
-	return finalLog
+	// biome-ignore lint/suspicious/noConsoleLog: Main stdout logger
+	console.log(finalLog)
+	return ""
 }
 
 /**
@@ -132,8 +134,9 @@ function formatMessage(log: LogDescriptor, colors: Colorette): string {
 const stream = pretty({
 	crlf: false,
 	colorize: true,
+	sync: true,
 	include: "",
-	// messageFormat: (log, _, __, { colors }) => formatMessage(log, colors),
+	messageFormat: (log, _, __, { colors }) => formatMessage(log, colors),
 })
 
 /**

@@ -101,8 +101,7 @@ export default class Bench {
 	print = (category?: string, clear = true) => {
 		const benchCategory = category || "RESULTS"
 
-		console.info("") // Empty line for better readability
-		logger.info(`${benchCategory.toUpperCase()}:`)
+		logger.info(`\n${benchCategory.toUpperCase()}:`)
 		logger.info("=".repeat(benchCategory.length + 1))
 
 		// Measure the longest function name for padding

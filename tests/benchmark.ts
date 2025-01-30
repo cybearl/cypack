@@ -1,4 +1,4 @@
-import { logger } from "@/backend"
+import logger from "@/backend/logger"
 import dedent from "dedent-js"
 import minimist from "minimist"
 import executeAccessorsBenchmark from "tests/benchmarks/cybuffer/accessors.bench"
@@ -65,16 +65,29 @@ function main(args: string[]) {
 	if (argv.list || argv.l) {
 		logger.info("Available benchmarks:")
 		for (const benchmarkName in benchmarks) logger.info(`- ${benchmarkName}`)
+
+		// Also add all ::* benchmarks
+		const listOfPrefixes = new Set<string>()
+
+		for (const benchmarkName in benchmarks) {
+			const prefix = benchmarkName.split("::")[0]
+			listOfPrefixes.add(prefix)
+		}
+
+		for (const prefix of listOfPrefixes) {
+			logger.info(`- ${prefix}::*`)
+		}
+
 		process.exit(0)
 	}
 
-	logger.info("Starting benchmarks..")
+	logger.info("Starting benchmarks...")
 
 	const argBenchmarkName = argv.benchmark || argv.b
 	let argBenchmarkInputSize = argv.BenchmarkInputSize || argv.c
 	let argBenchmarkDuration = argv.benchmarkDuration || argv.d
 
-	logger.info(">> Running CyBuffer benchmarks..")
+	logger.info(">> Running CyBuffer benchmarks...")
 
 	if (argBenchmarkInputSize) {
 		logger.info(`>> Using benchmark input size of ${argBenchmarkInputSize} bytes.`)
@@ -90,7 +103,7 @@ function main(args: string[]) {
 		argBenchmarkDuration = 256
 	}
 
-	if (!argBenchmarkName) logger.info(">> No benchmark name provided, running all benchmarks..")
+	if (!argBenchmarkName) logger.info(">> No benchmark name provided, running all benchmarks...")
 
 	logger.warn("\nThis might take a while depending on the benchmark duration you chose.")
 	logger.warn("Please be patient and wait for the results to appear.\n")
