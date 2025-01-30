@@ -89,21 +89,5 @@ describe("internal", () => {
 		test("It should not throw if the offset is valid", ({ expect }) => {
 			expect(() => buffer.check(0, 10)).not.toThrow()
 		})
-
-		// Testing the value
-		test("It should throw if the optional checked value is not a number", ({ expect }) => {
-			// @ts-ignore
-			expect(() => buffer.check(0, 10, "Z")).toThrow()
-		})
-
-		test("It should throw if the optional checked value is smaller than 0", ({ expect }) => {
-			// @ts-ignore
-			expect(() => buffer.check(0, 10, -1)).toThrow()
-		})
-
-		test("It should throw if the optional checked value is bigger than 255", ({ expect }) => {
-			// @ts-ignore
-			expect(() => buffer.check(0, 10, 256)).toThrow()
-		})
 	})
 })

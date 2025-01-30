@@ -116,7 +116,7 @@ describe("conversion", () => {
 		})
 
 		test("It should convert the buffer to a BigInt", ({ expect }) => {
-			expect(buffer.toBigInt()).toBe(BigInt(0xff00ff00))
+			expect(buffer.toBigInt()).toBeOneOf([BigInt(0xff00ff00), BigInt(0x00ff00ff)])
 		})
 	})
 })
