@@ -52,6 +52,9 @@ Note that the package is divided into three modules:
 - `getCGASStatus`: Returns the current status of the application, or the application marker only if specified,
   in the Cybearl General API System (CGAS) format.
 
+### CyBuffer class (backend)
+- `CyBuffer`: A class that extends the Uint8Array class with additional methods to read and write data.
+
 ### Error utilities (backend)
 Contains a set of base error that follows the Cybearl error format, and other error-related utilities.
 - `BaseError`: The base error class that all Cybearl errors inherit from.
@@ -92,11 +95,14 @@ Contains utilities to manipulate URLs.
 - `currentUrlOrigin`: Get the current URL origin or null if it's not available.
 
 ### Related types
+- `Bit`: A single bit value used by CyBuffer.
 - `BenchmarkResult`: The type of the benchmark function result.
 - `BenchmarkResults`: An object containing multiple benchmark results, ordered by functions.
 - `CGASStatusString`: The type for the CGAS status string (`enabled`, `disabled`, `in-maintenance`, `in-development`).
 - `CGASStatus`: The Cybearl General API System (CGAS) status response.
+- `Endianness`: The endianness (`LE` or `BE`).
 - `ErrorObj`: The type definition for an error object.
+- `StringEncoding`: The available string encoding instruction for the `CyBuffer` string methods.
 - `SuccessfulRequest`: The type for a successful request, containing the data of type T.
 - `FailedRequest`: The type for a failed request, containing the error message and the error object.
 - `RequestResult`: Returns a failed request in case the `success` field is set to `false`,
