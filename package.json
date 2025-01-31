@@ -3,7 +3,7 @@
     "productName": "CyPack",
     "version": "2025.1.7",
     "description": "A set of general utilities for Cybearl projects.",
-    "author": "Cybearl <[email protected]> (https://www.cybearl.com/)",
+    "author": "Cybearl <contact@cybearl.com> (https://www.cybearl.com/)",
     "license": "MIT",
     "private": false,
     "type": "module",
