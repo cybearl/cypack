@@ -1,25 +1,28 @@
 {
     "name": "@cybearl/cypack",
     "productName": "CyPack",
-    "version": "2025.1.6",
+    "version": "2025.1.7",
     "description": "A set of general utilities for Cybearl projects.",
     "author": "Cybearl <[email protected]> (https://www.cybearl.com/)",
     "license": "MIT",
     "private": false,
-    "homepage": "https://github.com/cybearl/cypack",
-    "repository": {
-        "url": "https://github.com/cybearl/cypack"
-    },
-    "bugs": "https://github.com/cybearl/cypack/issues",
-    "publishConfig": {
-        "registry": "https://npm.pkg.github.com/@cybearl"
-    },
+    "type": "module",
     "keywords": [
         "cybearl",
         "cypack",
         "utilities"
     ],
-    "type": "module",
+    "homepage": "https://github.com/cybearl/cypack",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cybearl/cypack.git"
+    },
+    "bugs": {
+        "url": "https://github.com/cybearl/cypack/issues"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/@cybearl"
+    },
     "engines": {
         "node": ">=20"
     },
@@ -28,11 +31,11 @@
     ],
     "main": "index.js",
     "module": "index.js",
+    "types": "index.d.ts",
     "exports": {
         "./backend": {
             "types": "./backend.d.ts",
-            "node": "./backend.js",
-            "default": "./empty.js"
+            "node": "./backend.js"
         },
         "./frontend": {
             "types": "./frontend.d.ts",
@@ -49,10 +52,10 @@
         "test:sandbox": "tsx ./tests/sandbox.ts",
         "test:bench": "tsx ./tests/benchmark.ts",
         "test:unit": "vitest",
-        "knip": "knip",
         "lint": "biome lint . && biome format .",
         "lint:fix": "biome lint . --write && biome format --write .",
-        "check-types": "tsc --noEmit"
+        "check-types": "tsc --noEmit",
+        "knip": "knip"
     },
     "dependencies": {
         "colorette": "^2.0.20",

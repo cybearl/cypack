@@ -11,7 +11,7 @@ const commonConfig: Options = {
 	dts: true,
 	shims: true,
 	treeshake: true,
-	minify: process.env.NODE_ENV === "production",
+	minify: true,
 }
 
 export default defineConfig([
