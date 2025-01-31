@@ -67,6 +67,11 @@
     "peerDependencies": {
         "typescript": ">=5.7.0"
     },
+    "peerDependenciesMeta": {
+        "typescript": {
+            "optional": true
+        }
+    },
     "devDependencies": {
         "@biomejs/biome": "^1.9.4",
         "@types/copyfiles": "^2.4.4",
