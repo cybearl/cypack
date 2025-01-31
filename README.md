@@ -44,7 +44,7 @@ Note that the package is divided into three modules:
 - `isClient`: Check if the code is running on the client.
 
 ### Configuration utilities (main)
-- `constants`: Multiple constants used throughout the application (user password length, etc.).
+- `CONSTANTS`: Multiple constants used throughout the application (user password length, etc.).
 
 ### Cybearl General API System (backend)
 - `generateCGASStatus`: Generates a Cybearl General API System (CGAS) status object.
