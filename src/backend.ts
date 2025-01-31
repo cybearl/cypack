@@ -4,13 +4,10 @@ import CyBuffer, { type Bit, type Endianness, type StringEncoding } from "@/back
 import { BaseErrors, formatErrorResponse, stringifyError } from "@/backend/errors"
 import { getHostname } from "@/backend/host"
 import logger from "@/backend/logger"
-import CONSTANTS from "@/main/constants"
 
 export {
 	// Bench
 	Bench,
-	// Constants
-	CONSTANTS,
 	// CyBuffer
 	CyBuffer,
 	// CGAS

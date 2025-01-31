@@ -1,5 +1,5 @@
 import { isClient, isServer } from "@/main/checks"
-import * as constants from "@/main/constants"
+import CONSTANTS from "@/main/constants"
 
 import { formatHRTime, formatPercentage, formatTime, formatUnit, truncateString } from "@/main/formats"
 
@@ -14,7 +14,7 @@ export {
 	isClient,
 	isServer,
 	// Configurations
-	constants,
+	CONSTANTS,
 	// Formats
 	formatUnit,
 	formatHRTime,
