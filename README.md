@@ -108,3 +108,7 @@ Contains utilities to manipulate URLs.
 - `FailedRequest`: The type for a failed request, containing the error message and the error object.
 - `RequestResult`: Returns a failed request in case the `success` field is set to `false`,
   otherwise returns a successful request with a data object of type T.
+
+Dev notes
+---------
+*N/A*
