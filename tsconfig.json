@@ -115,10 +115,6 @@
         /* Plugins */
         // "plugins": [],                                    /* Specify a list of multiple plugins. */
     },
-    "tsc-alias": {
-        "resolveFullPaths": true,
-        "verbose": true
-    },
     "include": [
         "src",
         "tests"
