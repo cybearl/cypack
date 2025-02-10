@@ -2,34 +2,23 @@
  * A set of general constants.
  */
 const CONSTANTS = {
-	/**
-	 * The minimum length of a username.
-	 */
+	// User
 	MIN_USERNAME_LENGTH: 4,
-	/**
-	 * The maximum length of a username.
-	 */
-	MAX_USERNAME_LENGTH: 48,
-	/**
-	 * The minimum length of a password.
-	 */
+	MAX_USERNAME_LENGTH: 36,
 	MIN_PASSWORD_LENGTH: 8,
-	/**
-	 * The maximum length of a password.
-	 */
 	MAX_PASSWORD_LENGTH: 255,
-	/**
-	 * The maximum length of the name column for all tables.
-	 */
 	MAX_NAME_LENGTH: 128,
-	/**
-	 * The regex pattern for a valid name.
-	 */
-	NAME_PATTERN: /^[a-z0-9_-]+$/,
-	/**
-	 * The maximum length of the description column for all tables.
-	 */
 	MAX_DESCRIPTION_LENGTH: 2048,
+	MAX_KEYWORD_LENGTH: 32,
+	MAX_KEYWORDS_COUNT: 8,
+	MAX_EXTERNAL_LINKS_COUNT: 6,
+	USERNAME_REGEX: /^[a-zA-Z0-9_.-]+$/,
+
+	// Image & Video sizes
+	IMG_SIZES_HIGH_QUALITY: "(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw",
+	IMG_SIZES_MEDIUM_QUALITY: "(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 40vw",
+	IMG_SIZES_BASE_QUALITY: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+	IMG_SIZES_LOW_QUALITY: "(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 25vw",
 }
 
 export default CONSTANTS
