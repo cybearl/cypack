@@ -25,10 +25,11 @@ export type AuthOptions = {
 /**
  * The type for the overall wrapper options.
  */
-type WrapperOptions = AuthOptions & {
+type WrapperOptions = {
 	authFunction?: (req: NextApiRequest, res: NextApiResponse) => Promise<ExtendedSession | null>
-	roles?: string[]
-}
+} & AuthOptions & {
+		roles?: string[]
+	}
 
 /**
  * The type for a Next API wrapped method.
@@ -73,6 +74,7 @@ export default class NextApiWrapper {
 	 * @param res The `NextApiResponse` object.
 	 * @param methods The methods to be used for the API route.
 	 * @param options The options for the wrapper:
+	 * - `authFunction`: The function to be used for authentication.
 	 * - `requireAuth`: Whether to require authentication (defaults to `false`).
 	 * - `hasRole`: The user needs to have the role.
 	 * - `hasSomeRoles`: The user needs to have at least one of the roles.
