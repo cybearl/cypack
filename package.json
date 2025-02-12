@@ -1,7 +1,7 @@
 {
     "name": "@cybearl/cypack",
     "productName": "CyPack",
-    "version": "2025.2.1",
+    "version": "2025.2.2",
     "description": "A set of general utilities for Cybearl projects.",
     "author": "Cybearl <contact@cybearl.com> (https://www.cybearl.com/)",
     "license": "MIT",
