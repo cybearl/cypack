@@ -36,33 +36,56 @@ Note that the package is divided into three modules:
 - `frontend` (`@cybearl/cypack/frontend`): Contains utilities that are meant to be used in the frontend.
 - `main` (`@cybearl/cypack`): Contains utilities that can be used in both the client and server side of the application.
 
-### Benchmark utilities (backend)
+Backend utilities
+-----------------
+#### Benchmark utilities
 - `Bench`: A class that provides a simple way to benchmark functions.
 
-### Checks utilities (main)
-- `isServer`: Check if the code is running on the server.
-- `isClient`: Check if the code is running on the client.
-
-### Configuration utilities (main)
-- `CONSTANTS`: Multiple constants used throughout the application (user password length, etc.).
-
-### Cybearl General API System (backend)
-- `generateCGASStatus`: Generates a Cybearl General API System (CGAS) status object.
-
-### Cybearl General API System (frontend)
-- `getCGASStatus`: Returns the current status of the application, or the application marker only if specified,
-  in the Cybearl General API System (CGAS) format.
-
-### CyBuffer class (backend)
+#### CyBuffer class
 - `CyBuffer`: A class that extends the Uint8Array class with additional methods to read and write data.
 
-### Error utilities (backend)
+#### Cybearl General API System
+- `generateCGASStatus`: Generates a Cybearl General API System (CGAS) status object.
+
+#### Error utilities
 Contains a set of base error that follows the Cybearl error format, and other error-related utilities.
 - `BaseError`: The base error class that all Cybearl errors inherit from.
 - `formatErrorResponse`: Formats an error response object.
 - `stringifyError`: Stringifies an error object.
 
-### Formatting utilities (main)
+#### Host-related utilities
+Contains utilities to get the hostname and other host-related information.
+- `getHostname`: Get the name of the host on which the application is running.
+
+#### Logger utilities
+Contains a simple multi-level logger that logs to the console based on `Winston`.
+- `logger`: A simple multi-level logger that logs to the console based on `Winston`.
+
+#### Next.js utilities
+Contains utilities to get the Next.js server and other Next.js-related information.
+- `NextApiWrapper`: A class that wraps the Next.js API route handler (specifically for page router).
+
+Frontend utilities
+------------------
+#### Cybearl General API System
+- `getCGASStatus`: Returns the current status of the application, or the application marker only if specified,
+  in the Cybearl General API System (CGAS) format.
+
+#### URLs utilities
+Contains utilities to manipulate URLs.
+- `addParamsToUrl`: Allows to add query parameters to a URL.
+- `currentUrlOrigin`: Get the current URL origin or null if it's not available.
+
+Main utilities
+--------------
+#### Checks utilities
+- `isServer`: Check if the code is running on the server.
+- `isClient`: Check if the code is running on the client.
+
+#### Configuration utilities
+- `CONSTANTS`: Multiple constants used throughout the application (user password length, etc.).
+
+#### Formatting utilities
 Contains a set of utilities to format numbers, time, and other values.
 - `formatUnit`: Format a number with an attached unit + an optional time unit.
 - `formatHRTime`: Format a high-resolution time, into a responsive string with the en-US locale format.
@@ -70,32 +93,24 @@ Contains a set of utilities to format numbers, time, and other values.
 - `formatPercentage`: Formats a number as a percentage.
 - `truncateString`: Truncate a string to a specified length.
 
-### Host-related utilities (backend)
-Contains utilities to get the hostname and other host-related information.
-- `getHostname`: Get the name of the host on which the application is running.
-
-### JSON utilities (main)
+#### JSON utilities
 Contains utilities to parse and stringify JSON objects.
 - `stringify`: Stringify a JSON object with support for BigInt and functions.
 
-### Logger utilities (backend)
-Contains a simple multi-level logger that logs to the console based on `Winston`.
-- `logger`: A simple multi-level logger that logs to the console based on `Winston`.
-
-### Math utilities (main)
+#### Math utilities
 Contains utilities to perform mathematical operations.
 - `mapRange`: Maps a number from one range to another.
 
-### Styling utilities (main)
+#### Middleware utilities
+Contains utilities to create middleware functions (for Next.js, etc.).
+- `fullyPermissiveCspHeader` A Content Security Policy (CSP) header that allows everything, used for development.
+
+#### Styling utilities
 Contains utilities to manipulate CSS styles.
 - `shadeColor`: Shades a color by a percentage.
 
-### URLs utilities (frontend)
-Contains utilities to manipulate URLs.
-- `addParamsToUrl`: Allows to add query parameters to a URL.
-- `currentUrlOrigin`: Get the current URL origin or null if it's not available.
-
-### Related types
+Related types
+-------------
 - `Bit`: A single bit value used by CyBuffer.
 - `BenchmarkResult`: The type of the benchmark function result.
 - `BenchmarkResults`: An object containing multiple benchmark results, ordered by functions.
