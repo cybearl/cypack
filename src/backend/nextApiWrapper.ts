@@ -57,37 +57,37 @@ type NextApiMethodWithAuthOptions = {
  * An object containing all methods for the API route.
  */
 type NextApiMethods = {
-	get?: NextApiMethod | NextApiMethodWithAuthOptions
-	post?: NextApiMethod | NextApiMethodWithAuthOptions
-	patch?: NextApiMethod | NextApiMethodWithAuthOptions
-	delete?: NextApiMethod | NextApiMethodWithAuthOptions
+	read?: NextApiMethod | NextApiMethodWithAuthOptions
+	write?: NextApiMethod | NextApiMethodWithAuthOptions
+	update?: NextApiMethod | NextApiMethodWithAuthOptions
+	remove?: NextApiMethod | NextApiMethodWithAuthOptions
 }
 
 /**
  * A class that wraps the Next.js API routes.
  */
 export default class NextApiWrapper {
-	private _req: NextApiRequest
-	private _res: NextApiResponse
+	private _req!: NextApiRequest
+	private _res!: NextApiResponse
 
 	// Methods
-	private _get: NextApiMethod | NextApiMethodWithAuthOptions | undefined
-	private _post: NextApiMethod | NextApiMethodWithAuthOptions | undefined
-	private _patch: NextApiMethod | NextApiMethodWithAuthOptions | undefined
-	private _delete: NextApiMethod | NextApiMethodWithAuthOptions | undefined
+	private _read: NextApiMethod | NextApiMethodWithAuthOptions | undefined
+	private _write: NextApiMethod | NextApiMethodWithAuthOptions | undefined
+	private _update: NextApiMethod | NextApiMethodWithAuthOptions | undefined
+	private _remove: NextApiMethod | NextApiMethodWithAuthOptions | undefined
 
 	// Options
-	private _options: WrapperOptions
+	private _options!: WrapperOptions
 
 	/**
 	 * The constructor for the NextApiWrapper class.
 	 * @param req The `NextApiRequest` object.
 	 * @param res The `NextApiResponse` object.
 	 * @param methods The methods to be used for the API route:
-	 * - `get`: The *GET* method.
-	 * - `post`: The *POST* method.
-	 * - `patch`: The *PATCH* method.
-	 * - `delete`: The *DELETE* method.
+	 * - `read`: The *GET* method.
+	 * - `write`: The *POST* method.
+	 * - `update`: The *PATCH* method.
+	 * - `remove`: The *DELETE* method.
 	 * @param options The options for the wrapper:
 	 * - `authFunction`: The function to be used for authentication.
 	 * - `roles`: The roles to be used for the wrapper.
@@ -97,55 +97,45 @@ export default class NextApiWrapper {
 	 * - `hasAllRoles`: The user needs to have all of the roles.
 	 */
 	constructor(req: NextApiRequest, res: NextApiResponse, methods?: NextApiMethods, options?: WrapperOptions) {
-		this._req = req
-		this._res = res
-
-		// Methods
-		this._get = methods?.get
-		this._post = methods?.post
-		this._patch = methods?.patch
-		this._delete = methods?.delete
-
-		// Options
-		this._options = options || {}
+		this.setRequestResponse(req, res)
+		this.setMethods(methods || {})
+		this.setOptions(options || {})
 	}
 
 	/**
-	 * Set new request and response objects.
+	 * Set request and response objects.
 	 * @param req The new `NextApiRequest` object.
 	 * @param res The new `NextApiResponse` object.
 	 */
-	setNewRequestResponse(req: NextApiRequest, res: NextApiResponse) {
+	setRequestResponse(req: NextApiRequest, res: NextApiResponse) {
 		this._req = req
 		this._res = res
 	}
 
 	/**
-	 * Set new methods for the API route.
+	 * Set methods for the API route.
 	 * @param methods The new methods to be used for the API route:
-	 * - `get`: The new *GET* method.
-	 * - `post`: The new *POST* method.
-	 * - `patch`: The new *PATCH* method.
-	 * - `delete`: The new *DELETE* method.
+	 * - `read`: The *GET* method.
+	 * - `write`: The *POST* method.
+	 * - `update`: The *PATCH* method.
+	 * - `remove`: The *DELETE* method.
 	 */
 	setMethods(methods: NextApiMethods) {
-		this._get = methods.get
-		this._post = methods.post
-		this._patch = methods.patch
-		this._delete = methods.delete
+		this._read = methods?.read
+		this._write = methods?.write
+		this._update = methods?.update
+		this._remove = methods?.remove
 	}
 
 	/**
-	 * Set new options for the API route.
+	 * Set options for the API route.
 	 * @param options The new options for the wrapper:
-	 * - `authFunction`: The new function to be used for authentication.
-	 * - `roles`: The new roles to be used for the wrapper.
 	 * - `requireAuth`: Whether to require authentication (defaults to `false`).
 	 * - `hasRole`: The user needs to have the role.
 	 * - `hasSomeRoles`: The user needs to have at least one of the roles.
 	 * - `hasAllRoles`: The user needs to have all of the roles.
 	 */
-	setOptions(options: Partial<WrapperOptions>) {
+	setOptions(options: Partial<AuthOptions>) {
 		this._options = { ...this._options, ...options }
 	}
 
@@ -297,16 +287,16 @@ export default class NextApiWrapper {
 
 		switch (this._req.method) {
 			case "GET":
-				if (this._get) return await this._executeMethod(this._get, methodInput)
+				if (this._read) return await this._executeMethod(this._read, methodInput)
 				break
 			case "POST":
-				if (this._post) return await this._executeMethod(this._post, methodInput)
+				if (this._write) return await this._executeMethod(this._write, methodInput)
 				break
 			case "PATCH":
-				if (this._patch) return await this._executeMethod(this._patch, methodInput)
+				if (this._update) return await this._executeMethod(this._update, methodInput)
 				break
 			case "DELETE":
-				if (this._delete) return await this._executeMethod(this._delete, methodInput)
+				if (this._remove) return await this._executeMethod(this._remove, methodInput)
 				break
 		}
 
