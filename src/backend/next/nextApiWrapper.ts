@@ -285,21 +285,25 @@ export default class NextApiWrapper {
 			wrapper: this,
 		}
 
-		switch (this._req.method) {
-			case "GET":
-				if (this._read) return await this._executeMethod(this._read, methodInput)
-				break
-			case "POST":
-				if (this._write) return await this._executeMethod(this._write, methodInput)
-				break
-			case "PATCH":
-				if (this._update) return await this._executeMethod(this._update, methodInput)
-				break
-			case "DELETE":
-				if (this._remove) return await this._executeMethod(this._remove, methodInput)
-				break
+		try {
+			switch (this._req.method) {
+				case "GET":
+					if (this._read) return await this._executeMethod(this._read, methodInput)
+					break
+				case "POST":
+					if (this._write) return await this._executeMethod(this._write, methodInput)
+					break
+				case "PATCH":
+					if (this._update) return await this._executeMethod(this._update, methodInput)
+					break
+				case "DELETE":
+					if (this._remove) return await this._executeMethod(this._remove, methodInput)
+					break
+				default:
+					return this.errorResponse(BaseErrors.METHOD_NOT_ALLOWED)
+			}
+		} catch (error) {
+			return this.errorResponse(BaseErrors.INTERNAL_SERVER_ERROR, error)
 		}
-
-		return this.errorResponse(BaseErrors.METHOD_NOT_ALLOWED)
 	}
 }
