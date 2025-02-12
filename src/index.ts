@@ -5,6 +5,7 @@ import { formatHRTime, formatPercentage, formatTime, formatUnit, truncateString 
 
 import { stringify } from "@/main/json"
 import { mapRange } from "@/main/maths"
+import { fullyPermissiveCspHeader } from "@/main/middleware"
 import { shadeColor } from "@/main/styling"
 import type { CGASStatus, CGASStatusString } from "@/main/types/cgas"
 import type { ErrorObj, FailedRequest, RequestResult, SuccessfulRequest } from "@/main/types/requests"
@@ -25,6 +26,8 @@ export {
 	stringify,
 	// Maths
 	mapRange,
+	// Middleware
+	fullyPermissiveCspHeader,
 	// Styling
 	shadeColor,
 }

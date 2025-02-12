@@ -4,6 +4,7 @@ import CyBuffer, { type Bit, type Endianness, type StringEncoding } from "@/back
 import { BaseErrors, formatErrorResponse, stringifyError } from "@/backend/errors"
 import { getHostname } from "@/backend/host"
 import logger from "@/backend/logger"
+import nextApiWrapper from "@/backend/nextApiWrapper"
 
 export {
 	// Bench
@@ -20,6 +21,8 @@ export {
 	getHostname,
 	// Logger
 	logger,
+	// Next.js API Wrapper
+	nextApiWrapper,
 }
 
 export type {
