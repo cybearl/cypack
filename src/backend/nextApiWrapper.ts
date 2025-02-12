@@ -27,9 +27,8 @@ export type AuthOptions = {
  */
 type WrapperOptions = {
 	authFunction?: (req: NextApiRequest, res: NextApiResponse) => Promise<ExtendedSession | null>
-} & AuthOptions & {
-		roles?: string[]
-	}
+	roles?: string[]
+} & AuthOptions
 
 /**
  * The type for a Next API wrapped method.
@@ -55,12 +54,21 @@ type NextApiMethodWithAuthOptions = {
 }
 
 /**
+ * An object containing all methods for the API route.
+ */
+type NextApiMethods = {
+	get?: NextApiMethod | NextApiMethodWithAuthOptions
+	post?: NextApiMethod | NextApiMethodWithAuthOptions
+	patch?: NextApiMethod | NextApiMethodWithAuthOptions
+	delete?: NextApiMethod | NextApiMethodWithAuthOptions
+}
+
+/**
  * A class that wraps the Next.js API routes.
  */
 export default class NextApiWrapper {
 	private _req: NextApiRequest
 	private _res: NextApiResponse
-	private _options: WrapperOptions
 
 	// Methods
 	private _get: NextApiMethod | NextApiMethodWithAuthOptions | undefined
@@ -68,38 +76,77 @@ export default class NextApiWrapper {
 	private _patch: NextApiMethod | NextApiMethodWithAuthOptions | undefined
 	private _delete: NextApiMethod | NextApiMethodWithAuthOptions | undefined
 
+	// Options
+	private _options: WrapperOptions
+
 	/**
 	 * The constructor for the NextApiWrapper class.
 	 * @param req The `NextApiRequest` object.
 	 * @param res The `NextApiResponse` object.
-	 * @param methods The methods to be used for the API route.
+	 * @param methods The methods to be used for the API route:
+	 * - `get`: The *GET* method.
+	 * - `post`: The *POST* method.
+	 * - `patch`: The *PATCH* method.
+	 * - `delete`: The *DELETE* method.
 	 * @param options The options for the wrapper:
 	 * - `authFunction`: The function to be used for authentication.
+	 * - `roles`: The roles to be used for the wrapper.
 	 * - `requireAuth`: Whether to require authentication (defaults to `false`).
 	 * - `hasRole`: The user needs to have the role.
 	 * - `hasSomeRoles`: The user needs to have at least one of the roles.
 	 * - `hasAllRoles`: The user needs to have all of the roles.
 	 */
-	constructor(
-		req: NextApiRequest,
-		res: NextApiResponse,
-		methods?: {
-			get?: NextApiMethod | NextApiMethodWithAuthOptions
-			post?: NextApiMethod | NextApiMethodWithAuthOptions
-			patch?: NextApiMethod | NextApiMethodWithAuthOptions
-			delete?: NextApiMethod | NextApiMethodWithAuthOptions
-		},
-		options?: WrapperOptions,
-	) {
+	constructor(req: NextApiRequest, res: NextApiResponse, methods?: NextApiMethods, options?: WrapperOptions) {
 		this._req = req
 		this._res = res
-		this._options = options || {}
 
 		// Methods
 		this._get = methods?.get
 		this._post = methods?.post
 		this._patch = methods?.patch
 		this._delete = methods?.delete
+
+		// Options
+		this._options = options || {}
+	}
+
+	/**
+	 * Set new request and response objects.
+	 * @param req The new `NextApiRequest` object.
+	 * @param res The new `NextApiResponse` object.
+	 */
+	setNewRequestResponse(req: NextApiRequest, res: NextApiResponse) {
+		this._req = req
+		this._res = res
+	}
+
+	/**
+	 * Set new methods for the API route.
+	 * @param methods The new methods to be used for the API route:
+	 * - `get`: The new *GET* method.
+	 * - `post`: The new *POST* method.
+	 * - `patch`: The new *PATCH* method.
+	 * - `delete`: The new *DELETE* method.
+	 */
+	setMethods(methods: NextApiMethods) {
+		this._get = methods.get
+		this._post = methods.post
+		this._patch = methods.patch
+		this._delete = methods.delete
+	}
+
+	/**
+	 * Set new options for the API route.
+	 * @param options The new options for the wrapper:
+	 * - `authFunction`: The new function to be used for authentication.
+	 * - `roles`: The new roles to be used for the wrapper.
+	 * - `requireAuth`: Whether to require authentication (defaults to `false`).
+	 * - `hasRole`: The user needs to have the role.
+	 * - `hasSomeRoles`: The user needs to have at least one of the roles.
+	 * - `hasAllRoles`: The user needs to have all of the roles.
+	 */
+	setOptions(options: Partial<WrapperOptions>) {
+		this._options = { ...this._options, ...options }
 	}
 
 	/**
