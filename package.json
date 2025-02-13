@@ -55,7 +55,7 @@
         "test:unit": "vitest",
         "knip": "knip",
         "build": "tsup",
-        "release": "semantic-release"
+        "release": "yarn semantic-release"
     },
     "dependencies": {
         "colorette": "^2.0.20",

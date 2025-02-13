@@ -1,4 +1,4 @@
-name: Node Package Manager Publish Workflow via Semantic Release
+name: Package Release Workflow
 
 on:
   push:
