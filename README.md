@@ -9,18 +9,7 @@ This package includes multiple centralized utilities for the Cybearl application
 
 Integration into your project
 -----------------------------
-#### 0. .npmrc file
-This package is **not** published on the NPM registry. To install it, you need to have an `.npmrc` file
-in your project that redirect any `@cybearl` package to the GitHub package registry.
-If you don't have one, create it in the root of your project and add the following line:
-```
-@cybearl:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
-always-auth=true
-```
-Note that, as the package is public, any token will do, even if you're not in the Cybearl organization.
-
-#### 1. Install the package
+#### 0. Install the package
 ```typescript
 $ npm install @cybearl/cypack // yarn add @cybearl/cypack
 ```

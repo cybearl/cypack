@@ -1,7 +1,7 @@
 {
     "name": "@cybearl/cypack",
     "productName": "CyPack",
-    "version": "2025.2.3",
+    "version": "0.0.0-semantically-released",
     "description": "A set of general utilities for Cybearl projects.",
     "author": "Cybearl <contact@cybearl.com> (https://www.cybearl.com/)",
     "license": "MIT",
@@ -47,15 +47,15 @@
         }
     },
     "scripts": {
-        "v-bump": "yarn version --patch",
-        "build": "tsup",
+        "check-types": "tsc --noEmit",
+        "lint": "biome lint . && biome format .",
+        "lint:fix": "biome lint . --write && biome format --write .",
         "test:sandbox": "tsx ./tests/sandbox.ts",
         "test:bench": "tsx ./tests/benchmark.ts",
         "test:unit": "vitest",
-        "lint": "biome lint . && biome format .",
-        "lint:fix": "biome lint . --write && biome format --write .",
-        "check-types": "tsc --noEmit",
-        "knip": "knip"
+        "knip": "knip",
+        "build": "tsup",
+        "release": "semantic-release"
     },
     "dependencies": {
         "colorette": "^2.0.20",
@@ -103,6 +103,7 @@
         "next-auth": "^4.24.11",
         "react": "18.3.1",
         "react-dom": "18.3.1",
+        "semantic-release": "^24.2.2",
         "tsup": "^8.3.6",
         "tsx": "^4.19.2",
         "typescript": "^5.7.3",
