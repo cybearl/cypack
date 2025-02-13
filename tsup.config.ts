@@ -1,5 +1,13 @@
+import { rmSync } from "node:fs"
 import copyfiles from "copyfiles"
 import { type Format, type Options, defineConfig } from "tsup"
+
+// Delete dist folder before building
+try {
+	rmSync("dist", { recursive: true, force: true })
+} catch (_) {
+	// Do nothing
+}
 
 /**
  * Common configuration for all builds.
@@ -7,11 +15,15 @@ import { type Format, type Options, defineConfig } from "tsup"
 const commonConfig: Options = {
 	format: "esm" as Format,
 	sourcemap: true,
-	clean: true,
 	dts: true,
 	shims: true,
 	treeshake: true,
 	minify: true,
+
+	/**
+	 * Note: Clean up is disabled because it causes some DTS files to be deleted during build.
+	 */
+	clean: false,
 }
 
 export default defineConfig([

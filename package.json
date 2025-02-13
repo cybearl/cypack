@@ -1,7 +1,7 @@
 {
     "name": "@cybearl/cypack",
     "productName": "CyPack",
-    "version": "2025.2.2",
+    "version": "2025.2.3",
     "description": "A set of general utilities for Cybearl projects.",
     "author": "Cybearl <contact@cybearl.com> (https://www.cybearl.com/)",
     "license": "MIT",
@@ -97,7 +97,7 @@
         "@types/react": "^18.3.18",
         "@types/react-dom": "^18.3.5",
         "copyfiles": "^2.4.1",
-        "knip": "^5.44.0",
+        "knip": "^5.44.1",
         "minimist": "^1.2.8",
         "next": "14.2.24",
         "next-auth": "^4.24.11",
