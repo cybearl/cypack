@@ -99,7 +99,11 @@ Contains utilities to perform mathematical operations.
 
 #### Middleware utilities
 Contains utilities to create middleware functions (for Next.js, etc.).
-- `fullyPermissiveCspHeader` A Content Security Policy (CSP) header that allows everything, used for development.
+- `fullyPermissiveCspHeader`: A Content Security Policy (CSP) header that allows everything, used for development.
+
+#### String utilities
+Contains utilities to manipulate strings.
+- `convertErrorToString`: Safely converts any error into a string for parsing/searching.
 
 #### Styling utilities
 Contains utilities to manipulate CSS styles.
