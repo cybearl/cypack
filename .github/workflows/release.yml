@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - beta
 
 permissions:
   contents: write
@@ -15,7 +14,6 @@ jobs:
   semantic-release:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
 
-    name: Semantic Release
     runs-on: ubuntu-latest
 
     strategy:
@@ -32,10 +30,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Build package
-        run: yarn build
+        run: npm run build
 
       - name: Publish package to NPM
         working-directory: ./dist
@@ -43,4 +41,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: yarn release
+        run: npx semantic-release
