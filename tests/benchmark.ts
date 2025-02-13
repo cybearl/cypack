@@ -19,7 +19,7 @@ logger.setShowTimestamp(false)
  * The help message.
  */
 const helpMessage = dedent`
-    Usage: yarn bench [options]
+    Usage: npm run bench [options]
 
     Options:
         -b, --benchmark <name>          Run a specific benchmark.

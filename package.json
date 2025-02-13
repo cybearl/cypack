@@ -53,7 +53,7 @@
         "test:sandbox": "tsx ./tests/sandbox.ts",
         "test:bench": "tsx ./tests/benchmark.ts",
         "test:unit": "vitest",
-        "knip": "knip",
+        "test": "npm run test:unit && npm run test:bench",
         "build": "tsup",
         "release": "npx semantic-release"
     },

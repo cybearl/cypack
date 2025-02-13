@@ -11,8 +11,13 @@ Integration into your project
 -----------------------------
 #### 0. Install the package
 ```typescript
-$ npm install @cybearl/cypack // yarn add @cybearl/cypack
+// With npm
+$ npm install @cybearl/cypack
+
+// With yarn
+$ yarn add @cybearl/cypack
 ```
+And... that's it! You can now use the utilities in your project.
 
 Categories and utilities
 ------------------------
