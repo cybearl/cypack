@@ -1,4 +1,5 @@
-import type { ErrorObj } from "@/main/types/requests"
+import { stringify } from "@/main/json"
+import type { ErrorObj, FailedRequest } from "@/main/types/requests"
 
 /**
  * Formats an `ErrorObj` into a standard error sent back by an API endpoint.
@@ -38,6 +39,83 @@ export function stringifyError(error: ErrorObj, message?: string, additionalData
 	}
 
 	return JSON.stringify(err, allowSpecialKeys, 4)
+}
+
+/**
+ * Parse the error of a CRUD call and return a standardized error.
+ * @param error The error to parse.
+ * @returns The standardized error object.
+ */
+export function parseCRUDError(error: unknown): FailedRequest {
+	let errorString = ""
+
+	try {
+		try {
+			// biome-ignore lint/suspicious/noExplicitAny: Cannot infer the type of the error
+			errorString = (error as any).toString()
+		} catch (_) {
+			errorString = stringify(error)
+		}
+	} catch (_) {
+		errorString = "Unknown error"
+	}
+
+	return {
+		success: false,
+		message: "An error occurred while performing a CRUD operation.",
+		error: {
+			status: 500,
+			name: "CRUD_ERROR",
+			message: "CRUD operation failed.",
+			data: {
+				rawError: error,
+				error: errorString,
+			},
+		},
+	}
+}
+
+/**
+ * Formats a message and an error object into a JSON string that follows the `FailedRequest` standard,
+ * the goal is to not end up with special characters such as newlines in the message, so it can be parsed
+ * back into an object without issues.
+ * @param message The message to format.
+ * @param error The error object to format.
+ * @returns The formatted JSON string.
+ */
+export function formatMessageAsStringifiedError(message: string, error?: unknown): string {
+	let errorObj: ErrorObj = {
+		status: 500,
+		name: "UNKNOWN_ERROR",
+		message: "An unknown error occurred.",
+		data: null,
+	}
+
+	if (error) {
+		try {
+			// Testing with JSON.stringify to see if it's a valid JSON object
+			stringify(error, 4)
+
+			errorObj = error as ErrorObj
+		} catch {
+			// Convert the error to a basic non-escaped string
+			errorObj = {
+				...errorObj,
+				data: {
+					rawError: `${error}`,
+				},
+			}
+		}
+	}
+
+	const res = stringify({
+		success: false,
+		message,
+		error: errorObj,
+	})
+
+	// Ensure that no "Error: " or line break ends up in the message
+	return res.replaceAll("Error: ", "").replaceAll("\n", " ")
 }
 
 /**

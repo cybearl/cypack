@@ -39,9 +39,11 @@ Backend utilities
 
 #### Error utilities
 Contains a set of base error that follows the Cybearl error format, and other error-related utilities.
-- `BaseError`: The base error class that all Cybearl errors inherit from.
 - `formatErrorResponse`: Formats an error response object.
 - `stringifyError`: Stringifies an error object.
+- `parseCRUDError`: Parse the error of a CRUD call and return a standardized error.
+- `formatMessageAsStringifiedError`: Formats a message and an error object into a JSON string that follows the `FailedRequest` standard.
+- `BaseError`: The base error class that all Cybearl errors inherit from.
 
 #### Host-related utilities
 Contains utilities to get the hostname and other host-related information.
