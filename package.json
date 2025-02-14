@@ -21,7 +21,8 @@
         "url": "https://github.com/cybearl/cypack/issues"
     },
     "publishConfig": {
-        "registry": "https://npm.pkg.github.com/@cybearl"
+        "registry": "https://registry.npmjs.org/",
+        "tag": "latest"
     },
     "engines": {
         "node": ">=20"
@@ -97,6 +98,7 @@
         "@types/react": "^18.3.18",
         "@types/react-dom": "^18.3.5",
         "copyfiles": "^2.4.1",
+        "cz-conventional-changelog": "^3.3.0",
         "knip": "^5.44.1",
         "minimist": "^1.2.8",
         "next": "14.2.24",
@@ -117,5 +119,10 @@
     "resolutions": {
         "@types/react": "^18.3.18",
         "@types/react-dom": "^18.3.5"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
     }
 }
