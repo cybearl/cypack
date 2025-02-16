@@ -31,7 +31,7 @@ type WrapperOptions = {
 } & AuthOptions
 
 /**
- * The type for a Next API wrapped method.
+ * The type for a Next API wrapped method input.
  */
 export type NextApiMethodInput = {
 	req: NextApiRequest

@@ -10,7 +10,7 @@ import {
 } from "@/backend/errors"
 import { getHostname } from "@/backend/host"
 import logger from "@/backend/logger"
-import NextApiWrapper from "@/backend/next/nextApiWrapper"
+import NextApiWrapper, { type NextApiMethodInput } from "@/backend/next/nextApiWrapper"
 
 export {
 	// Bench
@@ -41,4 +41,6 @@ export type {
 	Bit,
 	Endianness,
 	StringEncoding,
+	// Next.js API Wrapper
+	NextApiMethodInput,
 }
