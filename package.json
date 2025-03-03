@@ -6,6 +6,7 @@
     "author": "Cybearl <contact@cybearl.com> (https://www.cybearl.com/)",
     "license": "MIT",
     "private": false,
+    "packageManager": "yarn@1.22.22",
     "type": "module",
     "keywords": [
         "cybearl",
