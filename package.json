@@ -50,7 +50,7 @@
         }
     },
     "scripts": {
-        "check-types": "tsc --noEmit",
+        "knip": "knip",
         "lint": "biome lint . && biome format .",
         "lint:fix": "biome lint . --write && biome format --write .",
         "test:sandbox": "tsx ./tests/sandbox.ts",
@@ -101,7 +101,7 @@
         "@types/react-dom": "^18.3.5",
         "copyfiles": "^2.4.1",
         "cz-conventional-changelog": "^3.3.0",
-        "knip": "^5.44.1",
+        "knip": "^5.45.0",
         "minimist": "^1.2.8",
         "next": "14.2.24",
         "next-auth": "^4.24.11",
