@@ -17,7 +17,7 @@ $ npm install @cybearl/cypack
 // With yarn
 $ yarn add @cybearl/cypack
 ```
-And... that's it! You can now use the utilities in your project.
+And that's it! You can now use the utilities in your project.
 
 Categories and utilities
 ------------------------
