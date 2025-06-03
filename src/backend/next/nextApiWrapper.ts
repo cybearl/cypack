@@ -60,6 +60,7 @@ type NextApiMethods = {
 	read?: NextApiMethod | NextApiMethodWithAuthOptions
 	write?: NextApiMethod | NextApiMethodWithAuthOptions
 	update?: NextApiMethod | NextApiMethodWithAuthOptions
+	replace?: NextApiMethod | NextApiMethodWithAuthOptions
 	remove?: NextApiMethod | NextApiMethodWithAuthOptions
 }
 
@@ -74,6 +75,7 @@ export default class NextApiWrapper {
 	private _read: NextApiMethod | NextApiMethodWithAuthOptions | undefined
 	private _write: NextApiMethod | NextApiMethodWithAuthOptions | undefined
 	private _update: NextApiMethod | NextApiMethodWithAuthOptions | undefined
+	private _replace: NextApiMethod | NextApiMethodWithAuthOptions | undefined
 	private _remove: NextApiMethod | NextApiMethodWithAuthOptions | undefined
 
 	// Options
@@ -87,6 +89,7 @@ export default class NextApiWrapper {
 	 * - `read`: The *GET* method.
 	 * - `write`: The *POST* method.
 	 * - `update`: The *PATCH* method.
+	 * - `replace`: The *PUT* method.
 	 * - `remove`: The *DELETE* method.
 	 * @param options The options for the wrapper:
 	 * - `authFunction`: The function to be used for authentication.
@@ -118,12 +121,14 @@ export default class NextApiWrapper {
 	 * - `read`: The *GET* method.
 	 * - `write`: The *POST* method.
 	 * - `update`: The *PATCH* method.
+	 * - `replace`: The *PUT* method.
 	 * - `remove`: The *DELETE* method.
 	 */
 	setMethods(methods: NextApiMethods) {
 		this._read = methods?.read
 		this._write = methods?.write
 		this._update = methods?.update
+		this._replace = methods?.replace
 		this._remove = methods?.remove
 	}
 
@@ -295,6 +300,9 @@ export default class NextApiWrapper {
 					break
 				case "PATCH":
 					if (this._update) return await this._executeMethod(this._update, methodInput)
+					break
+				case "PUT":
+					if (this._replace) return await this._executeMethod(this._replace, methodInput)
 					break
 				case "DELETE":
 					if (this._remove) return await this._executeMethod(this._remove, methodInput)

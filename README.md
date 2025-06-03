@@ -55,7 +55,18 @@ Contains a simple multi-level logger that logs to the console based on `Winston`
 
 #### Next.js utilities
 Contains utilities to get the Next.js server and other Next.js-related information.
-- `NextApiWrapper`: A class that wraps the Next.js API route handler (specifically for page router).
+- `NextApiWrapper`: A class that wraps the Next.js API route handler (specifically for page router):
+  ```typescript
+  function read({ req, wrapper }: NextApiMethodInput) {
+  	  if (!req.query.blabla) return wrapper.errorResponse(AppErrors.UNAUTHORIZED)
+  	  return wrapper.successResponse(200, status)
+  }
+
+  export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  	  const wrapper = new NextApiWrapper(req, res, { read })
+  	  await wrapper.run()
+  }
+  ```
 
 Frontend utilities
 ------------------
