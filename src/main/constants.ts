@@ -2,6 +2,9 @@
  * A set of general constants.
  */
 const CONSTANTS = {
+	// Security
+	HASH_SALT_ROUNDS: 12,
+
 	// User
 	MIN_USERNAME_LENGTH: 4,
 	MAX_USERNAME_LENGTH: 36,
