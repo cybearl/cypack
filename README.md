@@ -93,7 +93,7 @@ Main utilities
 - `isClient`: Check if the code is running on the client.
 
 #### Configuration utilities
-- `CONSTANTS`: Multiple constants used throughout the application (user password length, etc.).
+- `CyCONSTANTS`: Multiple constants used throughout the application (user password length, etc.).
 
 #### Formatting utilities
 Contains a set of utilities to format numbers, time, and other values.

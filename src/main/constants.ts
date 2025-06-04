@@ -1,7 +1,7 @@
 /**
  * A set of general constants.
  */
-const CONSTANTS = {
+const CyCONSTANTS = {
 	// Security
 	HASH_SALT_ROUNDS: 12,
 
@@ -28,4 +28,4 @@ const CONSTANTS = {
 	IMG_SIZES_LOW_QUALITY: "(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 25vw",
 }
 
-export default CONSTANTS
+export default CyCONSTANTS
