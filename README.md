@@ -43,7 +43,14 @@ Contains a set of base error that follows the Cybearl error format, and other er
 - `stringifyError`: Stringifies an error object.
 - `parseCRUDError`: Parse the error of a CRUD call and return a standardized error.
 - `formatMessageAsStringifiedError`: Formats a message and an error object into a JSON string that follows the `FailedRequest` standard.
-- `BaseError`: The base error class that all Cybearl errors inherit from.
+- `BaseError`: The base error class that all Cybearl errors inherit from, don't forget to do:
+  ```typescript
+  export const AppErrors = {
+      ...BaseErrors,
+      // Add your custom errors here
+  } as const satisfies Record<string, ErrorObj>
+  ```
+  To be sure that you respect the error format.
 
 #### Host-related utilities
 Contains utilities to get the hostname and other host-related information.
