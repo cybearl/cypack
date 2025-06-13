@@ -17,7 +17,7 @@ export function addParamsToUrl(
 			continue
 		}
 
-		url += `${url.includes("?") ? "&" : "?"}${key}=${value.toString()}`
+		url += `${url.includes("?") ? "&" : "?"}${encodeURIComponent(key)}=${encodeURIComponent(value.toString())}`
 	}
 
 	return url
