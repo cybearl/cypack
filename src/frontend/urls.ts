@@ -1,7 +1,7 @@
 /**
  * Allows to add query parameters to a URL.
  * @param baseUrl The base URL to add parameters to.
- * @param params The parameters to add.
+ * @param params The parameters to add, note that each parameter will be URL-encoded.
  * @returns The URL with the parameters added.
  */
 export function addParamsToUrl(
