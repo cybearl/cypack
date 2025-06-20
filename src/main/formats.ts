@@ -202,7 +202,7 @@ export function formatPercentage(percentage: number, padding = 7): string {
  * @param len The maximum length of the string.
  * @returns The truncated string.
  */
-export const truncateString = (str: string, len: number) => {
+export function truncateString(str: string, len: number) {
 	if (str.length <= len) return str
 	return `${str.slice(0, len)}...`
 }
