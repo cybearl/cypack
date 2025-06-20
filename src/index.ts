@@ -3,7 +3,7 @@ import CyCONSTANTS from "@/main/constants"
 
 import { formatHRTime, formatPercentage, formatTime, formatUnit, truncateString } from "@/main/formats"
 
-import { stringify } from "@/main/json"
+import { formatJson, stringify } from "@/main/json"
 import { mapRange } from "@/main/maths"
 import { fullyPermissiveCspHeader } from "@/main/middleware"
 import { convertErrorToString, decodeObjectURIComponents } from "@/main/strings"
@@ -24,6 +24,7 @@ export {
 	formatPercentage,
 	truncateString,
 	// JSON
+	formatJson,
 	stringify,
 	// Maths
 	mapRange,

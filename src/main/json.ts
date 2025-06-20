@@ -1,4 +1,13 @@
 /**
+ * Format a JSON object with indentation.
+ * @param str The JSON string to format.
+ * @returns The formatted JSON string.
+ */
+export function formatJson(str: string): string {
+	return JSON.stringify(JSON.parse(str), null, 4)
+}
+
+/**
  * Stringify a JSON object with support for BigInt and functions.
  * @param object The object to stringify.
  * @param indent The number of spaces to indent (optional, defaults to 4)

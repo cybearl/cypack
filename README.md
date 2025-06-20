@@ -105,6 +105,7 @@ Contains a set of utilities to format numbers, time, and other values.
 
 #### JSON utilities
 Contains utilities to parse and stringify JSON objects.
+- `formatJson`: Format a JSON object with indentation.
 - `stringify`: Stringify a JSON object with support for BigInt and functions.
 
 #### Math utilities
