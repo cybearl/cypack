@@ -6,7 +6,7 @@ import { formatHRTime, formatPercentage, formatTime, formatUnit, truncateString 
 import { stringify } from "@/main/json"
 import { mapRange } from "@/main/maths"
 import { fullyPermissiveCspHeader } from "@/main/middleware"
-import { convertErrorToString } from "@/main/strings"
+import { convertErrorToString, decodeObjectURIComponents } from "@/main/strings"
 import { shadeColor } from "@/main/styling"
 import type { CGASStatus, CGASStatusString } from "@/main/types/cgas"
 import type { ErrorObj, FailedRequest, RequestResult, SuccessfulRequest } from "@/main/types/requests"
@@ -31,6 +31,7 @@ export {
 	fullyPermissiveCspHeader,
 	// Strings
 	convertErrorToString,
+	decodeObjectURIComponents,
 	// Styling
 	shadeColor,
 }

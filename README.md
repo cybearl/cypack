@@ -118,6 +118,7 @@ Contains utilities to create middleware functions (for Next.js, etc.).
 #### String utilities
 Contains utilities to manipulate strings.
 - `convertErrorToString`: Safely converts any error into a string for parsing/searching.
+- `decodeObjectURIComponents`: Decodes all components of an object as URI components (e.g., for decoding Next.js `req.query`).
 
 #### Styling utilities
 Contains utilities to manipulate CSS styles.
