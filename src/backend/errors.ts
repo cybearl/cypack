@@ -125,7 +125,7 @@ export function formatMessageAsStringifiedError(message: string, error?: unknown
  * The recommended way is to create an `AppErrors` object that extends this one, preferably
  * at a place similar to `lib/utils/errors.ts`:
  * ```typescript
- * import { BaseErrors } from "@cybearl/cypack"
+ * import { BaseErrors } from "..."
  *
  * export const AppErrors = {
  *     ...BaseErrors,
