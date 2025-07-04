@@ -37,21 +37,6 @@ Backend utilities
 #### Cybearl General API System
 - `generateCGASStatus`: Generates a Cybearl General API System (CGAS) status object.
 
-#### Error utilities
-Contains a set of base error that follows the Cybearl error format, and other error-related utilities.
-- `formatErrorResponse`: Formats an error response object.
-- `stringifyError`: Stringifies an error object.
-- `parseCRUDError`: Parse the error of a CRUD call and return a standardized error.
-- `formatMessageAsStringifiedError`: Formats a message and an error object into a JSON string that follows the `FailedRequest` standard.
-- `BaseError`: The base error class that all Cybearl errors inherit from, don't forget to do:
-  ```typescript
-  export const AppErrors = {
-      ...BaseErrors,
-      // Add your custom errors here
-  } as const satisfies Record<string, ErrorObj>
-  ```
-  To be sure that you respect the error format.
-
 #### Host-related utilities
 Contains utilities to get the hostname and other host-related information.
 - `getHostname`: Get the name of the host on which the application is running.
@@ -94,6 +79,21 @@ Main utilities
 
 #### Configuration utilities
 - `CyCONSTANTS`: Multiple constants used throughout the application (user password length, etc.).
+
+#### Error utilities
+Contains a set of base error that follows the Cybearl error format, and other error-related utilities.
+- `formatErrorResponse`: Formats an error response object.
+- `stringifyError`: Stringifies an error object.
+- `parseCRUDError`: Parse the error of a CRUD call and return a standardized error.
+- `formatMessageAsStringifiedError`: Formats a message and an error object into a JSON string that follows the `FailedRequest` standard.
+- `BaseError`: The base error class that all Cybearl errors inherit from, don't forget to do:
+  ```typescript
+  export const AppErrors = {
+      ...BaseErrors,
+      // Add your custom errors here
+  } as const satisfies Record<string, ErrorObj>
+  ```
+  To be sure that you respect the error format.
 
 #### Formatting utilities
 Contains a set of utilities to format numbers, time, and other values.
