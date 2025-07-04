@@ -1,4 +1,4 @@
-import { BaseErrors } from "@/backend/errors"
+import { BaseErrors } from "@/main/errors"
 import type { ErrorObj, FailedRequest } from "@/main/types/requests"
 import type { NextApiRequest, NextApiResponse } from "next"
 import type { Session } from "next-auth"
