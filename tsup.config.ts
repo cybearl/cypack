@@ -4,7 +4,7 @@ import { type Format, type Options, defineConfig } from "tsup"
 
 // Delete dist folder before building
 try {
-	rmSync("dist", { recursive: true, force: true })
+	rmSync("./dist", { recursive: true, force: true })
 } catch (_) {
 	// Do nothing
 }
