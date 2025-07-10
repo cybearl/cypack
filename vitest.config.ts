@@ -1,9 +1,14 @@
 import tsconfigPaths from "vite-tsconfig-paths"
 import { defineConfig } from "vitest/config"
 
-export default defineConfig({
+/**
+ * The main configuration for the Vitest tests of the workers.
+ */
+const vitestConfig = defineConfig({
+	plugins: [tsconfigPaths()],
 	test: {
 		include: ["./tests/unit/**/*.test.ts"],
 	},
-	plugins: [tsconfigPaths()],
 })
+
+export default vitestConfig
