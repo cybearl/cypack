@@ -38,8 +38,8 @@
             "rollup/parseAst": ["./node_modules/rollup/dist/parseAst"]
         },
         "rootDirs": [                                        /* Allow multiple folders to be treated as one when resolving modules. */
-            "src",
-            "tests"
+            "./src",
+            "./tests"
         ],
         // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
         "types": [                                           /* Specify type package names to be included without being referenced in a source file. */
@@ -116,10 +116,10 @@
         // "plugins": [],                                    /* Specify a list of multiple plugins. */
     },
     "include": [
-        "src",
-        "tests"
+        "./src",
+        "./tests"
     ],
     "exclude": [
-        "node_modules"
+        "./node_modules"
     ]
 }
