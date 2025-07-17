@@ -29,5 +29,5 @@ export const fallbackCGASStatus: CGASStatus = {
 		raw: "unavailable",
 		formatted: "unavailable",
 	},
-	message: "The CGAS API is not available, please try again later.",
+	message: "This API is not available, please try again later.",
 }
