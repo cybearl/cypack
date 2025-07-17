@@ -17,3 +17,17 @@ export async function getCGASStatus(
 	const result = await response.json()
 	return result as RequestResult<CGASStatus | string>
 }
+
+/**
+ * The fallback CGAS status, used when the CGAS API is not available.
+ */
+export const fallbackCGASStatus: CGASStatus = {
+	status: "disabled",
+	marker: "fallback-marker",
+	timestamp: new Date().toISOString(),
+	version: {
+		raw: "unavailable",
+		formatted: "unavailable",
+	},
+	message: "The CGAS API is not available, please try again later.",
+}

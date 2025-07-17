@@ -65,6 +65,7 @@ Frontend utilities
 #### Cybearl General API System
 - `getCGASStatus`: Returns the current status of the application, or the application marker only if specified,
   in the Cybearl General API System (CGAS) format.
+- `fallbackCGASStatus`: The fallback CGAS status, used when the CGAS API is not available.
 
 #### URLs utilities
 Contains utilities to manipulate URLs.
