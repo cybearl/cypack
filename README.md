@@ -98,7 +98,8 @@ Contains a set of base error that follows the Cybearl error format, and other er
 
 #### Formatting utilities
 Contains a set of utilities to format numbers, time, and other values.
-- `isValidIntId`: Check if a string is a valid integer ID (e.g., for database IDs).
+- `isValidIntId`: Validate a direct ID parameter (as integer for SQL DBs etc..).
+- `isValidSlug`: Validates a slug.
 - `formatUnit`: Format a number with an attached unit + an optional time unit.
 - `formatHRTime`: Format a high-resolution time, into a responsive string with the en-US locale format.
 - `formatTime`: Format a time in milliseconds into a responsive string with the en-US locale format.

@@ -7,7 +7,15 @@ import {
 	parseCRUDError,
 	stringifyError,
 } from "@/main/errors"
-import { formatHRTime, formatPercentage, formatTime, formatUnit, isValidIntId, truncateString } from "@/main/formats"
+import {
+	formatHRTime,
+	formatPercentage,
+	formatTime,
+	formatUnit,
+	isValidIntId,
+	isValidSlug,
+	truncateString,
+} from "@/main/formats"
 import { formatJson, stringify } from "@/main/json"
 import { mapRange } from "@/main/maths"
 import { fullyPermissiveCspHeader } from "@/main/middleware"
@@ -30,6 +38,7 @@ export {
 	BaseErrors,
 	// Formats
 	isValidIntId,
+	isValidSlug,
 	formatUnit,
 	formatHRTime,
 	formatTime,
