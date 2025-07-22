@@ -32,11 +32,11 @@ Backend utilities
 - `Bench`: A class that provides a simple way to benchmark functions.
 
 #### Crypto:
-- `cryptoAes256Gcm` (AES-256-GCM symmetric encryption):
-    - `encryptSymmetric`: Encrypts plaintext data.
-    - `decryptSymmetric`: Decrypts plaintext data using the initialization vector, ciphertext, and authentication tag.
-    - `decryptPayload`: Decrypts a payload that contains the initialization vector, ciphertext, and authentication tag,
-      formatted as `{iv}.{ciphertext}.{tag}`
+Note that these are stored inside a `crypto` object that is exported from the package.
+- `aes256Gcm` (AES-256-GCM symmetric encryption):
+  - `encrypt`: Encrypts data using AES-256-GCM symmetric encryption.
+  - `decrypt`: Decrypts data using AES-256-GCM symmetric encryption.
+  - `decryptPayload`: Decrypts a payload that contains the initialization vector, ciphertext, and authentication tag.
 
 #### CyBuffer class
 - `CyBuffer`: A class that extends the Uint8Array class with additional methods to read and write data.

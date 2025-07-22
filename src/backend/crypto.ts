@@ -1,13 +1,27 @@
 import { createCipheriv, createDecipheriv, randomBytes } from "node:crypto"
 
 /**
+ * The return type of the `encrypt` function.
+ * - `iv`: Base64-encoded initialization vector used for encryption (no need to store it securely).
+ * - `ciphertext`: Base64-encoded ciphertext resulting from the encryption process.
+ * - `tag`: Authentication tag as a Buffer, used for verifying the integrity of the ciphertext.
+ * - `payload`: Full payload combining iv, ciphertext, and tag, formatted as "iv.ciphertext.tag".
+ */
+export type CryptoAes256GcmEncryptResult = {
+	iv: string
+	ciphertext: string
+	tag: Buffer
+	payload: string
+}
+
+/**
  * Encrypts data using AES-256-GCM symmetric encryption.
  * @param key The base64-encoded key to use for encryption. Must be 32 bytes when decoded.
  * @param data The plaintext data to encrypt.
  * @returns An object containing the initialization vector (iv), ciphertext, and authentication tag.
  * @throws If any error occurs during encryption.
  */
-function encryptSymmetric(key: string, data: string) {
+function aes256GcmEncrypt(key: string, data: string): CryptoAes256GcmEncryptResult {
 	const iv = randomBytes(12).toString("base64")
 	const cipher = createCipheriv("aes-256-gcm", Buffer.from(key, "base64"), Buffer.from(iv, "base64"))
 
@@ -27,7 +41,7 @@ function encryptSymmetric(key: string, data: string) {
  * @param tag The base64-encoded authentication tag used during encryption.
  * @returns The decrypted plaintext data or null if decryption fails.
  */
-function decryptSymmetric(key: string, iv: string, ciphertext: string, tag: string) {
+function aes256GcmDecrypt(key: string, iv: string, ciphertext: string, tag: string) {
 	try {
 		const decipher = createDecipheriv("aes-256-gcm", Buffer.from(key, "base64"), Buffer.from(iv, "base64"))
 		decipher.setAuthTag(Buffer.from(tag, "base64"))
@@ -47,17 +61,23 @@ function decryptSymmetric(key: string, iv: string, ciphertext: string, tag: stri
  * @param payload The payload string containing iv, ciphertext, and tag separated by dots.
  * @returns The decrypted plaintext data or null if decryption fails.
  */
-function decryptPayload(key: string, payload: string) {
+function aes256GcmDecryptPayload(key: string, payload: string) {
 	const parts = payload.split(".")
 	if (parts.length !== 3) {
 		throw new Error("Invalid payload format")
 	}
 
 	const [iv, ciphertext, tag] = parts
-	return decryptSymmetric(key, iv, ciphertext, tag)
+	return aes256GcmDecrypt(key, iv, ciphertext, tag)
 }
 
 /**
- * Contains utility functions for AES-256-GCM symmetric encryption and decryption.
+ * Contains utility functions for encryption and decryption.
  */
-export const cryptoAes256Gcm = { encryptSymmetric, decryptSymmetric, decryptPayload }
+export const crypto = {
+	aes256Gcm: {
+		encrypt: aes256GcmEncrypt,
+		decrypt: aes256GcmDecrypt,
+		decryptPayload: aes256GcmDecryptPayload,
+	},
+}

@@ -1,6 +1,6 @@
 import Bench, { type BenchmarkResult, type BenchmarkResults } from "@/backend/bench"
 import { generateCGASStatus } from "@/backend/cgas/status"
-import { cryptoAes256Gcm } from "@/backend/crypto"
+import { crypto, type CryptoAes256GcmEncryptResult } from "@/backend/crypto"
 import CyBuffer, { type Bit, type Endianness, type StringEncoding } from "@/backend/cybuffer"
 
 import { getHostname } from "@/backend/host"
@@ -11,7 +11,7 @@ export {
 	// Bench
 	Bench,
 	// Crypto
-	cryptoAes256Gcm,
+	crypto,
 	// CyBuffer
 	CyBuffer,
 	// CGAS
@@ -28,6 +28,8 @@ export type {
 	// Bench
 	BenchmarkResult,
 	BenchmarkResults,
+	// Crypto
+	CryptoAes256GcmEncryptResult,
 	// CyBuffer
 	Bit,
 	Endianness,
