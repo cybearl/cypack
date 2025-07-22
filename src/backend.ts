@@ -1,5 +1,6 @@
 import Bench, { type BenchmarkResult, type BenchmarkResults } from "@/backend/bench"
 import { generateCGASStatus } from "@/backend/cgas/status"
+import { cryptoAes256Gcm } from "@/backend/crypto"
 import CyBuffer, { type Bit, type Endianness, type StringEncoding } from "@/backend/cybuffer"
 
 import { getHostname } from "@/backend/host"
@@ -9,6 +10,8 @@ import NextApiWrapper, { type NextApiMethodInput } from "@/backend/next/nextApiW
 export {
 	// Bench
 	Bench,
+	// Crypto
+	cryptoAes256Gcm,
 	// CyBuffer
 	CyBuffer,
 	// CGAS
