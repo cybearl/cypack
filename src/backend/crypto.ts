@@ -22,8 +22,13 @@ export type CryptoAes256GcmEncryptResult = {
  * @throws If any error occurs during encryption.
  */
 function aes256GcmEncrypt(key: string, data: string): CryptoAes256GcmEncryptResult {
+	const keyBuffer = Buffer.from(key, "base64")
+	if (keyBuffer.length !== 32) {
+		throw new Error(`Invalid key length: expected 32 bytes, got ${keyBuffer.length}`)
+	}
+
 	const iv = randomBytes(12).toString("base64")
-	const cipher = createCipheriv("aes-256-gcm", Buffer.from(key, "base64"), Buffer.from(iv, "base64"))
+	const cipher = createCipheriv("aes-256-gcm", keyBuffer, Buffer.from(iv, "base64"))
 
 	let ciphertext = cipher.update(data, "utf8", "base64")
 	ciphertext += cipher.final("base64")
@@ -51,6 +56,7 @@ function aes256GcmDecrypt(key: string, iv: string, ciphertext: string, tag: stri
 
 		return plaintext
 	} catch (_) {
+		// No information is provided about the error to avoid leaking sensitive data
 		return null
 	}
 }
