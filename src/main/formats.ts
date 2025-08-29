@@ -232,9 +232,9 @@ export function truncateString(str: string, len: number) {
  * @param query The query string to parse.
  * @returns An array of numbers extracted from the query.
  */
-export function parseQueryNumberArray(query: string): number[] {
+export function parseQueryNumberArray(query: string | Array<string>): number[] {
 	const result: number[] = []
-	const items = query.split(",").map(item => item.trim())
+	const items = Array.isArray(query) ? query : query.split(",").map(item => item.trim())
 
 	for (const item of items) {
 		const num = Number.parseInt(item, 10)
@@ -249,9 +249,9 @@ export function parseQueryNumberArray(query: string): number[] {
  * @param query The query string to parse.
  * @returns An array of strings extracted from the query.
  */
-export function parseQueryStringArray(query: string): string[] {
+export function parseQueryStringArray(query: string | Array<string>): string[] {
 	const result: string[] = []
-	const items = query.split(",").map(item => item.trim())
+	const items = Array.isArray(query) ? query : query.split(",").map(item => item.trim())
 
 	for (const item of items) {
 		if (item.length > 0) result.push(item)
