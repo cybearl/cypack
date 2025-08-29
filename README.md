@@ -112,6 +112,8 @@ Contains a set of utilities to format numbers, time, and other values.
 - `formatTime`: Format a time in milliseconds into a responsive string with the en-US locale format.
 - `formatPercentage`: Formats a number as a percentage.
 - `truncateString`: Truncate a string to a specified length.
+- `parseQueryNumberArray`: Parse a query containing either a number or numbers separated by commas and returns an array of numbers.
+- `parseQueryStringArray`: Parse a query containing either a string or strings separated by commas and returns an array of strings.
 
 #### JSON utilities
 Contains utilities to parse and stringify JSON objects.

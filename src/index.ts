@@ -14,6 +14,8 @@ import {
 	formatUnit,
 	isValidIntId,
 	isValidSlug,
+	parseQueryNumberArray,
+	parseQueryStringArray,
 	truncateString,
 } from "@/main/formats"
 import { formatJson, stringify } from "@/main/json"
@@ -44,6 +46,8 @@ export {
 	formatTime,
 	formatPercentage,
 	truncateString,
+	parseQueryNumberArray,
+	parseQueryStringArray,
 	// JSON
 	formatJson,
 	stringify,
