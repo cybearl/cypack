@@ -1,51 +1,41 @@
 {
     "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-    "organizeImports": {
-        "enabled": true
-    },
-    "linter": {
+    "vcs": {
         "enabled": true,
-        "rules": {
-            "recommended": true,
-            "a11y": {
-                "noAutofocus": "off",
-                "useButtonType": "off"
-            },
-            "complexity": {
-                "noForEach": "off"
-            },
-            "correctness": {
-                "useExhaustiveDependencies": "off",
-                "noUnusedVariables": "warn",
-                "noUnusedImports": "warn",
-                "noConstructorReturn": "off"
-            },
-            "style": {
-                "noNegationElse": "warn",
-                "useFragmentSyntax": "off",
-                "noParameterAssign": "off"
-            },
-            "suspicious": {
-                "noArrayIndexKey": "off",
-                "noConsoleLog": "warn",
-                "noEmptyBlockStatements": "error",
-                "useAwait": "error",
-                "noFocusedTests": "info"
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4
+    },
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": "on"
             }
         }
+    },
+    "files": {
+        "ignoreUnknown": true,
+        "includes": [
+            "**",
+            "!node_modules",
+            "!dist",
+            "!.vscode"
+        ]
     },
     "javascript": {
         "formatter": {
             "enabled": true,
             "semicolons": "asNeeded",
             "quoteStyle": "double",
-            "indentStyle": "tab",
             "lineWidth": 120,
             "lineEnding": "lf",
             "bracketSpacing": true,
             "jsxQuoteStyle": "double",
-            "arrowParentheses": "asNeeded",
-            "indentWidth": 4
+            "arrowParentheses": "asNeeded"
         }
     },
     "json": {
@@ -53,11 +43,30 @@
             "enabled": false
         }
     },
-    "files": {
-        "ignore": [
-            "dist/*",
-            "node_modules/*",
-            "src/biome.json"
-        ]
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true,
+            "complexity": {
+                "noForEach": "off"
+            },
+            "correctness": {
+                "noUnusedVariables": "warn",
+                "noUnusedImports": "warn"
+            },
+            "style": {
+                "noNegationElse": "warn",
+                "useFragmentSyntax": "off",
+                "noNonNullAssertion": "off",
+                "useImportType": "off"
+            },
+            "suspicious": {
+                "noArrayIndexKey": "off",
+                "noEmptyBlockStatements": "error",
+                "useAwait": "off",
+                "noExplicitAny": "off",
+                "noUnknownAtRules": "off"
+            }
+        }
     }
 }

@@ -1,4 +1,3 @@
-import logger from "@/backend/logger"
 import dedent from "dedent-js"
 import minimist from "minimist"
 import executeAccessorsBenchmark from "tests/benchmarks/cybuffer/accessors.bench"
@@ -10,6 +9,7 @@ import executeReadBenchmark from "tests/benchmarks/cybuffer/read.bench"
 import executeStaticBenchmark from "tests/benchmarks/cybuffer/static.bench"
 import executeUtilityBenchmark from "tests/benchmarks/cybuffer/utility.bench"
 import executeWriteBenchmark from "tests/benchmarks/cybuffer/write.bench"
+import logger from "@/backend/logger"
 
 // Disable the logger output for the benchmarks
 logger.setShowLevel(false)
@@ -39,15 +39,15 @@ type BenchmarkFunction = (benchmarkInputSize: number, benchmarkDuration: number)
  * Benchmark routing.
  */
 const benchmarks: { [key: string]: BenchmarkFunction | BenchmarkFunction } = {
-	"CyBuffer::internal": executeInternalBenchmark,
-	"CyBuffer::accessors": executeAccessorsBenchmark,
-	"CyBuffer::static": executeStaticBenchmark,
-	"CyBuffer::write": executeWriteBenchmark,
-	"CyBuffer::read": executeReadBenchmark,
-	"CyBuffer::conversion": executeConversionBenchmark,
-	"CyBuffer::check": executeCheckBenchmark,
-	"CyBuffer::randomness": executeRandomnessBenchmark,
-	"CyBuffer::utility": executeUtilityBenchmark,
+    "CyBuffer::internal": executeInternalBenchmark,
+    "CyBuffer::accessors": executeAccessorsBenchmark,
+    "CyBuffer::static": executeStaticBenchmark,
+    "CyBuffer::write": executeWriteBenchmark,
+    "CyBuffer::read": executeReadBenchmark,
+    "CyBuffer::conversion": executeConversionBenchmark,
+    "CyBuffer::check": executeCheckBenchmark,
+    "CyBuffer::randomness": executeRandomnessBenchmark,
+    "CyBuffer::utility": executeUtilityBenchmark,
 }
 
 /**
@@ -55,79 +55,79 @@ const benchmarks: { [key: string]: BenchmarkFunction | BenchmarkFunction } = {
  * @param args Arguments from the command line.
  */
 function main(args: string[]) {
-	const argv = minimist(args.slice(2))
+    const argv = minimist(args.slice(2))
 
-	if (argv.help || argv.h) {
-		logger.info(helpMessage)
-		process.exit(0)
-	}
+    if (argv.help || argv.h) {
+        logger.info(helpMessage)
+        process.exit(0)
+    }
 
-	if (argv.list || argv.l) {
-		logger.info("Available benchmarks:")
-		for (const benchmarkName in benchmarks) logger.info(`- ${benchmarkName}`)
+    if (argv.list || argv.l) {
+        logger.info("Available benchmarks:")
+        for (const benchmarkName in benchmarks) logger.info(`- ${benchmarkName}`)
 
-		// Also add all ::* benchmarks
-		const listOfPrefixes = new Set<string>()
+        // Also add all ::* benchmarks
+        const listOfPrefixes = new Set<string>()
 
-		for (const benchmarkName in benchmarks) {
-			const prefix = benchmarkName.split("::")[0]
-			listOfPrefixes.add(prefix)
-		}
+        for (const benchmarkName in benchmarks) {
+            const prefix = benchmarkName.split("::")[0]
+            listOfPrefixes.add(prefix)
+        }
 
-		for (const prefix of listOfPrefixes) {
-			logger.info(`- ${prefix}::*`)
-		}
+        for (const prefix of listOfPrefixes) {
+            logger.info(`- ${prefix}::*`)
+        }
 
-		process.exit(0)
-	}
+        process.exit(0)
+    }
 
-	logger.info("Starting benchmarks...")
+    logger.info("Starting benchmarks...")
 
-	const argBenchmarkName = argv.benchmark || argv.b
-	let argBenchmarkInputSize = argv.BenchmarkInputSize || argv.c
-	let argBenchmarkDuration = argv.benchmarkDuration || argv.d
+    const argBenchmarkName = argv.benchmark || argv.b
+    let argBenchmarkInputSize = argv.BenchmarkInputSize || argv.c
+    let argBenchmarkDuration = argv.benchmarkDuration || argv.d
 
-	logger.info(">> Running CyBuffer benchmarks...")
+    logger.info(">> Running CyBuffer benchmarks...")
 
-	if (argBenchmarkInputSize) {
-		logger.info(`>> Using benchmark input size of ${argBenchmarkInputSize} bytes.`)
-	} else {
-		logger.info(">> No benchmark input size provided, using default value of 128 bytes.")
-		argBenchmarkInputSize = 128
-	}
+    if (argBenchmarkInputSize) {
+        logger.info(`>> Using benchmark input size of ${argBenchmarkInputSize} bytes.`)
+    } else {
+        logger.info(">> No benchmark input size provided, using default value of 128 bytes.")
+        argBenchmarkInputSize = 128
+    }
 
-	if (argBenchmarkDuration) {
-		logger.info(`>> Using benchmark duration of ${argBenchmarkDuration} milliseconds.`)
-	} else {
-		logger.info(">> No benchmark duration provided, using default value of 256 milliseconds.")
-		argBenchmarkDuration = 256
-	}
+    if (argBenchmarkDuration) {
+        logger.info(`>> Using benchmark duration of ${argBenchmarkDuration} milliseconds.`)
+    } else {
+        logger.info(">> No benchmark duration provided, using default value of 256 milliseconds.")
+        argBenchmarkDuration = 256
+    }
 
-	if (!argBenchmarkName) logger.info(">> No benchmark name provided, running all benchmarks...")
+    if (!argBenchmarkName) logger.info(">> No benchmark name provided, running all benchmarks...")
 
-	logger.warn("\nThis might take a while depending on the benchmark duration you chose.")
-	logger.warn("Please be patient and wait for the results to appear.\n")
+    logger.warn("\nThis might take a while depending on the benchmark duration you chose.")
+    logger.warn("Please be patient and wait for the results to appear.\n")
 
-	if (argBenchmarkName) {
-		if (benchmarks[argBenchmarkName]) {
-			benchmarks[argBenchmarkName](argBenchmarkInputSize, argBenchmarkDuration)
-		} else if (argBenchmarkName.endsWith("::*")) {
-			const prefix = argBenchmarkName.slice(0, -3)
+    if (argBenchmarkName) {
+        if (benchmarks[argBenchmarkName]) {
+            benchmarks[argBenchmarkName](argBenchmarkInputSize, argBenchmarkDuration)
+        } else if (argBenchmarkName.endsWith("::*")) {
+            const prefix = argBenchmarkName.slice(0, -3)
 
-			for (const benchmarkName in benchmarks) {
-				if (benchmarkName.startsWith(prefix)) {
-					benchmarks[benchmarkName](argBenchmarkInputSize, argBenchmarkDuration)
-				}
-			}
-		} else {
-			logger.error(`[ERROR] Benchmark "${argBenchmarkName}" not found.\n`)
-			process.exit(1)
-		}
-	} else {
-		for (const benchmarkName in benchmarks) {
-			benchmarks[benchmarkName](argBenchmarkInputSize, argBenchmarkDuration)
-		}
-	}
+            for (const benchmarkName in benchmarks) {
+                if (benchmarkName.startsWith(prefix)) {
+                    benchmarks[benchmarkName](argBenchmarkInputSize, argBenchmarkDuration)
+                }
+            }
+        } else {
+            logger.error(`[ERROR] Benchmark "${argBenchmarkName}" not found.\n`)
+            process.exit(1)
+        }
+    } else {
+        for (const benchmarkName in benchmarks) {
+            benchmarks[benchmarkName](argBenchmarkInputSize, argBenchmarkDuration)
+        }
+    }
 }
 
 main(process.argv)

@@ -10,24 +10,24 @@ import type { RequestResult } from "@/main/types/requests"
 export async function getCGASStatus(markerOnly: true, baseUrl?: string): Promise<RequestResult<string>>
 export async function getCGASStatus(markerOnly?: false, baseUrl?: string): Promise<RequestResult<CGASStatus>>
 export async function getCGASStatus(
-	markerOnly = false,
-	baseUrl = "/api/cgas",
+    markerOnly = false,
+    baseUrl = "/api/cgas",
 ): Promise<RequestResult<CGASStatus | string>> {
-	const response = await fetch(`${baseUrl}/status?markerOnly=${markerOnly}`)
-	const result = await response.json()
-	return result as RequestResult<CGASStatus | string>
+    const response = await fetch(`${baseUrl}/status?markerOnly=${markerOnly}`)
+    const result = await response.json()
+    return result as RequestResult<CGASStatus | string>
 }
 
 /**
  * The fallback CGAS status, used when the CGAS API is not available.
  */
 export const fallbackCGASStatus: CGASStatus = {
-	status: "disabled",
-	marker: "fallback-marker",
-	timestamp: new Date().toISOString(),
-	version: {
-		raw: "unavailable",
-		formatted: "unavailable",
-	},
-	message: "This API is not available, please try again later.",
+    status: "disabled",
+    marker: "fallback-marker",
+    timestamp: new Date().toISOString(),
+    version: {
+        raw: "unavailable",
+        formatted: "unavailable",
+    },
+    message: "This API is not available, please try again later.",
 }

@@ -14,5 +14,5 @@ export const fullyPermissiveCspHeader = `
     font-src * data: blob: 'unsafe-inline';
     frame-ancestors * data: blob:;
 `
-	.replace(/\s{2,}/g, " ")
-	.trim()
+    .replace(/\s{2,}/g, " ")
+    .trim()

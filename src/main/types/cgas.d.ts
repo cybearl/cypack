@@ -18,12 +18,12 @@ export type CGASStatusString = "enabled" | "disabled" | "in-maintenance" | "in-d
  * - `in-development`: The application is in development mode and not available to the public.
  */
 export type CGASStatus = {
-	status: CGASStatusString
-	marker: string
-	timestamp: string
-	version: {
-		raw: string
-		formatted: `v${string}` | "unavailable"
-	}
-	message: string
+    status: CGASStatusString
+    marker: string
+    timestamp: string
+    version: {
+        raw: string
+        formatted: `v${string}` | "unavailable"
+    }
+    message: string
 }

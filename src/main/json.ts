@@ -4,7 +4,7 @@
  * @returns The formatted JSON string.
  */
 export function formatJson(str: string): string {
-	return JSON.stringify(JSON.parse(str), null, 4)
+    return JSON.stringify(JSON.parse(str), null, 4)
 }
 
 /**
@@ -14,14 +14,14 @@ export function formatJson(str: string): string {
  * @returns The stringified JSON object.
  */
 export function stringify(object: unknown, indent = 4): string {
-	return JSON.stringify(
-		object,
-		(_, value) => {
-			if (typeof value === "function") return value.toString()
-			if (typeof value === "bigint") return value.toString()
+    return JSON.stringify(
+        object,
+        (_, value) => {
+            if (typeof value === "function") return value.toString()
+            if (typeof value === "bigint") return value.toString()
 
-			return value
-		},
-		indent,
-	)
+            return value
+        },
+        indent,
+    )
 }

@@ -6,7 +6,7 @@ import CyCONSTANTS from "@/main/constants"
  * @returns True if the ID is valid, false otherwise.
  */
 export function isValidIntId(id: string): boolean {
-	return typeof id === "string" && id.length > 0 && Number.isInteger(Number(id)) && Number(id) >= 0
+    return typeof id === "string" && id.length > 0 && Number.isInteger(Number(id)) && Number(id) >= 0
 }
 
 /**
@@ -15,7 +15,7 @@ export function isValidIntId(id: string): boolean {
  * @returns True if the slug is valid, false otherwise.
  */
 export function isValidSlug(slug: string): boolean {
-	return typeof slug === "string" && slug.length > 0 && CyCONSTANTS.SLUG_REGEX.test(slug)
+    return typeof slug === "string" && slug.length > 0 && CyCONSTANTS.SLUG_REGEX.test(slug)
 }
 
 /**
@@ -30,85 +30,85 @@ export function isValidSlug(slug: string): boolean {
  * @returns The formatted string.
  */
 export function formatUnit(
-	num: number,
-	unit: string | null = "Op",
-	timeUnit: string | null = "s",
-	padding = 12,
-	addSpaceBeforeUnit = true,
+    num: number,
+    unit: string | null = "Op",
+    timeUnit: string | null = "s",
+    padding = 12,
+    addSpaceBeforeUnit = true,
 ): string {
-	let strUnit: string
+    let strUnit: string
 
-	if (typeof unit === "string" && typeof timeUnit === "string") {
-		strUnit = `${unit}/${timeUnit}`
-	} else if (typeof unit === "string") {
-		strUnit = unit
-	} else {
-		strUnit = ""
-	}
+    if (typeof unit === "string" && typeof timeUnit === "string") {
+        strUnit = `${unit}/${timeUnit}`
+    } else if (typeof unit === "string") {
+        strUnit = unit
+    } else {
+        strUnit = ""
+    }
 
-	// Add a space before the unit if needed
-	const spaceOrNot = addSpaceBeforeUnit ? " " : ""
+    // Add a space before the unit if needed
+    const spaceOrNot = addSpaceBeforeUnit ? " " : ""
 
-	// Y = yotta
-	if (num >= 10 ** 24) {
-		return `${(num / 10 ** 24).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}${spaceOrNot}Y${strUnit}`.padStart(padding, " ")
-	}
+    // Y = yotta
+    if (num >= 10 ** 24) {
+        return `${(num / 10 ** 24).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}${spaceOrNot}Y${strUnit}`.padStart(padding, " ")
+    }
 
-	// E = exa
-	if (num >= 10 ** 18) {
-		return `${(num / 10 ** 18).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}${spaceOrNot}E${strUnit}`.padStart(padding, " ")
-	}
+    // E = exa
+    if (num >= 10 ** 18) {
+        return `${(num / 10 ** 18).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}${spaceOrNot}E${strUnit}`.padStart(padding, " ")
+    }
 
-	// P = peta
-	if (num >= 10 ** 15) {
-		return `${(num / 10 ** 15).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}${spaceOrNot}P${strUnit}`.padStart(padding, " ")
-	}
+    // P = peta
+    if (num >= 10 ** 15) {
+        return `${(num / 10 ** 15).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}${spaceOrNot}P${strUnit}`.padStart(padding, " ")
+    }
 
-	// T = tera
-	if (num >= 10 ** 12) {
-		return `${(num / 10 ** 12).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}${spaceOrNot}T${strUnit}`.padStart(padding, " ")
-	}
+    // T = tera
+    if (num >= 10 ** 12) {
+        return `${(num / 10 ** 12).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}${spaceOrNot}T${strUnit}`.padStart(padding, " ")
+    }
 
-	// G = giga
-	if (num >= 10 ** 9) {
-		return `${(num / 10 ** 9).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}${spaceOrNot}G${strUnit}`.padStart(padding, " ")
-	}
+    // G = giga
+    if (num >= 10 ** 9) {
+        return `${(num / 10 ** 9).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}${spaceOrNot}G${strUnit}`.padStart(padding, " ")
+    }
 
-	// M = mega
-	if (num >= 10 ** 6) {
-		return `${(num / 10 ** 6).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}${spaceOrNot}M${strUnit}`.padStart(padding, " ")
-	}
+    // M = mega
+    if (num >= 10 ** 6) {
+        return `${(num / 10 ** 6).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}${spaceOrNot}M${strUnit}`.padStart(padding, " ")
+    }
 
-	// k = kilo
-	if (num >= 10 ** 3) {
-		return `${(num / 10 ** 3).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}${spaceOrNot}k${strUnit}`.padStart(padding, " ")
-	}
+    // k = kilo
+    if (num >= 10 ** 3) {
+        return `${(num / 10 ** 3).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}${spaceOrNot}k${strUnit}`.padStart(padding, " ")
+    }
 
-	return `${num.toLocaleString("en-US", {
-		minimumFractionDigits: 2,
-		maximumFractionDigits: 2,
-	})}${spaceOrNot}${strUnit}`.padStart(padding, " ")
+    return `${num.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    })}${spaceOrNot}${strUnit}`.padStart(padding, " ")
 }
 
 /**
@@ -118,51 +118,51 @@ export function formatUnit(
  * @returns The formatted string.
  */
 export function formatHRTime(hrtime: bigint | number, padding = 8): string {
-	// Hours
-	if (hrtime >= 3600000000000000n) {
-		return `${(Number(hrtime) / 3600000000000000).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}h`.padStart(padding, " ")
-	}
+    // Hours
+    if (hrtime >= 3600000000000000n) {
+        return `${(Number(hrtime) / 3600000000000000).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}h`.padStart(padding, " ")
+    }
 
-	// Minutes
-	if (hrtime >= 60000000000n) {
-		return `${(Number(hrtime) / 60000000000).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}m`.padStart(padding, " ")
-	}
+    // Minutes
+    if (hrtime >= 60000000000n) {
+        return `${(Number(hrtime) / 60000000000).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}m`.padStart(padding, " ")
+    }
 
-	// Seconds
-	if (hrtime >= 1000000000n) {
-		return `${(Number(hrtime) / 1000000000).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}s`.padStart(padding, " ")
-	}
+    // Seconds
+    if (hrtime >= 1000000000n) {
+        return `${(Number(hrtime) / 1000000000).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}s`.padStart(padding, " ")
+    }
 
-	// Milliseconds
-	if (hrtime >= 1000000n) {
-		return `${(Number(hrtime) / 1000000).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}ms`.padStart(padding, " ")
-	}
+    // Milliseconds
+    if (hrtime >= 1000000n) {
+        return `${(Number(hrtime) / 1000000).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}ms`.padStart(padding, " ")
+    }
 
-	// Microseconds
-	if (hrtime >= 1000n) {
-		return `${(Number(hrtime) / 1000).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}µs`.padStart(padding, " ")
-	}
+    // Microseconds
+    if (hrtime >= 1000n) {
+        return `${(Number(hrtime) / 1000).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}µs`.padStart(padding, " ")
+    }
 
-	// Nanoseconds
-	return `${hrtime.toLocaleString("en-US", {
-		minimumFractionDigits: 2,
-		maximumFractionDigits: 2,
-	})}ns`.padStart(padding, " ")
+    // Nanoseconds
+    return `${hrtime.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    })}ns`.padStart(padding, " ")
 }
 
 /**
@@ -172,35 +172,35 @@ export function formatHRTime(hrtime: bigint | number, padding = 8): string {
  * @returns The formatted string.
  */
 export function formatTime(time: number, padding = 10): string {
-	// Hours
-	if (time >= 3600000) {
-		return `${(time / 3600000).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}h`.padStart(padding, " ")
-	}
+    // Hours
+    if (time >= 3600000) {
+        return `${(time / 3600000).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}h`.padStart(padding, " ")
+    }
 
-	// Minutes
-	if (time >= 60000) {
-		return `${(time / 60000).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}m`.padStart(padding, " ")
-	}
+    // Minutes
+    if (time >= 60000) {
+        return `${(time / 60000).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}m`.padStart(padding, " ")
+    }
 
-	// Seconds
-	if (time >= 1000) {
-		return `${(time / 1000).toLocaleString("en-US", {
-			minimumFractionDigits: 2,
-			maximumFractionDigits: 2,
-		})}s`.padStart(padding, " ")
-	}
+    // Seconds
+    if (time >= 1000) {
+        return `${(time / 1000).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}s`.padStart(padding, " ")
+    }
 
-	// Milliseconds
-	return `${time.toLocaleString("en-US", {
-		minimumFractionDigits: 2,
-		maximumFractionDigits: 2,
-	})}ms`.padStart(padding, " ")
+    // Milliseconds
+    return `${time.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    })}ms`.padStart(padding, " ")
 }
 
 /**
@@ -210,10 +210,10 @@ export function formatTime(time: number, padding = 10): string {
  * @returns The formatted string.
  */
 export function formatPercentage(percentage: number, padding = 7): string {
-	return `${percentage.toLocaleString("en-US", {
-		minimumFractionDigits: 2,
-		maximumFractionDigits: 2,
-	})}%`.padStart(padding, " ")
+    return `${percentage.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    })}%`.padStart(padding, " ")
 }
 
 /**
@@ -223,8 +223,8 @@ export function formatPercentage(percentage: number, padding = 7): string {
  * @returns The truncated string.
  */
 export function truncateString(str: string, len: number) {
-	if (str.length <= len) return str
-	return `${str.slice(0, len)}...`
+    if (str.length <= len) return str
+    return `${str.slice(0, len)}...`
 }
 
 /**
@@ -233,15 +233,15 @@ export function truncateString(str: string, len: number) {
  * @returns An array of numbers extracted from the query.
  */
 export function parseQueryNumberArray(query: string | Array<string>): number[] {
-	const result: number[] = []
-	const items = Array.isArray(query) ? query : query.split(",").map(item => item.trim())
+    const result: number[] = []
+    const items = Array.isArray(query) ? query : query.split(",").map(item => item.trim())
 
-	for (const item of items) {
-		const num = Number.parseInt(item, 10)
-		if (!Number.isNaN(num)) result.push(num)
-	}
+    for (const item of items) {
+        const num = Number.parseInt(item, 10)
+        if (!Number.isNaN(num)) result.push(num)
+    }
 
-	return result
+    return result
 }
 
 /**
@@ -250,12 +250,12 @@ export function parseQueryNumberArray(query: string | Array<string>): number[] {
  * @returns An array of strings extracted from the query.
  */
 export function parseQueryStringArray(query: string | Array<string>): string[] {
-	const result: string[] = []
-	const items = Array.isArray(query) ? query : query.split(",").map(item => item.trim())
+    const result: string[] = []
+    const items = Array.isArray(query) ? query : query.split(",").map(item => item.trim())
 
-	for (const item of items) {
-		if (item.length > 0) result.push(item)
-	}
+    for (const item of items) {
+        if (item.length > 0) result.push(item)
+    }
 
-	return result
+    return result
 }

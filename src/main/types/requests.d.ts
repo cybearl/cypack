@@ -2,10 +2,10 @@
  * The type definition for an error object.
  */
 export type ErrorObj = {
-	status: number
-	name: string
-	message: string
-	data: unknown
+    status: number
+    name: string
+    message: string
+    data: unknown
 }
 
 /**
@@ -15,8 +15,8 @@ export type ErrorObj = {
  * directly.
  */
 export type SuccessfulRequest<T> = {
-	success: true
-	data: T
+    success: true
+    data: T
 }
 
 /**
@@ -26,9 +26,9 @@ export type SuccessfulRequest<T> = {
  * directly.
  */
 export type FailedRequest = {
-	success: false
-	message: string
-	error: ErrorObj
+    success: false
+    message: string
+    error: ErrorObj
 }
 
 /**

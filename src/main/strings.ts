@@ -4,17 +4,17 @@
  * @returns The error as a string.
  */
 export function convertErrorToString(error: unknown): string {
-	if (typeof error === "string") return error
+    if (typeof error === "string") return error
 
-	let stringifiedError = ""
-	try {
-		stringifiedError = JSON.stringify(error)
-	} catch (_) {
-		// Ignore
-	}
+    let stringifiedError = ""
+    try {
+        stringifiedError = JSON.stringify(error)
+    } catch (_) {
+        // Ignore
+    }
 
-	if (stringifiedError === "" || stringifiedError === "{}") stringifiedError = `${error}`
-	return stringifiedError
+    if (stringifiedError === "" || stringifiedError === "{}") stringifiedError = `${error}`
+    return stringifiedError
 }
 
 /**
@@ -23,15 +23,15 @@ export function convertErrorToString(error: unknown): string {
  * @returns The decoded object.
  */
 export function decodeObjectURIComponents(
-	obj: Partial<{ [key: string]: string | string[] }>,
+    obj: Partial<{ [key: string]: string | string[] }>,
 ): Partial<{ [key: string]: string | string[] }> {
-	for (const key in obj) {
-		try {
-			obj[key] = decodeURIComponent(String(obj[key]))
-		} catch (_) {
-			// Ignore decoding errors
-		}
-	}
+    for (const key in obj) {
+        try {
+            obj[key] = decodeURIComponent(String(obj[key]))
+        } catch (_) {
+            // Ignore decoding errors
+        }
+    }
 
-	return obj
+    return obj
 }

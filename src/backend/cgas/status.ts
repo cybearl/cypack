@@ -11,22 +11,22 @@ import type { CGASStatus, CGASStatusString } from "@/main/types/cgas"
  * @returns The formatted status of the application.
  */
 export function generateCGASStatus(
-	status: CGASStatusString,
-	marker: string,
-	version: string | undefined,
-	message?: string,
-	markerOnly?: boolean,
+    status: CGASStatusString,
+    marker: string,
+    version: string | undefined,
+    message?: string,
+    markerOnly?: boolean,
 ): CGASStatus | string {
-	if (markerOnly) return marker
+    if (markerOnly) return marker
 
-	return {
-		status,
-		marker,
-		timestamp: new Date().toISOString(),
-		version: {
-			raw: version ?? "unavailable",
-			formatted: version ? `v${version}` : "unavailable",
-		},
-		message: message ?? "The application is running smoothly.",
-	}
+    return {
+        status,
+        marker,
+        timestamp: new Date().toISOString(),
+        version: {
+            raw: version ?? "unavailable",
+            formatted: version ? `v${version}` : "unavailable",
+        },
+        message: message ?? "The application is running smoothly.",
+    }
 }

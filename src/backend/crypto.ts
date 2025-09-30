@@ -8,10 +8,10 @@ import { createCipheriv, createDecipheriv, randomBytes } from "node:crypto"
  * - `payload`: Full payload combining iv, ciphertext, and tag, formatted as "iv.ciphertext.tag".
  */
 export type CryptoAes256GcmEncryptResult = {
-	iv: string
-	ciphertext: string
-	tag: Buffer
-	payload: string
+    iv: string
+    ciphertext: string
+    tag: Buffer
+    payload: string
 }
 
 /**
@@ -22,20 +22,20 @@ export type CryptoAes256GcmEncryptResult = {
  * @throws If any error occurs during encryption.
  */
 function aes256GcmEncrypt(key: string, data: string): CryptoAes256GcmEncryptResult {
-	const keyBuffer = Buffer.from(key, "base64")
-	if (keyBuffer.length !== 32) {
-		throw new Error(`Invalid key length: expected 32 bytes, got ${keyBuffer.length}`)
-	}
+    const keyBuffer = Buffer.from(key, "base64")
+    if (keyBuffer.length !== 32) {
+        throw new Error(`Invalid key length: expected 32 bytes, got ${keyBuffer.length}`)
+    }
 
-	const iv = randomBytes(12).toString("base64")
-	const cipher = createCipheriv("aes-256-gcm", keyBuffer, Buffer.from(iv, "base64"))
+    const iv = randomBytes(12).toString("base64")
+    const cipher = createCipheriv("aes-256-gcm", keyBuffer, Buffer.from(iv, "base64"))
 
-	let ciphertext = cipher.update(data, "utf8", "base64")
-	ciphertext += cipher.final("base64")
-	const tag = cipher.getAuthTag()
+    let ciphertext = cipher.update(data, "utf8", "base64")
+    ciphertext += cipher.final("base64")
+    const tag = cipher.getAuthTag()
 
-	const payload = `${iv}.${ciphertext}.${tag.toString("base64")}`
-	return { iv, ciphertext, tag, payload }
+    const payload = `${iv}.${ciphertext}.${tag.toString("base64")}`
+    return { iv, ciphertext, tag, payload }
 }
 
 /**
@@ -47,18 +47,18 @@ function aes256GcmEncrypt(key: string, data: string): CryptoAes256GcmEncryptResu
  * @returns The decrypted plaintext data or null if decryption fails.
  */
 function aes256GcmDecrypt(key: string, iv: string, ciphertext: string, tag: string) {
-	try {
-		const decipher = createDecipheriv("aes-256-gcm", Buffer.from(key, "base64"), Buffer.from(iv, "base64"))
-		decipher.setAuthTag(Buffer.from(tag, "base64"))
+    try {
+        const decipher = createDecipheriv("aes-256-gcm", Buffer.from(key, "base64"), Buffer.from(iv, "base64"))
+        decipher.setAuthTag(Buffer.from(tag, "base64"))
 
-		let plaintext = decipher.update(ciphertext, "base64", "utf8")
-		plaintext += decipher.final("utf8")
+        let plaintext = decipher.update(ciphertext, "base64", "utf8")
+        plaintext += decipher.final("utf8")
 
-		return plaintext
-	} catch (_) {
-		// No information is provided about the error to avoid leaking sensitive data
-		return null
-	}
+        return plaintext
+    } catch (_) {
+        // No information is provided about the error to avoid leaking sensitive data
+        return null
+    }
 }
 
 /**
@@ -68,22 +68,22 @@ function aes256GcmDecrypt(key: string, iv: string, ciphertext: string, tag: stri
  * @returns The decrypted plaintext data or null if decryption fails.
  */
 function aes256GcmDecryptPayload(key: string, payload: string) {
-	const parts = payload.split(".")
-	if (parts.length !== 3) {
-		throw new Error("Invalid payload format")
-	}
+    const parts = payload.split(".")
+    if (parts.length !== 3) {
+        throw new Error("Invalid payload format")
+    }
 
-	const [iv, ciphertext, tag] = parts
-	return aes256GcmDecrypt(key, iv, ciphertext, tag)
+    const [iv, ciphertext, tag] = parts
+    return aes256GcmDecrypt(key, iv, ciphertext, tag)
 }
 
 /**
  * Contains utility functions for encryption and decryption.
  */
 export const crypto = {
-	aes256Gcm: {
-		encrypt: aes256GcmEncrypt,
-		decrypt: aes256GcmDecrypt,
-		decryptPayload: aes256GcmDecryptPayload,
-	},
+    aes256Gcm: {
+        encrypt: aes256GcmEncrypt,
+        decrypt: aes256GcmDecrypt,
+        decryptPayload: aes256GcmDecryptPayload,
+    },
 }

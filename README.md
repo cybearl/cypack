@@ -66,6 +66,7 @@ Contains utilities to get the Next.js server and other Next.js-related informati
   	  await wrapper.run()
   }
   ```
+- `nextAuthApiWrapper`: Similar to `NextApiWrapper`, but with built-in NextAuth support (specifically for page router).
 
 Frontend utilities
 ------------------
@@ -123,6 +124,8 @@ Contains utilities to parse and stringify JSON objects.
 #### Math utilities
 Contains utilities to perform mathematical operations.
 - `mapRange`: Maps a number from one range to another.
+- `safeAverage`: Safely creates an average value based on a total and count coming from a Lucid ORM / SQL query result.
+- `safePercentage`: Safely creates a percentage based on a numerator and denominator coming from a Lucid ORM / SQL query result.
 
 #### Middleware utilities
 Contains utilities to create middleware functions (for Next.js, etc.).
