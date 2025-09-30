@@ -27,15 +27,16 @@ export function mapRange(
  * a Lucid ORM / SQL query result.
  * @param total The total value.
  * @param count The count value.
+ * @param decimalPlaces The number of decimal places to round to (optional, defaults to 2).
  * @returns The calculated average, or 0 if the count is zero or invalid.
  */
-export function safeAverage(total?: string | number, count?: string | number): number {
+export function safeAverage(total?: string | number, count?: string | number, decimalPlaces = 2): number {
     if (!count) return 0
 
     const parsedTotal = typeof total === "string" ? parseFloat(total) : total
     const parsedCount = typeof count === "string" ? parseFloat(count) : count
 
-    return (parsedTotal || 0) / (parsedCount || 1)
+    return parseFloat(((parsedTotal || 0) / (parsedCount || 1)).toFixed(decimalPlaces))
 }
 
 /**
@@ -46,9 +47,10 @@ export function safeAverage(total?: string | number, count?: string | number): n
  * numerator is greater than zero, showing it as a growth from nothing to something.
  * @param numerator The numerator value.
  * @param denominator The denominator value.
+ * @param decimalPlaces The number of decimal places to round to (optional, defaults to 2).
  * @returns The calculated percentage, or 0 if the denominator is zero or invalid.
  */
-export function safePercentage(numerator?: string | number, denominator?: string | number): number {
+export function safePercentage(numerator?: string | number, denominator?: string | number, decimalPlaces = 2): number {
     if (!denominator) return 0
 
     const parsedNumerator = typeof numerator === "string" ? parseFloat(numerator) : numerator
@@ -58,6 +60,6 @@ export function safePercentage(numerator?: string | number, denominator?: string
     if (!parsedDenominator) return parsedNumerator && parsedNumerator > 0 ? -1 : 0
 
     return parseFloat(
-        ((((parsedNumerator || 0) - (parsedDenominator || 0)) / (parsedDenominator || 1)) * 100).toFixed(2),
+        ((((parsedNumerator || 0) - (parsedDenominator || 0)) / (parsedDenominator || 1)) * 100).toFixed(decimalPlaces),
     )
 }
