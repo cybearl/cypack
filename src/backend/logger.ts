@@ -14,6 +14,7 @@ type Parameters = {
     foreignObjectStartAtNewLine: boolean
     foreignObjectPadding: number | "after-timestamp" | "after-level"
     foreignObjectIndent: number
+    alignForeignObject?: boolean
 }
 
 /**
@@ -26,6 +27,7 @@ const defaultParameters: Parameters = {
     foreignObjectStartAtNewLine: false,
     foreignObjectPadding: 0,
     foreignObjectIndent: 4,
+    alignForeignObject: false,
 }
 
 /**
@@ -99,7 +101,9 @@ function formatMessage(log: LogDescriptor, colors: Colorette): string {
     if (parameters.showTimestamp) formattedDate = `[${dateFormat(new Date(log.time), masks.isoDateTime)}] `
 
     let formattedLevel = ""
-    if (parameters.showLevel) formattedLevel = `[${strLevel}] `.padEnd(8, " ")
+    if (parameters.showLevel) {
+        formattedLevel = parameters.alignForeignObject ? `[${strLevel}] `.padEnd(8, " ") : `[${strLevel}] `
+    }
 
     let formattedForeign = ""
     if (Object.keys(foreign).length > 0) {
@@ -157,6 +161,7 @@ const stream = pretty({
  * - `setForeignObjectStartAtNewLine`: Set the logger foreign object new line display (defaults to `false`).
  * - `setForeignObjectPadding`: Set the padding for foreign objects (defaults to `0`).
  * - `setForeignObjectIndent`: Set the indent for foreign objects (defaults to `4`).
+ * - `setAlignForeignObject`: Align any foreign object to the same column (defaults to `false`).
  * - `setParameters`: Set all the parameters at once.
  * - `resetParameters`: Reset all the parameters to their default values.
  */
@@ -209,6 +214,12 @@ const logger = pino({ level: parameters.level }, stream) as pino.Logger & {
     setForeignObjectIndent: (indent: Parameters["foreignObjectIndent"]) => void
 
     /**
+     * Set whether to align any foreign object to the same column.
+     * @param alignForeignObject Whether to align any foreign object to the same column.
+     */
+    setAlignForeignObject: (alignForeignObject: Parameters["alignForeignObject"]) => void
+
+    /**
      * Set all the parameters at once.
      * @param parameters The new parameters.
      */
@@ -245,6 +256,10 @@ logger.setForeignObjectPadding = (padding: Parameters["foreignObjectPadding"]) =
 
 logger.setForeignObjectIndent = (indent: Parameters["foreignObjectIndent"]) => {
     parameters.foreignObjectIndent = indent
+}
+
+logger.setAlignForeignObject = (alignForeignObject: Parameters["alignForeignObject"] = false) => {
+    parameters.alignForeignObject = alignForeignObject
 }
 
 logger.setParameters = (newParameters: Parameters) => {
