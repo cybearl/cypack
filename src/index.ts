@@ -16,6 +16,7 @@ import {
     isValidSlug,
     parseQueryNumberArray,
     parseQueryStringArray,
+    slugifyName,
     truncateString,
 } from "@/main/formats"
 import { formatJson, stringify } from "@/main/json"
@@ -48,6 +49,7 @@ export {
     truncateString,
     parseQueryNumberArray,
     parseQueryStringArray,
+    slugifyName,
     // JSON
     formatJson,
     stringify,

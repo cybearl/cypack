@@ -1,4 +1,10 @@
+import slugifyLib from "slugify"
 import CyCONSTANTS from "@/main/constants"
+
+/**
+ * The slugify function from the slugify library.
+ */
+const slugify = (slugifyLib as any).default || slugifyLib
 
 /**
  * Validate a direct ID parameter (as integer for SQL DBs etc..).
@@ -258,4 +264,35 @@ export function parseQueryStringArray(query: string | Array<string>): string[] {
     }
 
     return result
+}
+
+/**
+ * The options for the `slugify` function.
+ */
+const slugifyOptions = {
+    lower: true,
+    strict: true,
+}
+
+/**
+ * Slugify a given name with support for automatic number incrementing.
+ * @param name The name to slugify.
+ * @param previousSlug An optional previous slug to compare against,
+ * the previous slug should ends with `-<number>`, this slug will automatically
+ * increment the number if the slug already exists.
+ * @returns The slugified version of the name.
+ */
+export function slugifyName(name: string, previousSlug?: string): string {
+    if (previousSlug) {
+        // If the previous slug ends with a number, we increment it
+        const match = previousSlug.match(/-(\d+)$/)
+
+        if (match) {
+            const number = Number.parseInt(match[1], 10)
+            const baseSlug = previousSlug.slice(0, -match[0].length)
+            return slugify(`${baseSlug}-${number + 1}`, slugifyOptions)
+        }
+    }
+
+    return slugify(name, slugifyOptions)
 }
