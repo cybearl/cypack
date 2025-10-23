@@ -83,8 +83,9 @@ Contains utilities to manipulate URLs.
 Main utilities
 --------------
 #### Checks utilities
-- `isServer`: Check if the code is running on the server.
+- `arrayEqual`: Compares two arrays for equality.
 - `isClient`: Check if the code is running on the client.
+- `isServer`: Check if the code is running on the server.
 
 #### Configuration utilities
 - `CyCONSTANTS`: Multiple constants used throughout the application (user password length, etc.).

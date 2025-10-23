@@ -1,4 +1,4 @@
-import { isClient, isServer } from "@/main/checks"
+import { arrayEqual, isClient, isServer } from "@/main/checks"
 import CyCONSTANTS from "@/main/constants"
 import {
     BaseErrors,
@@ -29,6 +29,7 @@ import type { ErrorObj, FailedRequest, RequestResult, SuccessfulRequest } from "
 
 export {
     // Checks
+    arrayEqual,
     isClient,
     isServer,
     // Configurations
