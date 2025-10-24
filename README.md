@@ -87,8 +87,17 @@ Main utilities
 - `isClient`: Check if the code is running on the client.
 - `isServer`: Check if the code is running on the server.
 
-#### Configuration utilities
-- `CyCONSTANTS`: Multiple constants used throughout the application (user password length, etc.).
+#### Constants
+- `CyCONSTANTS`: Multiple constants used throughout the application:
+    - Security: `HASH_SALT_ROUNDS`.
+    - User-related fields such as `(MIN / MAX)_PASSWORD_LENGTH` etc..
+    - Image and video sizes specifically for image optimization.
+
+#### Countries
+- `Country`: An object containing all countries with their respective details (name, code, continent, etc.), based on the ISO 3166-1 standard (alpha-2).
+- `formatCountryName`: Formats a country name from camel case to a spaced name.
+- `COUNTRIES_SELECT_FIELD`: An array of countries formatted for use in select fields.
+- `getCountryNameFromCode`: Get the country name from its ISO 3166-1 alpha-2 code.
 
 #### Error utilities
 Contains a set of base error that follows the Cybearl error format, and other error-related utilities.

@@ -23,7 +23,7 @@ const CyCONSTANTS = {
     USERNAME_REGEX: /^[a-zA-Z0-9_.-]+$/,
     SLUG_REGEX: /^[a-zA-Z0-9-]+$/,
 
-    // Image & Video sizes
+    // Image & video sizes
     IMG_SIZES_HIGH_QUALITY: "(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw",
     IMG_SIZES_MEDIUM_QUALITY: "(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 40vw",
     IMG_SIZES_BASE_QUALITY: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
