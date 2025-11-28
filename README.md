@@ -125,7 +125,8 @@ Contains a set of utilities to format numbers, time, and other values.
 - `truncateString`: Truncate a string to a specified length.
 - `parseQueryNumberArray`: Parse a query containing either a number or numbers separated by commas and returns an array of numbers.
 - `parseQueryStringArray`: Parse a query containing either a string or strings separated by commas and returns an array of strings.
-- `slugify`: Slugify a given name with support for automatic number incrementing.
+- `slugifyName`: Slugify a given name with support for automatic number incrementing.
+- `formatBytes`: Formats a number of bytes into a human-readable string with appropriate units.
 
 #### JSON utilities
 Contains utilities to parse and stringify JSON objects.

@@ -296,3 +296,18 @@ export function slugifyName(name: string, previousSlug?: string): string {
 
     return slugify(name, slugifyOptions)
 }
+
+/**
+ * Formats a number of bytes into a human-readable string with appropriate units.
+ * @param bytes The number of bytes.
+ * @param decimalPlaces The number of decimal places to include (optional, defaults to 2).
+ * @returns The formatted string.
+ */
+export function formatBytes(bytes: number, decimalPlaces = 2): string {
+    if (bytes === 0) return "0 Bytes"
+
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+
+    const i = Math.floor(Math.log(bytes) / Math.log(1024))
+    return `${parseFloat((bytes / 1024 ** i).toFixed(decimalPlaces < 0 ? 0 : decimalPlaces))} ${sizes[i]}`
+}

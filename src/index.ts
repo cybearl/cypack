@@ -9,6 +9,7 @@ import {
     stringifyError,
 } from "@/main/errors"
 import {
+    formatBytes,
     formatHRTime,
     formatPercentage,
     formatTime,
@@ -57,6 +58,7 @@ export {
     parseQueryNumberArray,
     parseQueryStringArray,
     slugifyName,
+    formatBytes,
     // JSON
     formatJson,
     stringify,
