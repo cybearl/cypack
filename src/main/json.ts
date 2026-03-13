@@ -8,9 +8,9 @@ export function formatJson(str: string): string {
 }
 
 /**
- * Stringify a JSON object with support for BigInt and functions.
+ * Stringify a JSON object with support for `BigInt` and functions.
  * @param object The object to stringify.
- * @param indent The number of spaces to indent (optional, defaults to 4)
+ * @param indent The number of spaces to indent (optional, defaults to 4).
  * @returns The stringified JSON object.
  */
 export function stringify(object: unknown, indent = 4): string {
