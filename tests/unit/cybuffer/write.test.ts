@@ -78,6 +78,45 @@ describe("write", () => {
         })
     })
 
+    describe("writeString", () => {
+        test("It should write a UTF-8 string to the buffer", ({ expect }) => {
+            const buffer = new CyBuffer(13)
+            buffer.writeString("Hello, world!", "utf8")
+            expect(buffer.readUtf8String()).toBe("Hello, world!")
+        })
+
+        test("It should write a hex string to the buffer", ({ expect }) => {
+            const buffer = new CyBuffer(4)
+            buffer.writeString("FF11FF11", "hex")
+            expect(buffer.readUint8(0)).toBe(0xff)
+            expect(buffer.readUint8(1)).toBe(0x11)
+            expect(buffer.readUint8(2)).toBe(0xff)
+            expect(buffer.readUint8(3)).toBe(0x11)
+        })
+
+        test("It should write a multi-byte UTF-8 string to the buffer", ({ expect }) => {
+            const encoded = new TextEncoder().encode("café")
+            const buffer = new CyBuffer(encoded.byteLength)
+            buffer.writeString("café", "utf8")
+            expect(buffer.readUtf8String()).toBe("café")
+        })
+
+        test("It should write a UTF-8 string to the buffer at the specified offset", ({ expect }) => {
+            const buffer = new CyBuffer(6)
+            buffer.writeString("ABCD", "utf8", 2)
+            expect(buffer.readUint8(0)).toBe(0x00)
+            expect(buffer.readUint8(1)).toBe(0x00)
+            expect(buffer.readUint8(2)).toBe(0x41)
+            expect(buffer.readUint8(3)).toBe(0x42)
+        })
+
+        test("It should throw for an unknown encoding", ({ expect }) => {
+            const buffer = new CyBuffer(4)
+            // @ts-expect-error
+            expect(() => buffer.writeString("test", "unknown")).toThrow()
+        })
+    })
+
     describe("writeBit", () => {
         let buffer: CyBuffer
 
@@ -194,6 +233,78 @@ describe("write", () => {
         })
     })
 
+    describe("writeUint16LE", () => {
+        let buffer: CyBuffer
+
+        beforeEach(() => {
+            buffer = new CyBuffer(4)
+        })
+
+        const uint16 = 0xff11
+        const uint16ByteValues = [0x11, 0xff, 0x00, 0x00]
+
+        test("It should write a uint16 in little endian to the buffer", ({ expect }) => {
+            buffer.writeUint16LE(uint16)
+
+            for (let i = 0; i < buffer.length; i++) {
+                expect(buffer.readUint8(i)).toBe(uint16ByteValues[i])
+            }
+        })
+
+        test("It should write a uint16 in little endian to the buffer at the specified offset", ({ expect }) => {
+            buffer.writeUint16LE(0xf11f, 2)
+            expect(buffer.readUint8(0)).toBe(0x00)
+            expect(buffer.readUint8(1)).toBe(0x00)
+            expect(buffer.readUint8(2)).toBe(0x1f)
+            expect(buffer.readUint8(3)).toBe(0xf1)
+        })
+
+        test("It should throw if the value is not a valid uint16", ({ expect }) => {
+            expect(() => buffer.writeUint16LE(-1)).toThrow()
+            expect(() => buffer.writeUint16LE(0x10000)).toThrow()
+        })
+
+        test("It should throw if the byte offset is not aligned to 2 bytes", ({ expect }) => {
+            expect(() => buffer.writeUint16LE(0xff00, 1)).toThrow()
+        })
+    })
+
+    describe("writeUint16BE", () => {
+        let buffer: CyBuffer
+
+        beforeEach(() => {
+            buffer = new CyBuffer(4)
+        })
+
+        const uint16 = 0xff11
+        const uint16ByteValues = [0xff, 0x11, 0x00, 0x00]
+
+        test("It should write a uint16 in big endian to the buffer", ({ expect }) => {
+            buffer.writeUint16BE(uint16)
+
+            for (let i = 0; i < buffer.length; i++) {
+                expect(buffer.readUint8(i)).toBe(uint16ByteValues[i])
+            }
+        })
+
+        test("It should write a uint16 in big endian to the buffer at the specified offset", ({ expect }) => {
+            buffer.writeUint16BE(0xf11f, 2)
+            expect(buffer.readUint8(0)).toBe(0x00)
+            expect(buffer.readUint8(1)).toBe(0x00)
+            expect(buffer.readUint8(2)).toBe(0xf1)
+            expect(buffer.readUint8(3)).toBe(0x1f)
+        })
+
+        test("It should throw if the value is not a valid uint16", ({ expect }) => {
+            expect(() => buffer.writeUint16BE(-1)).toThrow()
+            expect(() => buffer.writeUint16BE(0x10000)).toThrow()
+        })
+
+        test("It should throw if the byte offset is not aligned to 2 bytes", ({ expect }) => {
+            expect(() => buffer.writeUint16BE(0xff00, 1)).toThrow()
+        })
+    })
+
     describe("writeUint32", () => {
         let buffer: CyBuffer
 
@@ -252,6 +363,78 @@ describe("write", () => {
 
         test("It should throw if the byte offset is not aligned to 4 bytes", ({ expect }) => {
             expect(() => buffer.writeUint32(0xff00ff00, 2)).toThrow()
+        })
+    })
+
+    describe("writeUint32LE", () => {
+        let buffer: CyBuffer
+
+        beforeEach(() => {
+            buffer = new CyBuffer(8)
+        })
+
+        const uint32 = 0xff11ff11
+        const uint32ByteValues = [0x11, 0xff, 0x11, 0xff, 0x00, 0x00, 0x00, 0x00]
+
+        test("It should write a uint32 in little endian to the buffer", ({ expect }) => {
+            buffer.writeUint32LE(uint32)
+
+            for (let i = 0; i < buffer.length; i++) {
+                expect(buffer.readUint8(i)).toBe(uint32ByteValues[i])
+            }
+        })
+
+        test("It should write a uint32 in little endian to the buffer at the specified offset", ({ expect }) => {
+            buffer.writeUint32LE(0xff1fff1f, 4)
+            expect(buffer.readUint8(4)).toBe(0x1f)
+            expect(buffer.readUint8(5)).toBe(0xff)
+            expect(buffer.readUint8(6)).toBe(0x1f)
+            expect(buffer.readUint8(7)).toBe(0xff)
+        })
+
+        test("It should throw if the value is not a valid uint32", ({ expect }) => {
+            expect(() => buffer.writeUint32LE(-1)).toThrow()
+            expect(() => buffer.writeUint32LE(0x100000000)).toThrow()
+        })
+
+        test("It should throw if the byte offset is not aligned to 4 bytes", ({ expect }) => {
+            expect(() => buffer.writeUint32LE(0xff00ff00, 2)).toThrow()
+        })
+    })
+
+    describe("writeUint32BE", () => {
+        let buffer: CyBuffer
+
+        beforeEach(() => {
+            buffer = new CyBuffer(8)
+        })
+
+        const uint32 = 0xff11ff11
+        const uint32ByteValues = [0xff, 0x11, 0xff, 0x11, 0x00, 0x00, 0x00, 0x00]
+
+        test("It should write a uint32 in big endian to the buffer", ({ expect }) => {
+            buffer.writeUint32BE(uint32)
+
+            for (let i = 0; i < buffer.length; i++) {
+                expect(buffer.readUint8(i)).toBe(uint32ByteValues[i])
+            }
+        })
+
+        test("It should write a uint32 in big endian to the buffer at the specified offset", ({ expect }) => {
+            buffer.writeUint32BE(0xff1fff1f, 4)
+            expect(buffer.readUint8(4)).toBe(0xff)
+            expect(buffer.readUint8(5)).toBe(0x1f)
+            expect(buffer.readUint8(6)).toBe(0xff)
+            expect(buffer.readUint8(7)).toBe(0x1f)
+        })
+
+        test("It should throw if the value is not a valid uint32", ({ expect }) => {
+            expect(() => buffer.writeUint32BE(-1)).toThrow()
+            expect(() => buffer.writeUint32BE(0x100000000)).toThrow()
+        })
+
+        test("It should throw if the byte offset is not aligned to 4 bytes", ({ expect }) => {
+            expect(() => buffer.writeUint32BE(0xff00ff00, 2)).toThrow()
         })
     })
 
@@ -467,6 +650,68 @@ describe("write", () => {
 
         test("It should throw if the value is not a valid BigInt", ({ expect }) => {
             expect(() => buffer.writeBigInt(BigInt(-1))).toThrow()
+        })
+    })
+
+    describe("writeBigIntLE", () => {
+        let buffer: CyBuffer
+
+        beforeEach(() => {
+            buffer = new CyBuffer(8)
+        })
+
+        const bigInt = BigInt(0xff11ff11ff11)
+        const bigIntByteValues = [0x11, 0xff, 0x11, 0xff, 0x11, 0xff, 0x00, 0x00]
+
+        test("It should write a BigInt in little endian to the buffer", ({ expect }) => {
+            buffer.writeBigIntLE(bigInt)
+
+            for (let i = 0; i < buffer.length; i++) {
+                expect(buffer.readUint8(i)).toBe(bigIntByteValues[i])
+            }
+        })
+
+        test("It should write a BigInt in little endian to the buffer at the specified offset", ({ expect }) => {
+            buffer.writeBigIntLE(BigInt(0x1f2f3f4f), 4)
+            expect(buffer.readUint8(4)).toBe(0x4f)
+            expect(buffer.readUint8(5)).toBe(0x3f)
+            expect(buffer.readUint8(6)).toBe(0x2f)
+            expect(buffer.readUint8(7)).toBe(0x1f)
+        })
+
+        test("It should throw if the value is a negative BigInt", ({ expect }) => {
+            expect(() => buffer.writeBigIntLE(BigInt(-1))).toThrow()
+        })
+    })
+
+    describe("writeBigIntBE", () => {
+        let buffer: CyBuffer
+
+        beforeEach(() => {
+            buffer = new CyBuffer(8)
+        })
+
+        const bigInt = BigInt(0xff11ff11ff11)
+        const bigIntByteValues = [0xff, 0x11, 0xff, 0x11, 0xff, 0x11, 0x00, 0x00]
+
+        test("It should write a BigInt in big endian to the buffer", ({ expect }) => {
+            buffer.writeBigIntBE(bigInt)
+
+            for (let i = 0; i < buffer.length; i++) {
+                expect(buffer.readUint8(i)).toBe(bigIntByteValues[i])
+            }
+        })
+
+        test("It should write a BigInt in big endian to the buffer at the specified offset", ({ expect }) => {
+            buffer.writeBigIntBE(BigInt(0x1f2f3f4f), 4)
+            expect(buffer.readUint8(4)).toBe(0x1f)
+            expect(buffer.readUint8(5)).toBe(0x2f)
+            expect(buffer.readUint8(6)).toBe(0x3f)
+            expect(buffer.readUint8(7)).toBe(0x4f)
+        })
+
+        test("It should throw if the value is a negative BigInt", ({ expect }) => {
+            expect(() => buffer.writeBigIntBE(BigInt(-1))).toThrow()
         })
     })
 

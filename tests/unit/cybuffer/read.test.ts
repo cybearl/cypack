@@ -22,6 +22,44 @@ describe("read", () => {
         })
     })
 
+    describe("readHexStringLE", () => {
+        let buffer: CyBuffer
+
+        const hexString = "FF21FF11"
+
+        beforeEach(() => {
+            buffer = CyBuffer.fromHexString(hexString)
+        })
+
+        test("It should read a hex string in little endian from the buffer", ({ expect }) => {
+            expect(buffer.readHexStringLE()).toBe(hexString)
+        })
+
+        test("It should read a hex string in little endian from the buffer at the specified offset", ({ expect }) => {
+            expect(buffer.readHexStringLE(1, 3)).toBe("21FF11")
+            expect(buffer.readHexStringLE(2, 2)).toBe("FF11")
+        })
+    })
+
+    describe("readHexStringBE", () => {
+        let buffer: CyBuffer
+
+        const hexString = "FF21FF11"
+
+        beforeEach(() => {
+            buffer = CyBuffer.fromHexString(hexString)
+        })
+
+        test("It should read a hex string in big endian from the buffer (reversed byte pairs)", ({ expect }) => {
+            expect(buffer.readHexStringBE()).toBe("11FF21FF")
+        })
+
+        test("It should read a hex string in big endian from the buffer at the specified offset", ({ expect }) => {
+            expect(buffer.readHexStringBE(1, 3)).toBe("11FF21")
+            expect(buffer.readHexStringBE(2, 2)).toBe("11FF")
+        })
+    })
+
     describe("readUtf8String", () => {
         let buffer: CyBuffer
 

@@ -18,7 +18,7 @@ type Parameters = {
 }
 
 /**
- * The default parameters for the logger instance.
+ * The default parameters for the serverLogger instance.
  */
 const defaultParameters: Parameters = {
     level: process.env.LOG_LEVEL || "trace",
@@ -31,7 +31,7 @@ const defaultParameters: Parameters = {
 }
 
 /**
- * Temporary parameters for the current logger instance.
+ * Temporary parameters for the current serverLogger instance.
  */
 const parameters: Parameters = { ...defaultParameters }
 
@@ -131,7 +131,7 @@ function formatMessage(log: LogDescriptor, colors: Colorette): string {
 }
 
 /**
- * The pretty logger stream, note that no keys are included by defaults, everything goes through
+ * The pretty serverLogger stream, note that no keys are included by defaults, everything goes through
  * the message format function via the `log` object.
  */
 const stream = pretty({
@@ -143,7 +143,7 @@ const stream = pretty({
 })
 
 /**
- * A custom logger instance compatible with both front and back-end, allowing to log messages
+ * A custom serverLogger instance compatible with both front and back-end, allowing to log messages
  * with different levels and colors.
  *
  * The available levels are:
@@ -155,19 +155,19 @@ const stream = pretty({
  * - `trace`
  *
  * The available parameters are:
- * - `setLevel`: Set the logger level (defaults to `"trace"`).
- * - `setShowLevel`: Set the logger level display (defaults to `true`).
- * - `setShowTimestamp`: Set the logger timestamp display (defaults to `true`).
- * - `setForeignObjectStartAtNewLine`: Set the logger foreign object new line display (defaults to `false`).
+ * - `setLevel`: Set the serverLogger level (defaults to `"trace"`).
+ * - `setShowLevel`: Set the serverLogger level display (defaults to `true`).
+ * - `setShowTimestamp`: Set the serverLogger timestamp display (defaults to `true`).
+ * - `setForeignObjectStartAtNewLine`: Set the serverLogger foreign object new line display (defaults to `false`).
  * - `setForeignObjectPadding`: Set the padding for foreign objects (defaults to `0`).
  * - `setForeignObjectIndent`: Set the indent for foreign objects (defaults to `4`).
  * - `setAlignForeignObject`: Align any foreign object to the same column (defaults to `false`).
  * - `setParameters`: Set all the parameters at once.
  * - `resetParameters`: Reset all the parameters to their default values.
  */
-const logger = pino({ level: parameters.level }, stream) as pino.Logger & {
+const serverLogger = pino({ level: parameters.level }, stream) as pino.Logger & {
     /**
-     * Set the logger level, available levels are:
+     * Set the serverLogger level, available levels are:
      * - `fatal`
      * - `error`
      * - `warn`
@@ -175,26 +175,26 @@ const logger = pino({ level: parameters.level }, stream) as pino.Logger & {
      * - `debug`
      * - `trace`
      *
-     * The logging level is a **minimum** level. For instance if `logger.level` is `"info"` then all
+     * The logging level is a **minimum** level. For instance if `serverLogger.level` is `"info"` then all
      * `"fatal"`, `"error"`, `"warn"` and `"info"` logs will be enabled.
-     * @param level The new logger level.
+     * @param level The new serverLogger level.
      */
     setLevel: (level: Parameters["level"]) => void
 
     /**
-     * Set the logger level display.
+     * Set the serverLogger level display.
      * @param showLevel Whether to show the level or not.
      */
     setShowLevel: (showLevel: Parameters["showLevel"]) => void
 
     /**
-     * Set the logger timestamp display.
+     * Set the serverLogger timestamp display.
      * @param showTimestamp Whether to show the timestamp or not.
      */
     setShowTimestamp: (showTimestamp: Parameters["showTimestamp"]) => void
 
     /**
-     * Set the logger foreign object new line display (wether to start the foreign object on a new line or not).
+     * Set the serverLogger foreign object new line display (wether to start the foreign object on a new line or not).
      * @param foreignObjectStartAtNewLine Whether to start the foreign object on a new line or not.
      */
     setForeignObjectStartAtNewLine: (foreignObjectStartAtNewLine: Parameters["foreignObjectStartAtNewLine"]) => void
@@ -233,41 +233,41 @@ const logger = pino({ level: parameters.level }, stream) as pino.Logger & {
 
 // Inject the getters and setters
 
-logger.setLevel = (level: Parameters["level"]) => {
+serverLogger.setLevel = (level: Parameters["level"]) => {
     parameters.level = level
-    logger.level = level
+    serverLogger.level = level
 }
 
-logger.setShowLevel = (showLevel: Parameters["showLevel"]) => {
+serverLogger.setShowLevel = (showLevel: Parameters["showLevel"]) => {
     parameters.showLevel = showLevel
 }
 
-logger.setShowTimestamp = (showTimestamp: Parameters["showTimestamp"]) => {
+serverLogger.setShowTimestamp = (showTimestamp: Parameters["showTimestamp"]) => {
     parameters.showTimestamp = showTimestamp
 }
 
-logger.setForeignObjectStartAtNewLine = (foreignObjectStartAtNewLine: Parameters["foreignObjectStartAtNewLine"]) => {
+serverLogger.setForeignObjectStartAtNewLine = (foreignObjectStartAtNewLine: Parameters["foreignObjectStartAtNewLine"]) => {
     parameters.foreignObjectStartAtNewLine = foreignObjectStartAtNewLine
 }
 
-logger.setForeignObjectPadding = (padding: Parameters["foreignObjectPadding"]) => {
+serverLogger.setForeignObjectPadding = (padding: Parameters["foreignObjectPadding"]) => {
     parameters.foreignObjectPadding = padding
 }
 
-logger.setForeignObjectIndent = (indent: Parameters["foreignObjectIndent"]) => {
+serverLogger.setForeignObjectIndent = (indent: Parameters["foreignObjectIndent"]) => {
     parameters.foreignObjectIndent = indent
 }
 
-logger.setAlignForeignObject = (alignForeignObject: Parameters["alignForeignObject"] = false) => {
+serverLogger.setAlignForeignObject = (alignForeignObject: Parameters["alignForeignObject"] = false) => {
     parameters.alignForeignObject = alignForeignObject
 }
 
-logger.setParameters = (newParameters: Parameters) => {
+serverLogger.setParameters = (newParameters: Parameters) => {
     Object.assign(parameters, newParameters)
 }
 
-logger.resetParameters = () => {
+serverLogger.resetParameters = () => {
     Object.assign(parameters, defaultParameters)
 }
 
-export default logger
+export default serverLogger

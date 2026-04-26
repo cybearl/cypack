@@ -298,6 +298,95 @@ export function slugifyName(name: string, previousSlug?: string): string {
 }
 
 /**
+ * Formats a date as a human-readable relative time string.
+ * Falls back to a locale date string for dates older than 24 hours.
+ * @param date The date to format.
+ * @returns A string like "just now", "5m ago", "3h ago", or a locale date string.
+ */
+export function formatRelativeTime(date: Date): string {
+    const diffSec = Math.floor((Date.now() - date.getTime()) / 1000)
+    if (diffSec < 60) return "just now"
+
+    const diffMin = Math.floor(diffSec / 60)
+    if (diffMin < 60) return `${diffMin}m ago`
+
+    const diffHour = Math.floor(diffMin / 60)
+    if (diffHour < 24) return `${diffHour}h ago`
+
+    return date.toLocaleDateString()
+}
+
+/**
+ * Formats a date into a locale-aware datetime string using the runtime's default locale.
+ * @param date The date to format.
+ * @returns The formatted date string (e.g., "04/25/2026, 03:45:00 PM").
+ */
+export function formatDate(date: Date): string {
+    return date.toLocaleString(undefined, {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+    })
+}
+
+/**
+ * Formats a bigint as scientific notation using only integer arithmetic,
+ * supporting arbitrarily large values (e.g., up to 2^256).
+ *
+ * Returns a tuple `[coefficient, exponent]` so callers can render the
+ * exponent as a superscript (e.g., `["4.61", 18]` for ~4.61 × 10^18).
+ * @param value The bigint to format.
+ * @param precision Number of decimal digits in the coefficient (default 2).
+ */
+export function bigintToScientific(value: bigint, precision = 2): [coefficient: string, exponent: number] {
+    if (value === 0n) return ["0", 0]
+
+    const digits = value.toString()
+    const exponent = digits.length - 1
+
+    if (exponent === 0) return [digits, 0]
+
+    const raw = `${digits[0]}.${digits.slice(1, precision + 1).padEnd(precision, "0")}`
+    const coefficient = raw.replace(/\.?0+$/, "")
+
+    return [coefficient, exponent]
+}
+
+/**
+ * Converts a bigint to an en-US formatted string with metric prefixes (e.g., 1500 -> "1.5k").
+ * Supports values up to exa (E).
+ * @param value The bigint to format.
+ * @returns The formatted string with metric prefix.
+ */
+export function bigintToMetricFormatted(value: bigint): string {
+    const isNegative = value < 0n
+    const absValue = value < 0n ? -value : value
+
+    const units = ["", "k", "M", "G", "T", "P", "E"]
+    const valueString = absValue.toString()
+    let unitIndex = Math.floor((valueString.length - 1) / 3)
+
+    if (unitIndex >= units.length) unitIndex = units.length - 1
+    if (unitIndex <= 0) return value.toString()
+
+    const divisor = 1000n ** BigInt(unitIndex)
+    const scaled = (absValue * 10n) / divisor
+    const scaledStr = scaled.toString()
+    const paddedScaledStr = scaledStr.padStart(2, "0")
+    const integerPart = paddedScaledStr.slice(0, -1) || "0"
+    const decimalPart = paddedScaledStr.slice(-1)
+
+    const sign = isNegative ? "-" : ""
+    const unit = units[unitIndex]
+
+    return decimalPart === "0" ? `${sign}${integerPart}${unit}` : `${sign}${integerPart}.${decimalPart}${unit}`
+}
+
+/**
  * Formats a number of bytes into a human-readable string with appropriate units.
  * @param bytes The number of bytes.
  * @param decimalPlaces The number of decimal places to include (optional, defaults to 2).

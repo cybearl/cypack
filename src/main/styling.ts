@@ -1,4 +1,38 @@
 /**
+ * Returns the inverse of a hex color string (e.g., "#aabbcc" -> "#554433").
+ * @param hexColor The hex color string to invert.
+ * @returns The inverted hex color string, or the original if the format is invalid.
+ */
+export function invertHexColor(hexColor: string): string {
+    const strippedHex = hexColor.replace(/^#/, "")
+    if (strippedHex.length !== 6) return hexColor
+
+    const r = (255 - parseInt(strippedHex.slice(0, 2), 16)).toString(16).padStart(2, "0")
+    const g = (255 - parseInt(strippedHex.slice(2, 4), 16)).toString(16).padStart(2, "0")
+    const b = (255 - parseInt(strippedHex.slice(4, 6), 16)).toString(16).padStart(2, "0")
+
+    return `#${r}${g}${b}`
+}
+
+/**
+ * Applies an opacity factor to a hex color, returning a 4-channel hex string.
+ * @param hexColor The hex color string to modify.
+ * @param opacity The opacity factor (0–1) to apply.
+ * @returns The 8-character hex color string with applied opacity, or the original if the format is invalid.
+ */
+export function applyHexColorOpacity(hexColor: string, opacity: number): string {
+    const clampedOpacity = Math.min(Math.max(opacity, 0), 1)
+    const strippedHex = hexColor.replace(/^#/, "")
+    if (strippedHex.length !== 6) return hexColor
+
+    const alpha = Math.round(clampedOpacity * 255)
+        .toString(16)
+        .padStart(2, "0")
+
+    return `#${strippedHex}${alpha}`
+}
+
+/**
  * Shades a color by a percentage.
  * @param color The color to shade.
  * @param percent The percentage to shade by.

@@ -26,6 +26,15 @@ export type Endianness = "LE" | "BE"
 export type StringEncoding = "utf8" | "hex"
 
 /**
+ * Instantiated once before being passed to the class.
+ */
+const PLATFORM_ENDIANNESS: Endianness = (() => {
+    const tmp = new Uint8Array(4)
+    new Uint32Array(tmp.buffer)[0] = 0xff00
+    return tmp[0] === 0xff ? "BE" : "LE"
+})()
+
+/**
  * `CyBuffer` is a helper class that indirectly extends the Uint8Array class with additional methods
  * similar to the Buffer class in Node.js, while also providing multiple utility methods
  * linked to advanced cryptography and binary data manipulation.
@@ -78,7 +87,7 @@ export default class CyBuffer {
         if (!Number.isInteger(length))
             throw new TypeError(formatCyBufferError("constructor", `Invalid buffer length: '${length}'.`))
 
-        this.platformEndianness = this.getPlatformEndianness()
+        this.platformEndianness = PLATFORM_ENDIANNESS
 
         if (options) {
             this.arrayBuffer = options.arrayBuffer
@@ -118,13 +127,7 @@ export default class CyBuffer {
      * Get the platform endianness.
      * @returns The platform endianness.
      */
-    getPlatformEndianness = (): Endianness => {
-        const tmpUint8Array = new Uint8Array(4)
-        const tmpUint16View = new Uint32Array(tmpUint8Array.buffer)
-
-        tmpUint16View[0] = 0xff00
-        return tmpUint8Array[0] === 0xff ? "BE" : "LE"
-    }
+    getPlatformEndianness = (): Endianness => PLATFORM_ENDIANNESS
 
     /**
      * Normalizes the endianness parameter.
@@ -233,8 +236,9 @@ export default class CyBuffer {
      * @returns A new `CyBuffer` instance.
      */
     static fromUtf8String = (value: string): CyBuffer => {
-        const buffer = new CyBuffer(value.length)
-        buffer.writeUtf8String(value, 0, value.length)
+        const encoded = new TextEncoder().encode(value)
+        const buffer = new CyBuffer(encoded.byteLength)
+        buffer.array.set(encoded)
         return buffer
     }
 
@@ -245,9 +249,21 @@ export default class CyBuffer {
      * @returns A new `CyBuffer` instance.
      */
     static fromString = (value: string, encoding: StringEncoding = "utf8"): CyBuffer => {
-        const buffer = new CyBuffer(value.length)
-        buffer.writeString(value, encoding, 0, value.length)
-        return buffer
+        if (encoding === "utf8") {
+            const encoded = new TextEncoder().encode(value)
+            const buffer = new CyBuffer(encoded.byteLength)
+            buffer.array.set(encoded)
+            return buffer
+        }
+
+        if (encoding === "hex") {
+            const byteLength = Math.ceil(value.length / 2)
+            const buffer = new CyBuffer(byteLength)
+            buffer.writeHexString(value, 0, byteLength)
+            return buffer
+        }
+
+        throw new TypeError(formatCyBufferError("fromString", `Invalid encoding: '${encoding}'.`))
     }
 
     /**
@@ -336,30 +352,35 @@ export default class CyBuffer {
     private get _proxy(): CyBuffer {
         return new Proxy(this, {
             get: (target, prop) => {
-                if (typeof prop === "string" && !Number.isNaN(Number(prop))) {
-                    this.check(Number(prop), 1)
-
-                    return target.array[Number(prop)] ?? undefined
+                if (typeof prop === "string") {
+                    const index = Number(prop)
+                    if (!Number.isNaN(index)) {
+                        this.check(index, 1)
+                        return target.array[index]
+                    }
                 }
 
                 return target[prop as keyof this]
             },
             set: (target, prop, value) => {
-                if (typeof prop === "string" && !Number.isNaN(Number(prop))) {
-                    const parsedValue = Number(value)
+                if (typeof prop === "string") {
+                    const index = Number(prop)
+                    if (!Number.isNaN(index)) {
+                        const parsedValue = Number(value)
 
-                    if (Number.isNaN(parsedValue)) {
-                        throw new TypeError(formatCyBufferError("proxy", `Invalid value: '${value}'.`))
+                        if (Number.isNaN(parsedValue)) {
+                            throw new TypeError(formatCyBufferError("proxy", `Invalid value: '${value}'.`))
+                        }
+
+                        if (parsedValue < 0 || parsedValue > 255) {
+                            throw new RangeError(formatCyBufferError("proxy", `Value is out of bounds: '${value}'.`))
+                        }
+
+                        this.check(index, 1)
+
+                        target.array[index] = value
+                        return true
                     }
-
-                    if (parsedValue < 0 || parsedValue > 255) {
-                        throw new RangeError(formatCyBufferError("proxy", `Value is out of bounds: '${value}'.`))
-                    }
-
-                    this.check(Number(prop), 1)
-
-                    target.array[Number(prop)] = value
-                    return true
                 }
 
                 target[prop as keyof this] = value
@@ -452,14 +473,14 @@ export default class CyBuffer {
      * @param length The length to write (optional, defaults to the value length).
      * @returns The current buffer instance.
      */
-    writeUtf8String = (value: string, offset = 0, length = value.length): this => {
+    writeUtf8String = (value: string, offset = 0, length = new TextEncoder().encode(value).byteLength): this => {
         if (length === 0) {
             throw new RangeError(formatCyBufferError("writeUtf8String", `Invalid UTF-8 string length: '${length}'.`))
         }
 
+        const encoded = new TextEncoder().encode(value)
         this.check(offset, length)
-
-        for (let i = 0; i < length; i++) this.array[offset + i] = value.charCodeAt(i)
+        this.array.set(encoded.subarray(0, length), offset)
         return this
     }
 
@@ -475,14 +496,17 @@ export default class CyBuffer {
      * @param length The length to write (optional, defaults to the value length).
      * @returns The current buffer instance.
      */
-    writeString = (value: string, encoding: StringEncoding = "utf8", offset = 0, length = value.length): this => {
+    writeString = (value: string, encoding: StringEncoding = "utf8", offset = 0, length?: number): this => {
         if (encoding === "utf8") {
-            this.writeUtf8String(value, offset, length)
+            const encoded = new TextEncoder().encode(value)
+            const byteLength = length ?? encoded.byteLength
+            this.check(offset, byteLength)
+            this.array.set(encoded.subarray(0, byteLength), offset)
             return this
         }
 
         if (encoding === "hex") {
-            this.writeHexString(value, offset, Math.ceil(length / 2))
+            this.writeHexString(value, offset, Math.ceil((length ?? value.length) / 2))
             return this
         }
 
@@ -725,8 +749,7 @@ export default class CyBuffer {
         }
 
         this.check(offset, length)
-
-        for (let i = arrayOffset; i < length; i++) this.array[offset - arrayOffset + i] = array[i]
+        this.array.set(array.subarray(arrayOffset, length), offset)
 
         return this
     }
@@ -826,7 +849,7 @@ export default class CyBuffer {
      * @param length The length to write (optional, defaults to the array length).
      * @returns The current buffer instance.
      */
-    writeBigIntLE = (value: bigint, offset = 0, length = Math.ceil(Number(value).toString(16).length / 2)): this => {
+    writeBigIntLE = (value: bigint, offset = 0, length = Math.ceil(value.toString(16).length / 2)): this => {
         if (value < 0n)
             throw new RangeError(formatCyBufferError("writeBigIntLE", `Invalid big integer value: '${value}'.`))
 
@@ -849,7 +872,7 @@ export default class CyBuffer {
      * @param length The length to write (optional, defaults to the array length).
      * @returns The current buffer instance.
      */
-    writeBigIntBE = (value: bigint, offset = 0, length = Math.ceil(Number(value).toString(16).length / 2)): this => {
+    writeBigIntBE = (value: bigint, offset = 0, length = Math.ceil(value.toString(16).length / 2)): this => {
         if (value < 0n)
             throw new RangeError(formatCyBufferError("writeBigIntBE", `Invalid big integer value: '${value}'.`))
 
@@ -876,7 +899,7 @@ export default class CyBuffer {
     writeBigInt = (
         value: bigint,
         offset = 0,
-        length = Math.ceil(Number(value).toString(16).length / 2),
+        length = Math.ceil(value.toString(16).length / 2),
         endianness = this.platformEndianness,
     ): this => {
         if (this.normalizeEndianness(endianness) === "LE") {
@@ -995,7 +1018,7 @@ export default class CyBuffer {
         if (check) this.check(offset, 1)
 
         const orderedBitOffset = msbFirst ? 7 - (bitOffset % 8) : bitOffset % 8
-        return (this.array[offset] & (1 << orderedBitOffset)) !== 0 ? 1 : 0
+        return (this.array[offset] & (1 << orderedBitOffset)) === 0 ? 0 : 1
     }
 
     /**
@@ -1124,9 +1147,14 @@ export default class CyBuffer {
      * @returns The bit array.
      */
     readBits = (offset = 0, length = this.length * 8 - offset * 8, msbFirst = true, check = true): Bit[] => {
-        const bits: Bit[] = []
+        if (length === 0) return []
 
-        for (let i = 0; i < length; i++) bits.push(this.readBit(offset + i, msbFirst, check))
+        const byteOffset = Math.floor(offset / 8)
+        const byteLength = Math.ceil((offset + length) / 8) - byteOffset
+        if (check) this.check(byteOffset, byteLength)
+
+        const bits: Bit[] = []
+        for (let i = 0; i < length; i++) bits.push(this.readBit(offset + i, msbFirst, false))
 
         return bits
     }
@@ -1229,7 +1257,7 @@ export default class CyBuffer {
      * @returns The hexadecimal string.
      */
     toHexString = (prefix = false, endianness = this.platformEndianness): string => {
-        let hexString = Buffer.from(this.arrayBuffer).toString("hex").toUpperCase()
+        let hexString = Buffer.from(this.arrayBuffer, this.offset, this.length).toString("hex").toUpperCase()
 
         if (this.normalizeEndianness(endianness) === "BE") {
             hexString = hexString.match(/.{2}/g)?.reverse().join("") ?? ""
@@ -1243,7 +1271,7 @@ export default class CyBuffer {
      * Converts the buffer into an UTF-8 string.
      * @returns The UTF-8 string.
      */
-    toUtf8String = (): string => Buffer.from(this.arrayBuffer).toString("utf8")
+    toUtf8String = (): string => Buffer.from(this.arrayBuffer, this.offset, this.length).toString("utf8")
 
     /**
      * Converts the buffer into a string representation (hex string is always uppercase).
@@ -1392,7 +1420,7 @@ export default class CyBuffer {
     copy = (offset = 0, length = this.length): CyBuffer => {
         this.check(offset, length)
         const buffer = new CyBuffer(length)
-        for (let i = 0; i < length; i++) buffer[i] = this.array[i + offset]
+        buffer.array.set(this.array.subarray(offset, offset + length))
         return buffer
     }
 
@@ -1429,14 +1457,11 @@ export default class CyBuffer {
 
         this.check(offset, length)
 
-        const calculatedLength = offset + length
-        for (let i = 0; i < calculatedLength; i += wordLength) {
-            const offsetIndex = i + offset
-
+        for (let i = offset; i < offset + length; i += wordLength) {
             for (let j = 0; j < wordLength / 2; j++) {
-                const temp = this.array[offsetIndex + j]
-                this.array[offsetIndex + j] = this.array[offsetIndex + wordLength - j - 1]
-                this.array[offsetIndex + wordLength - j - 1] = temp
+                const temp = this.array[i + j]
+                this.array[i + j] = this.array[i + wordLength - j - 1]
+                this.array[i + wordLength - j - 1] = temp
             }
         }
 
@@ -1511,8 +1536,8 @@ export default class CyBuffer {
     shiftLeft = (offset = 0, length = this.length, shift = 1): this => {
         this.check(offset, length)
 
-        for (let i = 0; i < this.length - 1; i++) this.array[i] = this.array[i + shift]
-        for (let i = 0; i < shift; i++) this.array[this.length - i - 1] = 0
+        for (let i = offset; i < offset + length - shift; i++) this.array[i] = this.array[i + shift]
+        for (let i = 0; i < shift; i++) this.array[offset + length - i - 1] = 0
 
         return this
     }
@@ -1527,8 +1552,8 @@ export default class CyBuffer {
     shiftRight = (offset = 0, length = this.length, shift = 1): this => {
         this.check(offset, length)
 
-        for (let i = this.length - 1; i > 0; i--) this.array[i] = this.array[i - shift]
-        for (let i = 0; i < shift; i++) this.array[i] = 0
+        for (let i = offset + length - 1; i >= offset + shift; i--) this.array[i] = this.array[i - shift]
+        for (let i = 0; i < shift; i++) this.array[offset + i] = 0
 
         return this
     }
