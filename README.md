@@ -5,167 +5,217 @@
   <p align="center">A set of general utilities for Cybearl projects.</p>
 </p>
 
-This package includes multiple centralized utilities for the Cybearl application and API service. It is designed to be a single package that can be used in both the client and server side of the application. It is also designed to be well-optimized and well-documented for easy use.
+This package provides a centralized set of utilities for Cybearl projects. It is designed to work in both client and server environments and is split into three entry points to keep each environment's footprint minimal.
 
 Integration into your project
 -----------------------------
 #### 0. Install the package
-```typescript
-// With npm
-$ npm install @cybearl/cypack
+```bash
+# With npm
+npm install @cybearl/cypack
 
-// With yarn
-$ yarn add @cybearl/cypack
+# With yarn
+yarn add @cybearl/cypack
 ```
-And that's it! You can now use our utilities in your project.
 
 Categories and utilities
 ------------------------
-Note that the package is divided into three modules:
-- `backend` (`@cybearl/cypack/backend`): Contains utilities that are meant to be used in the backend.
-- `frontend` (`@cybearl/cypack/frontend`): Contains utilities that are meant to be used in the frontend.
-- `main` (`@cybearl/cypack`): Contains utilities that can be used in both the client and server side of the application.
+The package is divided into three modules:
+- `@cybearl/cypack`: Universal utilities usable in both browser and Node.js.
+- `@cybearl/cypack/backend`: Node.js-only utilities (server, API routes, etc.).
+- `@cybearl/cypack/frontend`: Browser-side utilities (React, Next.js client components, etc.).
 
 Backend utilities
 -----------------
 #### Benchmark utilities
 - `Bench`: A class that provides a simple way to benchmark functions.
 
-#### Crypto:
-Note that these are stored inside a `crypto` object that is exported from the package.
+#### Crypto
+Note that these are stored inside a `crypto` object exported from the package.
 - `aes256Gcm` (AES-256-GCM symmetric encryption):
   - `encrypt`: Encrypts data using AES-256-GCM symmetric encryption.
   - `decrypt`: Decrypts data using AES-256-GCM symmetric encryption.
-  - `decryptPayload`: Decrypts a payload that contains the initialization vector, ciphertext, and authentication tag.
+  - `decryptPayload`: Decrypts a payload containing the initialization vector, ciphertext, and authentication tag.
 
-#### CyBuffer class
-- `CyBuffer`: A class that extends the Uint8Array class with additional methods to read and write data.
+#### CyBuffer
+- `CyBuffer`: Extends `Uint8Array` with additional methods to read and write typed data.
 
 #### Cybearl General API System
-- `generateCGASStatus`: Generates a Cybearl General API System (CGAS) status object.
+- `generateCGASStatus`: Generates a CGAS status object.
 
-#### Host-related utilities
-Contains utilities to get the hostname and other host-related information.
-- `getHostname`: Get the name of the host on which the application is running.
+#### Headers utilities
+Contains utilities to convert between Node.js and Web API header formats.
+- `convertNodeHeadersToWebHeaders`: Converts Node.js `IncomingHttpHeaders` to the Web API `Headers` format.
 
-#### Logger utilities
-Contains a simple multi-level logger that logs to the console based on `Winston`.
-- `logger`: A simple multi-level logger that logs to the console based on `Winston`.
+#### Host utilities
+- `getHostname`: Returns the name of the host on which the application is running.
+
+#### Logger
+A configurable, pino-based structured logger for Node.js server environments.
+- `serverLogger`: The default logger instance. Supports levels `fatal`, `error`, `warn`, `info`, `debug`, `trace` and exposes chainable setters:
+  - `setLevel`: Set the minimum log level.
+  - `setShowLevel`: Toggle level display.
+  - `setShowTimestamp`: Toggle timestamp display.
+  - `setForeignObjectStartAtNewLine`: Start any attached foreign object on a new line.
+  - `setForeignObjectPadding`: Set padding for foreign object alignment (also accepts `"after-timestamp"` and `"after-level"`).
+  - `setForeignObjectIndent`: Set indentation for foreign objects.
+  - `setAlignForeignObject`: Align all foreign objects to the same column.
+  - `setParameters` / `resetParameters`: Set or reset all parameters at once.
 
 #### Next.js utilities
-Contains utilities to get the Next.js server and other Next.js-related information.
-- `NextApiWrapper`: A class that wraps the Next.js API route handler (specifically for page router):
+- `NextApiWrapper`: Wraps a Next.js page-router API handler with structured method dispatch:
   ```typescript
   function read({ req, wrapper }: NextApiMethodInput) {
-  	  if (!req.query.blabla) return wrapper.errorResponse(AppErrors.UNAUTHORIZED)
-  	  return wrapper.successResponse(200, status)
+      if (!req.query.id) return wrapper.errorResponse(AppErrors.UNAUTHORIZED)
+      return wrapper.successResponse(200, data)
   }
 
   export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  	  const wrapper = new NextApiWrapper(req, res, { read })
-  	  await wrapper.run()
+      const wrapper = new NextApiWrapper(req, res, { read })
+      await wrapper.run()
   }
   ```
-- `nextAuthApiWrapper`: Similar to `NextApiWrapper`, but with built-in NextAuth support (specifically for page router).
+- `NextAuthApiWrapper`: Same as `NextApiWrapper` but with built-in NextAuth support.
 
 Frontend utilities
 ------------------
 #### Cybearl General API System
-- `getCGASStatus`: Returns the current status of the application, or the application marker only if specified,
-  in the Cybearl General API System (CGAS) format.
-- `fallbackCGASStatus`: The fallback CGAS status, used when the CGAS API is not available.
+- `getCGASStatus`: Returns the current CGAS status of the application.
+- `fallbackCGASStatus`: The fallback CGAS status used when the CGAS API is unavailable.
 
-#### URLs utilities
-Contains utilities to manipulate URLs.
-- `addParamsToUrl`: Allows to add query parameters to a URL.
-- `currentUrlOrigin`: Get the current URL origin or null if it's not available.
+#### Styling utilities
+Contains utilities for Tailwind CSS class merging and CSS value conversion.
+- `cn`: Merges Tailwind CSS class names without style conflicts (wraps `clsx` + `tailwind-merge`).
+- `convertCssDelayToMs`: Converts a CSS delay string (e.g., `"1s"`, `"500ms"`) or a plain number to milliseconds.
+
+#### URL utilities
+- `addParamsToUrl`: Adds query parameters to a URL, skipping null/undefined values.
+- `currentUrlOrigin`: The current URL origin, or `null` if unavailable (e.g., during SSR).
 
 Main utilities
 --------------
-#### Checks utilities
-- `arrayEqual`: Compares two arrays for equality.
-- `isClient`: Check if the code is running on the client.
-- `isServer`: Check if the code is running on the server.
+#### Check utilities
+- `isClient`: Returns `true` when running in a browser environment.
+- `isServer`: Returns `true` when running in a Node.js environment.
+- `arrayEqual`: Compares two arrays for shallow equality.
 
 #### Constants
-- `CyCONSTANTS`: Multiple constants used throughout the application:
-    - Security: `HASH_SALT_ROUNDS`.
-    - User-related fields such as `(MIN / MAX)_PASSWORD_LENGTH` etc..
-    - Image and video sizes specifically for image optimization.
+- `CyCONSTANTS`: Shared constants used across Cybearl projects:
+  - Security: `HASH_SALT_ROUNDS`.
+  - User fields: `(MIN|MAX)_USERNAME_LENGTH`, `(MIN|MAX)_PASSWORD_LENGTH`, `MAX_NAME_LENGTH`, etc.
+  - Validation: `USERNAME_REGEX`, `SLUG_REGEX`.
+  - Image sizes: `IMG_SIZES_(HIGH|MEDIUM|BASE|LOW)_QUALITY`.
 
 #### Countries
-- `Country`: An object containing all countries with their respective details (name, code, continent, etc.), based on the ISO 3166-1 standard (alpha-2).
-- `formatCountryName`: Formats a country name from camel case to a spaced name.
-- `COUNTRIES_SELECT_FIELD`: An array of countries formatted for use in select fields.
-- `getCountryNameFromCode`: Get the country name from its ISO 3166-1 alpha-2 code.
+- `Country`: All countries with their details (name, code, continent, etc.), based on ISO 3166-1 alpha-2.
+- `formatCountryName`: Formats a country name from camelCase to a spaced string.
+- `COUNTRIES_SELECT_FIELD`: Countries pre-formatted for use in select fields.
+- `getCountryNameFromCode`: Returns the country name for a given ISO 3166-1 alpha-2 code.
+
+#### Environment utilities
+Contains utilities to validate environment variables at startup, with protection against private variables leaking into the client bundle.
+- `checkEnvironmentVariables`: Checks that all required variables are present for the current environment (server or client) and throws if any are missing or if private variables are exposed to the client. Logs errors instead of throwing in production.
+  ```typescript
+  checkEnvironmentVariables(
+      {
+          public:  ["NODE_ENV", "NEXT_PUBLIC_APP_URL"],
+          private: ["DATABASE_URL", "SECRET_KEY"],
+      },
+      {
+          NODE_ENV:             process.env.NODE_ENV,
+          NEXT_PUBLIC_APP_URL:  process.env.NEXT_PUBLIC_APP_URL,
+          DATABASE_URL:         process.env.DATABASE_URL,
+          SECRET_KEY:           process.env.SECRET_KEY,
+      },
+  )
+  ```
+  Note: the second argument must inline `process.env.X` calls directly, dynamic key access (`process.env[name]`) is eliminated by most bundlers at build time.
 
 #### Error utilities
-Contains a set of base error that follows the Cybearl error format, and other error-related utilities.
 - `formatErrorResponse`: Formats an error response object.
 - `stringifyError`: Stringifies an error object.
-- `parseCRUDError`: Parse the error of a CRUD call and return a standardized error.
-- `formatMessageAsStringifiedError`: Formats a message and an error object into a JSON string that follows the `FailedRequest` standard.
-- `BaseError`: The base error class that all Cybearl errors inherit from, don't forget to do:
+- `parseCRUDError`: Parses the error from a CRUD call and returns a standardized error.
+- `formatMessageAsStringifiedError`: Formats a message and error into a JSON string following the `FailedRequest` standard.
+- `BaseErrors`: A set of standard HTTP error definitions. Extend it for your app:
   ```typescript
   export const AppErrors = {
       ...BaseErrors,
-      // Add your custom errors here
+      // Add custom errors here
   } as const satisfies Record<string, ErrorObj>
   ```
-  To be sure that you respect the error format.
 
 #### Formatting utilities
-Contains a set of utilities to format numbers, time, and other values.
-- `isValidIntId`: Validate a direct ID parameter (as integer for SQL DBs etc..).
-- `isValidSlug`: Validates a slug.
-- `formatUnit`: Format a number with an attached unit + an optional time unit.
-- `formatHRTime`: Format a high-resolution time, into a responsive string with the en-US locale format.
-- `formatTime`: Format a time in milliseconds into a responsive string with the en-US locale format.
-- `formatPercentage`: Formats a number as a percentage.
-- `truncateString`: Truncate a string to a specified length.
-- `parseQueryNumberArray`: Parse a query containing either a number or numbers separated by commas and returns an array of numbers.
-- `parseQueryStringArray`: Parse a query containing either a string or strings separated by commas and returns an array of strings.
-- `slugifyName`: Slugify a given name with support for automatic number incrementing.
-- `formatBytes`: Formats a number of bytes into a human-readable string with appropriate units.
+- `isValidIntId`: Validates an integer ID parameter (for SQL databases, etc.).
+- `isValidSlug`: Validates a slug string.
+- `formatUnit`: Formats a number with a unit and optional time unit, using SI prefixes (k, M, G … Y).
+- `formatHRTime`: Formats a high-resolution time (nanoseconds as `bigint`) into a human-readable string.
+- `formatTime`: Formats a duration in milliseconds into a human-readable string.
+- `formatPercentage`: Formats a number as a percentage string.
+- `formatBytes`: Formats a byte count into a human-readable string (KB, MB, GB, etc.).
+- `formatRelativeTime`: Formats a `Date` as a relative time string (e.g., `"just now"`, `"5m ago"`, `"3h ago"`).
+- `formatDate`: Formats a `Date` as a locale-aware datetime string (e.g., `"04/25/2026, 03:45:00 PM"`).
+- `bigintToScientific`: Formats a `bigint` as a `[coefficient, exponent]` scientific notation tuple using only integer arithmetic, supports arbitrarily large values.
+- `bigintToMetricFormatted`: Formats a `bigint` as a metric-prefixed string (e.g., `1500n` → `"1.5k"`). Supports up to exa (E).
+- `truncateString`: Truncates a string to a specified length, appending `"..."`.
+- `parseQueryNumberArray`: Parses a comma-separated query string into an array of numbers.
+- `parseQueryStringArray`: Parses a comma-separated query string into an array of strings.
+- `slugifyName`: Slugifies a name, with support for automatic number incrementing on collision.
 
 #### JSON utilities
-Contains utilities to parse and stringify JSON objects.
-- `formatJson`: Format a JSON object with indentation.
-- `stringify`: Stringify a JSON object with support for BigInt and functions.
+- `formatJson`: Re-formats a JSON string with 4-space indentation.
+- `stringify`: Stringifies a value with support for `BigInt` and functions.
+
+#### Logger
+A zero-dependency isomorphic logger that works in both browser and Node.js. ANSI indicators are automatically suppressed in browser environments.
+- `logger`: The default logger instance.
+- `createLogger(prefix?, prefixLength?)`: Creates a new logger instance with an optional default prefix and column width for prefix alignment.
+  - `.success` / `.info` / `.warn` / `.error` / `.debug`: Log at the respective level.
+  - `.withPrefix(prefix)`: Returns a new logger with the given prefix fixed as its default.
+- `generateLoggerPrefix(uuid, prefix?)`: Derives a short prefix from a UUID (e.g., `"worker-a1b"`), useful for per-job logger scoping.
+- `LOG_INDICATORS`: The ANSI indicator strings used by the logger (`success`, `warning`, `error`, `info`, `debug`).
 
 #### Math utilities
-Contains utilities to perform mathematical operations.
 - `mapRange`: Maps a number from one range to another.
-- `safeAverage`: Safely creates an average value based on a total and count coming from a Lucid ORM / SQL query result.
-- `safePercentage`: Safely creates a percentage based on a numerator and denominator coming from a Lucid ORM / SQL query result.
+- `safeAverage`: Safely computes an average from a total and count (guards against division by zero).
+- `safePercentage`: Safely computes a percentage from a numerator and denominator.
 
 #### Middleware utilities
-Contains utilities to create middleware functions (for Next.js, etc.).
-- `fullyPermissiveCspHeader`: A Content Security Policy (CSP) header that allows everything, used for development.
+- `fullyPermissiveCspHeader`: A Content Security Policy header that allows everything, intended for development use.
 
 #### String utilities
-Contains utilities to manipulate strings.
-- `convertErrorToString`: Safely converts any error into a string for parsing/searching.
-- `decodeObjectURIComponents`: Decodes all components of an object as URI components (e.g., for decoding Next.js `req.query`).
+- `convertErrorToString`: Safely converts any error value to a string.
+- `decodeObjectURIComponents`: Decodes all string values of an object as URI components (e.g., for Next.js `req.query`).
 
 #### Styling utilities
-Contains utilities to manipulate CSS styles.
-- `shadeColor`: Shades a color by a percentage.
+- `shadeColor`: Shades a hex color by a given percentage.
+- `invertHexColor`: Returns the inverse of a hex color (e.g., `"#aabbcc"` → `"#554433"`).
+- `applyHexColorOpacity`: Applies an opacity factor (0–1) to a hex color, returning an 8-character hex string.
 
 Related types
 -------------
-- `Bit`: A single bit value used by CyBuffer.
-- `BenchmarkResult`: The type of the benchmark function result.
-- `BenchmarkResults`: An object containing multiple benchmark results, ordered by functions.
-- `CGASStatusString`: The type for the CGAS status string (`enabled`, `disabled`, `in-maintenance`, `in-development`).
-- `CGASStatus`: The Cybearl General API System (CGAS) status response.
-- `Endianness`: The endianness (`LE` or `BE`).
-- `ErrorObj`: The type definition for an error object.
-- `StringEncoding`: The available string encoding instruction for the `CyBuffer` string methods.
-- `SuccessfulRequest`: The type for a successful request, containing the data of type T.
-- `FailedRequest`: The type for a failed request, containing the error message and the error object.
-- `RequestResult`: Returns a failed request in case the `success` field is set to `false`,
-  otherwise returns a successful request with a data object of type T.
+**Backend**
+- `Bit`: A single bit value used by `CyBuffer`.
+- `BenchmarkResult`: The result of a single benchmark run.
+- `BenchmarkResults`: A map of benchmark results keyed by function name.
+- `CryptoAes256GcmEncryptResult`: The result of an AES-256-GCM encryption call.
+- `Endianness`: `"LE"` or `"BE"`.
+- `NextApiMethodInput`: Input type for `NextApiWrapper` method handlers.
+- `NextAuthApiMethodInput`: Input type for `NextAuthApiWrapper` method handlers.
+- `StringEncoding`: Available string encoding options for `CyBuffer` string methods.
+
+**Frontend**
+- `CSSDelay`: A CSS delay value, either a number (milliseconds) or a string (`"1s"`, `"500ms"`).
+
+**Main**
+- `CGASStatus`: The CGAS status response object.
+- `CGASStatusString`: The CGAS status string (`"enabled"`, `"disabled"`, `"in-maintenance"`, `"in-development"`).
+- `ErrorObj`: The shape of a Cybearl error object.
+- `FailedRequest`: A failed request response containing an error object.
+- `LoggerInstance`: The type of a logger returned by `createLogger` or `withPrefix`.
+- `LoggerOptions`: Options accepted by each log method (`prefix`, `data`).
+- `RequiredEnvVars`: The `{ public, private }` config shape for `checkEnvironmentVariables`.
+- `RequestResult<T>`: A discriminated union of `SuccessfulRequest<T>` and `FailedRequest`.
+- `SuccessfulRequest<T>`: A successful request response containing typed data.
 
 Dev notes
 ---------
