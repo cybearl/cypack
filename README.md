@@ -166,13 +166,13 @@ Contains utilities to validate environment variables at startup, with protection
 - `stringify`: Stringifies a value with support for `BigInt` and functions.
 
 #### Logger
-A zero-dependency isomorphic logger that works in both browser and Node.js. ANSI indicators are automatically suppressed in browser environments.
-- `logger`: The default logger instance.
-- `createLogger(prefix?, prefixLength?)`: Creates a new logger instance with an optional default prefix and column width for prefix alignment.
+A zero-dependency isomorphic Next.js-compatible logger that works in both browser and Node.js. ANSI indicators are automatically suppressed in browser environments.
+- `nextLogger`: The default logger instance.
+- `createNextLogger(prefix?, prefixLength?)`: Creates a new logger instance with an optional default prefix and column width for prefix alignment.
   - `.success` / `.info` / `.warn` / `.error` / `.debug`: Log at the respective level.
   - `.withPrefix(prefix)`: Returns a new logger with the given prefix fixed as its default.
-- `generateLoggerPrefix(uuid, prefix?)`: Derives a short prefix from a UUID (e.g., `"worker-a1b"`), useful for per-job logger scoping.
-- `LOG_INDICATORS`: The ANSI indicator strings used by the logger (`success`, `warning`, `error`, `info`, `debug`).
+- `generateNextLoggerPrefix(uuid, prefix?)`: Derives a short prefix from a UUID (e.g., `"worker-a1b"`), useful for per-job logger scoping.
+- `NEXT_LOG_INDICATORS`: The ANSI indicator strings used by the logger (`success`, `warning`, `error`, `info`, `debug`).
 
 #### Math utilities
 - `mapRange`: Maps a number from one range to another.
@@ -211,8 +211,8 @@ Related types
 - `CGASStatusString`: The CGAS status string (`"enabled"`, `"disabled"`, `"in-maintenance"`, `"in-development"`).
 - `ErrorObj`: The shape of a Cybearl error object.
 - `FailedRequest`: A failed request response containing an error object.
-- `LoggerInstance`: The type of a logger returned by `createLogger` or `withPrefix`.
-- `LoggerOptions`: Options accepted by each log method (`prefix`, `data`).
+- `NextLoggerInstance`: The type of a logger returned by `createNextLogger` or `withPrefix`.
+- `NextLoggerOptions`: Options accepted by each log method (`prefix`, `data`).
 - `RequiredEnvVars`: The `{ public, private }` config shape for `checkEnvironmentVariables`.
 - `RequestResult<T>`: A discriminated union of `SuccessfulRequest<T>` and `FailedRequest`.
 - `SuccessfulRequest<T>`: A successful request response containing typed data.

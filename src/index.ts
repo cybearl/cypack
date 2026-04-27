@@ -28,12 +28,12 @@ import {
 } from "@/main/formats"
 import { formatJson, stringify } from "@/main/json"
 import {
-    LOG_INDICATORS,
-    type LoggerInstance,
-    type LoggerOptions,
-    createLogger,
-    generateLoggerPrefix,
-    logger,
+    NEXT_LOG_INDICATORS,
+    type NextLoggerInstance,
+    type NextLoggerOptions,
+    createNextLogger,
+    generateNextLoggerPrefix,
+    nextLogger,
 } from "@/main/logger"
 import { mapRange, safeAverage, safePercentage } from "@/main/maths"
 import { fullyPermissiveCspHeader } from "@/main/middleware"
@@ -82,10 +82,10 @@ export {
     formatJson,
     stringify,
     // Logger
-    LOG_INDICATORS,
-    createLogger,
-    generateLoggerPrefix,
-    logger,
+    NEXT_LOG_INDICATORS,
+    createNextLogger,
+    generateNextLoggerPrefix,
+    nextLogger,
     // Maths
     mapRange,
     safeAverage,
@@ -114,6 +114,6 @@ export type {
     FailedRequest,
     RequestResult,
     // Logger
-    LoggerInstance,
-    LoggerOptions,
+    NextLoggerInstance,
+    NextLoggerOptions,
 }

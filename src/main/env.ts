@@ -1,4 +1,4 @@
-import { logger } from "@/main/logger"
+import { nextLogger } from "@/main/logger"
 
 /**
  * The shape of the required environment variables config, split by visibility scope.
@@ -38,10 +38,10 @@ export function checkEnvironmentVariables(
     if (missingVars.length > 0) {
         const message = `Missing required environment variables: ${missingVars.join(", ")}`
 
-        if (process.env.NODE_ENV === "production") logger.error(message)
+        if (process.env.NODE_ENV === "production") nextLogger.error(message)
         else throw new Error(message)
     } else {
-        logger.success(`All required environment variables are set for the '${environment}' environment.`)
+        nextLogger.success(`All required environment variables are set for the '${environment}' environment.`)
     }
 
     if (environment === "client") {
@@ -50,7 +50,7 @@ export function checkEnvironmentVariables(
         if (leakedVars.length > 0) {
             const message = `Private environment variables exposed to the client: ${leakedVars.join(", ")}`
 
-            if (process.env.NODE_ENV === "production") logger.error(message)
+            if (process.env.NODE_ENV === "production") nextLogger.error(message)
             else throw new Error(message)
         }
     }
