@@ -81,7 +81,7 @@ export const nextLogger = createNextLogger()
 /**
  * Generates a short logger prefix from a UUID, optionally scoped by a label.
  * @param uuid The UUID to derive the prefix from.
- * @param prefix An optional label to prepend (e.g., "worker" → "worker-a1b").
+ * @param prefix An optional label to prepend (e.g., "worker" -> "worker-a1b").
  * @returns A short prefix string like "a1b" or "worker-a1b".
  */
 export function generateNextLoggerPrefix(uuid: string, prefix?: string): string {

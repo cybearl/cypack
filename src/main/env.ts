@@ -4,9 +4,14 @@ import { nextLogger } from "@/main/nextLogger"
  * The shape of the required environment variables config, split by visibility scope.
  */
 export type RequiredEnvVars = {
-    /** Variable names that must be present in both server and client environments. */
+    /**
+     * Variable names that must be present in both server and client environments.
+     */
     public: string[]
-    /** Variable names that must be present on the server but must NOT be exposed to the client. */
+
+    /**
+     * Variable names that must be present on the server but must NOT be exposed to the client.
+     */
     private: string[]
 }
 
@@ -18,9 +23,8 @@ export type RequiredEnvVars = {
  * actual runtime values as `runtimeValues`. The `runtimeValues` object must inline
  * `process.env.X` calls directly, dynamic key access (`process.env[name]`) is
  * dead-code eliminated by most bundlers and will not work.
- *
  * @param requiredVars The required variable names split into `public` and `private`.
- * @param runtimeValues A flat map of variable name → `process.env.X` value.
+ * @param runtimeValues A flat map of the variable names.
  */
 export function checkEnvironmentVariables(
     requiredVars: RequiredEnvVars,

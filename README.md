@@ -155,7 +155,7 @@ Contains utilities to validate environment variables at startup, with protection
 - `formatRelativeTime`: Formats a `Date` as a relative time string (e.g., `"just now"`, `"5m ago"`, `"3h ago"`).
 - `formatDate`: Formats a `Date` as a locale-aware datetime string (e.g., `"04/25/2026, 03:45:00 PM"`).
 - `bigintToScientific`: Formats a `bigint` as a `[coefficient, exponent]` scientific notation tuple using only integer arithmetic, supports arbitrarily large values.
-- `bigintToMetricFormatted`: Formats a `bigint` as a metric-prefixed string (e.g., `1500n` → `"1.5k"`). Supports up to exa (E).
+- `bigintToMetricFormatted`: Formats a `bigint` as a metric-prefixed string (e.g., `1500n` -> `"1.5k"`). Supports up to exa (E).
 - `truncateString`: Truncates a string to a specified length, appending `"..."`.
 - `parseQueryNumberArray`: Parses a comma-separated query string into an array of numbers.
 - `parseQueryStringArray`: Parses a comma-separated query string into an array of strings.
@@ -188,7 +188,7 @@ A zero-dependency isomorphic Next.js-compatible logger that works in both browse
 
 #### Styling utilities
 - `shadeColor`: Shades a hex color by a given percentage.
-- `invertHexColor`: Returns the inverse of a hex color (e.g., `"#aabbcc"` → `"#554433"`).
+- `invertHexColor`: Returns the inverse of a hex color (e.g., `"#aabbcc"` -> `"#554433"`).
 - `applyHexColorOpacity`: Applies an opacity factor (0–1) to a hex color, returning an 8-character hex string.
 
 Related types
