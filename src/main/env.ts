@@ -1,4 +1,4 @@
-import { nextLogger } from "@/main/logger"
+import { nextLogger } from "@/main/nextLogger"
 
 /**
  * The shape of the required environment variables config, split by visibility scope.
