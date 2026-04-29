@@ -32,21 +32,24 @@
     "files": [
         "*"
     ],
-    "main": "index.js",
-    "module": "index.js",
-    "types": "index.d.ts",
+    "main": "./index.js",
+    "module": "./index.js",
+    "types": "./index.d.ts",
     "exports": {
         "./backend": {
             "types": "./backend.d.ts",
-            "node": "./backend.js"
+            "node": "./backend.js",
+            "default": "./backend.js"
         },
         "./frontend": {
             "types": "./frontend.d.ts",
-            "import": "./frontend.js"
+            "import": "./frontend.js",
+            "default": "./frontend.js"
         },
         ".": {
             "types": "./index.d.ts",
-            "import": "./index.js"
+            "import": "./index.js",
+            "default": "./index.js"
         }
     },
     "scripts": {
