@@ -217,6 +217,21 @@ Related types
 - `RequestResult<T>`: A discriminated union of `SuccessfulRequest<T>` and `FailedRequest`.
 - `SuccessfulRequest<T>`: A successful request response containing typed data.
 
+Contributing
+------------
+#### Git hooks
+Running `npm install` automatically registers a `pre-push` hook (via `.githooks/`) that blocks
+direct pushes to `main`, open a PR from a feature branch instead.
+
+To install or re-install the hook manually:
+```bash
+npm run hooks:install
+```
+For an emergency override on a single push, set `ALLOW_PUSH_MAIN=1`:
+```bash
+ALLOW_PUSH_MAIN=1 git push origin main
+```
+
 Dev notes
 ---------
 *N/A*
