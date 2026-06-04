@@ -61,7 +61,9 @@
         "test:unit": "vitest",
         "test": "npm run test:unit",
         "build": "tsup",
-        "release": "npx semantic-release"
+        "release": "npx semantic-release",
+        "hooks:install": "node -e \"require('fs').existsSync('.git') && require('child_process').execSync('git config core.hooksPath .githooks')\"",
+        "postinstall": "npm run hooks:install"
     },
     "dependencies": {
         "clsx": "^2.1.1",
