@@ -30,8 +30,13 @@ export type NextLoggerInstance = {
     error: (message: string, options?: NextLoggerOptions) => void
     info: (message: string, options?: NextLoggerOptions) => void
     debug: (message: string, options?: NextLoggerOptions) => void
-    /** Returns a new logger instance with the given prefix fixed as its default. */
-    withPrefix: (prefix: string) => NextLoggerInstance
+    /**
+     * Returns a new logger instance with the given prefix fixed as its default.
+     * @param prefix The prefix to use for the new logger instance.
+     * @param prefixLength The length of the prefix (optional, defaults to 10).
+     * @returns A new logger instance with the specified prefix.
+     */
+    withPrefix: (prefix: string, prefixLength?: number) => NextLoggerInstance
 }
 
 /**
@@ -69,7 +74,7 @@ export function createNextLogger(defaultPrefix?: string, prefixLength = 10): Nex
         error: (message, options) => emit(NEXT_LOG_INDICATORS.error, console.error, message, options),
         info: (message, options) => emit(NEXT_LOG_INDICATORS.info, console.log, message, options),
         debug: (message, options) => emit(NEXT_LOG_INDICATORS.debug, console.debug, message, options),
-        withPrefix: prefix => createNextLogger(prefix, prefixLength),
+        withPrefix: (prefix, length) => createNextLogger(prefix, length ?? prefixLength),
     }
 }
 
