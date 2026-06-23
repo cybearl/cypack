@@ -45,20 +45,28 @@ describe("nextLogger", () => {
             expect(debugSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.debug}d`)
         })
 
-        test("It should pad the default prefix to the configured prefixLength", ({ expect }) => {
+        test("It should pad the default prefix to the configured prefixColumnWidth", ({ expect }) => {
             const logger = createNextLogger("api")
             logger.success("hello")
 
-            // `[api]` is 5 chars, prefixLength defaults to 10 -> 5 trailing spaces
+            // `[api]` is 5 chars, prefixColumnWidth defaults to 10 -> 5 trailing spaces
             expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[api]     hello`)
         })
 
-        test("It should honor a custom prefixLength", ({ expect }) => {
+        test("It should honor a custom prefixColumnWidth", ({ expect }) => {
             const logger = createNextLogger("api", 15)
             logger.success("hello")
 
-            // `[api]` is 5 chars, prefixLength 15 -> 10 trailing spaces
+            // `[api]` is 5 chars, prefixColumnWidth 15 -> 10 trailing spaces
             expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[api]          hello`)
+        })
+
+        test("It should clamp padding to zero when the prefix is longer than the column width", ({ expect }) => {
+            const logger = createNextLogger("very-long-prefix", 5)
+
+            // `[very-long-prefix]` is 18 chars, prefixColumnWidth 5 -> 0 trailing spaces (no throw)
+            expect(() => logger.success("hello")).not.toThrow()
+            expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[very-long-prefix]hello`)
         })
 
         test("It should allow per-call prefix override via options.prefix", ({ expect }) => {
@@ -105,19 +113,19 @@ describe("nextLogger", () => {
             expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[child]   hello`)
         })
 
-        test("It should inherit the parent's prefixLength when none is provided", ({ expect }) => {
+        test("It should inherit the parent's prefixColumnWidth when none is provided", ({ expect }) => {
             const logger = createNextLogger("root", 15).withPrefix("child")
             logger.success("hello")
 
-            // `[child]` is 7 chars, inherited prefixLength 15 -> 8 trailing spaces
+            // `[child]` is 7 chars, inherited prefixColumnWidth 15 -> 8 trailing spaces
             expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[child]        hello`)
         })
 
-        test("It should honor an explicit prefixLength override", ({ expect }) => {
+        test("It should honor an explicit prefixColumnWidth override", ({ expect }) => {
             const logger = createNextLogger("root").withPrefix("child", 20)
             logger.success("hello")
 
-            // `[child]` is 7 chars, override prefixLength 20 -> 13 trailing spaces
+            // `[child]` is 7 chars, override prefixColumnWidth 20 -> 13 trailing spaces
             expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[child]             hello`)
         })
 

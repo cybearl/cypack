@@ -33,26 +33,30 @@ export type NextLoggerInstance = {
     /**
      * Returns a new logger instance with the given prefix fixed as its default.
      * @param prefix The prefix to use for the new logger instance.
-     * @param prefixLength The length of the prefix (optional, defaults to 10).
+     * @param prefixColumnWidth Total character width reserved for the `[prefix]` block, used to align
+     * messages across loggers with different prefix lengths (optional, inherits from the parent logger).
      * @returns A new logger instance with the specified prefix.
      */
-    withPrefix: (prefix: string, prefixLength?: number) => NextLoggerInstance
+    withPrefix: (prefix: string, prefixColumnWidth?: number) => NextLoggerInstance
 }
 
 /**
  * Creates an isomorphic Next.js-compatible logger that works in both browser and Node.js environments.
  * ANSI indicators are automatically hidden in browser environments.
  * @param defaultPrefix An optional prefix prepended to all messages as `[prefix]`.
- * @param prefixLength The total character width reserved for the prefix column, used to
- * align messages across loggers with different prefix lengths (optional, defaults to 10).
+ * @param prefixColumnWidth Total character width reserved for the `[prefix]` block (brackets included),
+ * used to align messages across loggers with different prefix lengths (optional, defaults to 10).
+ * For example, with a width of 10, `[success] A` and `[error]   A` line up on the `A`.
  */
-export function createNextLogger(defaultPrefix?: string, prefixLength = 10): NextLoggerInstance {
+export function createNextLogger(defaultPrefix?: string, prefixColumnWidth = 10): NextLoggerInstance {
     function emit(indicator: string, fn: (...args: unknown[]) => void, message: string, options?: NextLoggerOptions) {
         const isClient = typeof window !== "undefined"
 
         let paddedPrefix = ""
+
         const prefix = options?.prefix ?? defaultPrefix
-        if (prefix) paddedPrefix = `[${prefix}]${isClient ? " " : " ".repeat(prefixLength - (prefix.length + 2))}`
+        const paddingLength = Math.max(prefixColumnWidth - (prefix?.length ?? 0) - 2, 0)
+        if (prefix) paddedPrefix = `[${prefix}]${isClient ? " " : " ".repeat(paddingLength)}`
 
         const formattedLog = `${isClient ? "" : indicator}${paddedPrefix}${message}`
 
@@ -74,7 +78,7 @@ export function createNextLogger(defaultPrefix?: string, prefixLength = 10): Nex
         error: (message, options) => emit(NEXT_LOG_INDICATORS.error, console.error, message, options),
         info: (message, options) => emit(NEXT_LOG_INDICATORS.info, console.log, message, options),
         debug: (message, options) => emit(NEXT_LOG_INDICATORS.debug, console.debug, message, options),
-        withPrefix: (prefix, length) => createNextLogger(prefix, length ?? prefixLength),
+        withPrefix: (prefix, width) => createNextLogger(prefix, width ?? prefixColumnWidth),
     }
 }
 
