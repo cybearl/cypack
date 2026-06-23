@@ -168,9 +168,9 @@ Contains utilities to validate environment variables at startup, with protection
 #### Logger
 A zero-dependency isomorphic Next.js-compatible logger that works in both browser and Node.js. ANSI indicators are automatically suppressed in browser environments.
 - `nextLogger`: The default logger instance.
-- `createNextLogger(prefix?, prefixLength?)`: Creates a new logger instance with an optional default prefix and column width for prefix alignment.
+- `createNextLogger(prefix?, prefixColumnWidth?)`: Creates a new logger instance with an optional default prefix and column width for prefix alignment.
   - `.success` / `.info` / `.warn` / `.error` / `.debug`: Log at the respective level.
-  - `.withPrefix(prefix, prefixLength?)`: Returns a new logger with the given prefix fixed as its default, optionally overriding the parent's column width for prefix alignment.
+  - `.withPrefix(prefix, prefixColumnWidth?)`: Returns a new logger with the given prefix fixed as its default, optionally overriding the parent's column width for prefix alignment.
 - `generateNextLoggerPrefix(uuid, prefix?)`: Derives a short prefix from a UUID (e.g., `"worker-a1b"`), useful for per-job logger scoping.
 - `NEXT_LOG_INDICATORS`: The ANSI indicator strings used by the logger (`success`, `warning`, `error`, `info`, `debug`).
 
