@@ -61,12 +61,20 @@ describe("nextLogger", () => {
             expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[api]          hello`)
         })
 
-        test("It should clamp padding to zero when the prefix is longer than the column width", ({ expect }) => {
+        test("It should keep at least one space when the prefix is longer than the column width", ({ expect }) => {
             const logger = createNextLogger("very-long-prefix", 5)
 
-            // `[very-long-prefix]` is 18 chars, prefixColumnWidth 5 -> 0 trailing spaces (no throw)
+            // `[very-long-prefix]` is 18 chars, prefixColumnWidth 5 -> clamps to 1 trailing space
             expect(() => logger.success("hello")).not.toThrow()
-            expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[very-long-prefix]hello`)
+            expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[very-long-prefix] hello`)
+        })
+
+        test("It should keep at least one space when prefixColumnWidth is zero", ({ expect }) => {
+            const logger = createNextLogger("status", 0)
+            logger.success("hello")
+
+            // prefixColumnWidth 0 would otherwise collapse the gap; clamps to 1 trailing space
+            expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[status] hello`)
         })
 
         test("It should allow per-call prefix override via options.prefix", ({ expect }) => {

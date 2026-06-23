@@ -46,7 +46,6 @@ export type NextLoggerInstance = {
  * @param defaultPrefix An optional prefix prepended to all messages as `[prefix]`.
  * @param prefixColumnWidth Total character width reserved for the `[prefix]` block (brackets included),
  * used to align messages across loggers with different prefix lengths (optional, defaults to 10).
- * For example, with a width of 10, `[success] A` and `[error]   A` line up on the `A`.
  */
 export function createNextLogger(defaultPrefix?: string, prefixColumnWidth = 10): NextLoggerInstance {
     function emit(indicator: string, fn: (...args: unknown[]) => void, message: string, options?: NextLoggerOptions) {
@@ -55,7 +54,7 @@ export function createNextLogger(defaultPrefix?: string, prefixColumnWidth = 10)
         let paddedPrefix = ""
 
         const prefix = options?.prefix ?? defaultPrefix
-        const paddingLength = Math.max(prefixColumnWidth - (prefix?.length ?? 0) - 2, 0)
+        const paddingLength = Math.max(prefixColumnWidth - (prefix?.length ?? 0) - 2, 1)
         if (prefix) paddedPrefix = `[${prefix}]${isClient ? " " : " ".repeat(paddingLength)}`
 
         const formattedLog = `${isClient ? "" : indicator}${paddedPrefix}${message}`
