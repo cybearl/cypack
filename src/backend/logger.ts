@@ -246,7 +246,9 @@ serverLogger.setShowTimestamp = (showTimestamp: Parameters["showTimestamp"]) => 
     parameters.showTimestamp = showTimestamp
 }
 
-serverLogger.setForeignObjectStartAtNewLine = (foreignObjectStartAtNewLine: Parameters["foreignObjectStartAtNewLine"]) => {
+serverLogger.setForeignObjectStartAtNewLine = (
+    foreignObjectStartAtNewLine: Parameters["foreignObjectStartAtNewLine"],
+) => {
     parameters.foreignObjectStartAtNewLine = foreignObjectStartAtNewLine
 }
 

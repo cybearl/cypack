@@ -1,5 +1,11 @@
 import { describe, test } from "vitest"
-import { BaseErrors, formatErrorResponse, formatMessageAsStringifiedError, parseCRUDError, stringifyError } from "@/main/errors"
+import {
+    BaseErrors,
+    formatErrorResponse,
+    formatMessageAsStringifiedError,
+    parseCRUDError,
+    stringifyError,
+} from "@/main/errors"
 import type { ErrorObj } from "@/main/types/requests"
 
 describe("errors", () => {

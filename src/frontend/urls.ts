@@ -26,5 +26,4 @@ export function addParamsToUrl(
 /**
  * Get the current URL origin or null if it's not available.
  */
-// biome-ignore lint/complexity/useOptionalChain: Frontend code, optional chaining would cause issues with window being undefined
 export const currentUrlOrigin = typeof window !== "undefined" && window.location.origin ? window.location.origin : null

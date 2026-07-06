@@ -24,15 +24,11 @@ describe("urls", () => {
         })
 
         test("It should skip undefined, null, and empty string values", ({ expect }) => {
-            expect(addParamsToUrl("https://example.com", { a: undefined, b: null, c: "" })).toBe(
-                "https://example.com",
-            )
+            expect(addParamsToUrl("https://example.com", { a: undefined, b: null, c: "" })).toBe("https://example.com")
         })
 
         test("It should skip the string values 'null' and 'undefined'", ({ expect }) => {
-            expect(addParamsToUrl("https://example.com", { a: "null", b: "undefined" })).toBe(
-                "https://example.com",
-            )
+            expect(addParamsToUrl("https://example.com", { a: "null", b: "undefined" })).toBe("https://example.com")
         })
 
         test("It should accept numeric and boolean parameter values", ({ expect }) => {
