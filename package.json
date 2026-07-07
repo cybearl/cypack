@@ -62,7 +62,7 @@
         "test": "npm run test:unit",
         "build": "tsup",
         "release": "npx semantic-release",
-        "hooks:install": "node -e \"require('fs').existsSync('.git') && require('child_process').execSync('git config core.hooksPath .githooks')\"",
+        "hooks:install": "node -e \"if(require('fs').existsSync('.git'))require('child_process').execSync('git config core.hooksPath .githooks',{stdio:'inherit'})\"",
         "prepare": "npm run hooks:install"
     },
     "dependencies": {
