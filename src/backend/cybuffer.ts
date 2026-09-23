@@ -74,6 +74,7 @@ export default class CyBuffer {
      * - `arrayBuffer`: The array buffer to use.
      * - `offset`: The offset in bytes to start reading from (optional, defaults to 0).
      * - `length`: The length in bytes to read (optional, defaults to the input length).
+     * @returns The proxied "CyBuffer" instance.
      */
     constructor(
         length: number,
@@ -106,22 +107,14 @@ export default class CyBuffer {
         return this._proxy
     }
 
-    /**
-     * ============
-     *  SIGNATURES
-     * ============
-     */
+    // Signatures
 
     /**
      * Signature for the `[]` operator.
      */
     [index: number]: number
 
-    /**
-     * ==================
-     *  INTERNAL METHODS
-     * ==================
-     */
+    // Internal methods
 
     /**
      * Get the platform endianness.
@@ -132,15 +125,8 @@ export default class CyBuffer {
     /**
      * Normalizes the endianness parameter.
      *
-     * By default, the extended Uint8Array is written for Little Endian, to keep it consistent,
-     * if the platform is big endian the endianness parameter is reversed.
-     *
-     * - Little endian platform:
-     *   - `LE` read from left to right.
-     *   - `BE` read from right to left.
-     * - Big endian platform:
-     *   - `LE` read from right to left.
-     *   - `BE` read from left to right.
+     * The buffer is written for little endian, so on a big endian platform
+     * the endianness parameter is reversed to keep reads and writes consistent.
      */
     normalizeEndianness = (endianness: Endianness): Endianness => {
         if (this.platformEndianness === "BE") {
@@ -194,11 +180,7 @@ export default class CyBuffer {
         return this
     }
 
-    /**
-     * ================
-     *  STATIC METHODS
-     * ================
-     */
+    // Static methods
 
     /**
      * Creates a new `CyBuffer` instance of the specified length, initially filled with zeros.
@@ -221,12 +203,13 @@ export default class CyBuffer {
      * @returns A new `CyBuffer` instance.
      */
     static fromHexString = (value: string): CyBuffer => {
-        // Remove any `0x` prefix before writing
+        // Remove any "0x" prefix before writing
         if (value.startsWith("0x")) value = value.slice(2)
 
         const byteLength = Math.ceil(value.length / 2)
         const buffer = new CyBuffer(byteLength)
         buffer.writeHexString(value, 0, byteLength)
+
         return buffer
     }
 
@@ -239,6 +222,7 @@ export default class CyBuffer {
         const encoded = new TextEncoder().encode(value)
         const buffer = new CyBuffer(encoded.byteLength)
         buffer.array.set(encoded)
+
         return buffer
     }
 
@@ -253,6 +237,7 @@ export default class CyBuffer {
             const encoded = new TextEncoder().encode(value)
             const buffer = new CyBuffer(encoded.byteLength)
             buffer.array.set(encoded)
+
             return buffer
         }
 
@@ -260,6 +245,7 @@ export default class CyBuffer {
             const byteLength = Math.ceil(value.length / 2)
             const buffer = new CyBuffer(byteLength)
             buffer.writeHexString(value, 0, byteLength)
+
             return buffer
         }
 
@@ -323,6 +309,7 @@ export default class CyBuffer {
         const byteLength = Math.ceil(value.toString(16).length / 2)
         const buffer = new CyBuffer(byteLength)
         buffer.writeBigInt(value, 0, byteLength, endianness)
+
         return buffer
     }
 
@@ -338,11 +325,7 @@ export default class CyBuffer {
         return buffer
     }
 
-    /**
-     * ===========
-     *  ACCESSORS
-     * ===========
-     */
+    // Accessors
 
     /**
      * The proxy that allows to access/assign values via the [] operator.
@@ -379,6 +362,7 @@ export default class CyBuffer {
                         this.check(index, 1)
 
                         target.array[index] = value
+
                         return true
                     }
                 }
@@ -409,11 +393,7 @@ export default class CyBuffer {
         }
     }
 
-    /**
-     * ===============
-     *  WRITE METHODS
-     * ===============
-     */
+    // Write methods
 
     /**
      * Writes an hexadecimal string to the buffer (supports `0x` prefix).
@@ -444,7 +424,7 @@ export default class CyBuffer {
             )
         }
 
-        // Remove any `0x` prefix before writing
+        // Remove any "0x" prefix before writing
         if (value.startsWith("0x")) {
             // Detects if the length is equal to the default value,
             // if it is, edit the length by removing the prefix
@@ -481,6 +461,7 @@ export default class CyBuffer {
         const encoded = new TextEncoder().encode(value)
         this.check(offset, length)
         this.array.set(encoded.subarray(0, length), offset)
+
         return this
     }
 
@@ -502,6 +483,7 @@ export default class CyBuffer {
             const byteLength = length ?? encoded.byteLength
             this.check(offset, byteLength)
             this.array.set(encoded.subarray(0, byteLength), offset)
+
             return this
         }
 
@@ -937,16 +919,10 @@ export default class CyBuffer {
         return this
     }
 
-    /**
-     * ==============
-     *  READ METHODS
-     * ==============
-     *
-     * Notes:
-     * - All read methods have the capability to disable the overall check.
-     * - All of the "endianness sensitive" methods are wrapped within a single
-     *   method with an optional endianness parameter.
-     */
+    // Read methods
+    // All read methods have the capability to disable the overall check
+    // All of the "endianness sensitive" methods are wrapped within a single
+    // method with an optional endianness parameter
 
     /**
      * **[LITTLE ENDIAN]** Reads a part of the buffer and returns it as an hexadecimal string (always uppercase).
@@ -1244,11 +1220,7 @@ export default class CyBuffer {
         return this.readBigIntBE(offset, length, check)
     }
 
-    /**
-     * ====================
-     *  CONVERSION METHODS
-     * ====================
-     */
+    // Conversion methods
 
     /**
      * Converts the buffer into an hexadecimal string (always uppercase).
@@ -1264,6 +1236,7 @@ export default class CyBuffer {
         }
 
         if (prefix) return `0x${hexString}`
+
         return hexString
     }
 
@@ -1293,6 +1266,7 @@ export default class CyBuffer {
         const length = this.length * 8
         const bits: Bit[] = new Array(length)
         for (let i = 0; i < length; i++) bits[i] = this.readBit(i, msbFirst)
+
         return bits
     }
 
@@ -1324,11 +1298,7 @@ export default class CyBuffer {
         return this.readBigIntBE()
     }
 
-    /**
-     * ===============
-     *  CHECK METHODS
-     * ===============
-     */
+    // Check methods
 
     /**
      * Checks if the current buffer is equal to the specified buffer.
@@ -1373,11 +1343,7 @@ export default class CyBuffer {
         return true
     }
 
-    /**
-     * ====================
-     *  RANDOMNESS METHODS
-     * ====================
-     */
+    // Randomness methods
 
     /**
      * Randomly fills the buffer with bytes.
@@ -1405,11 +1371,7 @@ export default class CyBuffer {
      */
     safeRandomFill = (offset = 0, length = this.length) => randomFillSync(this.array, offset, length)
 
-    /**
-     * =================
-     *  UTILITY METHODS
-     * =================
-     */
+    // Utility methods
 
     /**
      * Copies the buffer into a new buffer.
@@ -1421,6 +1383,7 @@ export default class CyBuffer {
         this.check(offset, length)
         const buffer = new CyBuffer(length)
         buffer.array.set(this.array.subarray(offset, offset + length))
+
         return buffer
     }
 
@@ -1570,6 +1533,7 @@ export default class CyBuffer {
 
         this.check(offset, length)
         this.array.fill(value, offset, offset + length)
+
         return this
     }
 

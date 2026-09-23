@@ -38,6 +38,7 @@ const parameters: Parameters = { ...defaultParameters }
 /**
  * Modify the format of the message depending on the log level.
  * @param log The log descriptor.
+ * @param colors The Colorette instance used to colorize the output.
  * @returns The formatted message.
  */
 function formatMessage(log: LogDescriptor, colors: Colorette): string {
@@ -127,6 +128,7 @@ function formatMessage(log: LogDescriptor, colors: Colorette): string {
     if (effect) finalLog = effect(finalLog)
 
     console.log(finalLog)
+
     return ""
 }
 
@@ -144,58 +146,32 @@ const stream = pretty({
 
 /**
  * A custom serverLogger instance compatible with both front and back-end, allowing to log messages
- * with different levels and colors.
- *
- * The available levels are:
- * - `fatal`
- * - `error`
- * - `warn`
- * - `info`
- * - `debug`
- * - `trace`
- *
- * The available parameters are:
- * - `setLevel`: Set the serverLogger level (defaults to `"trace"`).
- * - `setShowLevel`: Set the serverLogger level display (defaults to `true`).
- * - `setShowTimestamp`: Set the serverLogger timestamp display (defaults to `true`).
- * - `setForeignObjectStartAtNewLine`: Set the serverLogger foreign object new line display (defaults to `false`).
- * - `setForeignObjectPadding`: Set the padding for foreign objects (defaults to `0`).
- * - `setForeignObjectIndent`: Set the indent for foreign objects (defaults to `4`).
- * - `setAlignForeignObject`: Align any foreign object to the same column (defaults to `false`).
- * - `setParameters`: Set all the parameters at once.
- * - `resetParameters`: Reset all the parameters to their default values.
+ * with different levels ("fatal", "error", "warn", "info", "debug", "trace") and colors,
+ * configurable through the setter methods documented below.
  */
 const serverLogger = pino({ level: parameters.level }, stream) as pino.Logger & {
     /**
-     * Set the serverLogger level, available levels are:
-     * - `fatal`
-     * - `error`
-     * - `warn`
-     * - `info`
-     * - `debug`
-     * - `trace`
-     *
-     * The logging level is a **minimum** level. For instance if `serverLogger.level` is `"info"` then all
-     * `"fatal"`, `"error"`, `"warn"` and `"info"` logs will be enabled.
-     * @param level The new serverLogger level.
+     * Set the serverLogger minimum level (defaults to "trace"), every log at or above this level
+     * is enabled (e.g. "info" enables "fatal", "error", "warn" and "info").
+     * @param level The new serverLogger level ("fatal", "error", "warn", "info", "debug" or "trace").
      */
     setLevel: (level: Parameters["level"]) => void
 
     /**
      * Set the serverLogger level display.
-     * @param showLevel Whether to show the level or not.
+     * @param showLevel Whether to show the level or not (defaults to true).
      */
     setShowLevel: (showLevel: Parameters["showLevel"]) => void
 
     /**
      * Set the serverLogger timestamp display.
-     * @param showTimestamp Whether to show the timestamp or not.
+     * @param showTimestamp Whether to show the timestamp or not (defaults to true).
      */
     setShowTimestamp: (showTimestamp: Parameters["showTimestamp"]) => void
 
     /**
      * Set the serverLogger foreign object new line display (wether to start the foreign object on a new line or not).
-     * @param foreignObjectStartAtNewLine Whether to start the foreign object on a new line or not.
+     * @param foreignObjectStartAtNewLine Whether to start the foreign object on a new line or not (defaults to false).
      */
     setForeignObjectStartAtNewLine: (foreignObjectStartAtNewLine: Parameters["foreignObjectStartAtNewLine"]) => void
 
@@ -203,19 +179,19 @@ const serverLogger = pino({ level: parameters.level }, stream) as pino.Logger & 
      * Set the padding for foreign objects, it also accepts `"after-timestamp"` and
      * `"after-level"` to automatically calculate the padding to match the beginning of the
      * specified element.
-     * @param padding The padding for foreign objects.
+     * @param padding The padding for foreign objects (defaults to 0).
      */
     setForeignObjectPadding: (padding: Parameters["foreignObjectPadding"]) => void
 
     /**
      * Set the indent for foreign objects.
-     * @param indent The indent for foreign objects.
+     * @param indent The indent for foreign objects (defaults to 4).
      */
     setForeignObjectIndent: (indent: Parameters["foreignObjectIndent"]) => void
 
     /**
      * Set whether to align any foreign object to the same column.
-     * @param alignForeignObject Whether to align any foreign object to the same column.
+     * @param alignForeignObject Whether to align any foreign object to the same column (defaults to false).
      */
     setAlignForeignObject: (alignForeignObject: Parameters["alignForeignObject"]) => void
 
@@ -246,7 +222,9 @@ serverLogger.setShowTimestamp = (showTimestamp: Parameters["showTimestamp"]) => 
     parameters.showTimestamp = showTimestamp
 }
 
-serverLogger.setForeignObjectStartAtNewLine = (foreignObjectStartAtNewLine: Parameters["foreignObjectStartAtNewLine"]) => {
+serverLogger.setForeignObjectStartAtNewLine = (
+    foreignObjectStartAtNewLine: Parameters["foreignObjectStartAtNewLine"],
+) => {
     parameters.foreignObjectStartAtNewLine = foreignObjectStartAtNewLine
 }
 

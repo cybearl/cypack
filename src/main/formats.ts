@@ -103,7 +103,7 @@ export function formatUnit(
         })}${spaceOrNot}M${strUnit}`.padStart(padding, " ")
     }
 
-    // k = kilo
+    // K = kilo
     if (num >= 10 ** 3) {
         return `${(num / 10 ** 3).toLocaleString("en-US", {
             minimumFractionDigits: 2,
@@ -336,11 +336,9 @@ export function formatDate(date: Date): string {
 /**
  * Formats a bigint as scientific notation using only integer arithmetic,
  * supporting arbitrarily large values (e.g., up to 2^256).
- *
- * Returns a tuple `[coefficient, exponent]` so callers can render the
- * exponent as a superscript (e.g., `["4.61", 18]` for ~4.61 × 10^18).
  * @param value The bigint to format.
  * @param precision Number of decimal digits in the coefficient (default 2).
+ * @returns A tuple `[coefficient, exponent]` (e.g., `["4.61", 18]` for ~4.61 × 10^18).
  */
 export function bigintToScientific(value: bigint, precision = 2): [coefficient: string, exponent: number] {
     if (value === 0n) return ["0", 0]
@@ -376,6 +374,7 @@ export function bigintToMetricFormatted(value: bigint): string {
     const divisor = 1000n ** BigInt(unitIndex)
     const scaled = (absValue * 10n) / divisor
     const scaledStr = scaled.toString()
+
     const paddedScaledStr = scaledStr.padStart(2, "0")
     const integerPart = paddedScaledStr.slice(0, -1) || "0"
     const decimalPart = paddedScaledStr.slice(-1)

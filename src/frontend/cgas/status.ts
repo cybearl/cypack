@@ -9,6 +9,12 @@ import type { RequestResult } from "@/main/types/requests"
  */
 export async function getCGASStatus(markerOnly: true, baseUrl?: string): Promise<RequestResult<string>>
 export async function getCGASStatus(markerOnly?: false, baseUrl?: string): Promise<RequestResult<CGASStatus>>
+/**
+ * Implementation of the "getCGASStatus" overloads.
+ * @param markerOnly Whether to only return the marker (optional, defaults to false).
+ * @param baseUrl The base URL of the CGAS API (optional, defaults to "/api/cgas").
+ * @returns The status of the application, or the marker if "markerOnly" is true.
+ */
 export async function getCGASStatus(
     markerOnly = false,
     baseUrl = "/api/cgas",

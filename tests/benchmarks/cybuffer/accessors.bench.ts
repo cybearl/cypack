@@ -1,5 +1,10 @@
 import { Bench, CyBuffer } from "@/backend"
 
+/**
+ * Runs the CyBuffer accessors benchmarks.
+ * @param benchmarkInputSize The size of the buffers used in the benchmarks.
+ * @param benchmarkDuration The duration of each benchmark in milliseconds.
+ */
 export default function executeAccessorsBenchmark(benchmarkInputSize: number, benchmarkDuration: number) {
     // Test buffer instances
     const buffer = CyBuffer.alloc(benchmarkInputSize)
@@ -15,14 +20,14 @@ export default function executeAccessorsBenchmark(benchmarkInputSize: number, be
 
     bench.benchmark(() => {
         for (const value of buffer) {
-            // access the value to avoid the loop being optimized out
+            // Access the value to avoid the loop being optimized out
             value + 1
         }
     }, "symbol iterator")
 
     bench.benchmark(() => {
         for (const [index, value] of buffer.entries()) {
-            // access the index and value to avoid the loop being optimized out
+            // Access the index and value to avoid the loop being optimized out
             index + value
             value + 1
         }

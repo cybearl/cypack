@@ -1,0 +1,25 @@
+import nitpicker from "@alien_intelligence/eslint-plugin-nitpicker"
+import tsParser from "@typescript-eslint/parser"
+
+/**
+ * ESLint flat config, it exists only to host Nitpicker for nit-level enforcement,
+ * Biome still owns formatting and the broader lint rules.
+ */
+export default [
+    {
+        ignores: ["**/dist/**", "**/node_modules/**"],
+    },
+    {
+        files: ["src/**/*.ts", "tests/**/*.ts"],
+        languageOptions: {
+            parser: tsParser,
+            ecmaVersion: "latest",
+            sourceType: "module",
+        },
+        plugins: { nitpicker },
+        rules: {
+            ...nitpicker.configs.recommended.rules,
+            ...nitpicker.configs.breathing.rules,
+        },
+    },
+]

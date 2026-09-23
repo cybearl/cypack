@@ -63,7 +63,9 @@ describe("maths", () => {
             expect(safePercentage(10, undefined)).toBe(0)
         })
 
-        test("It should return -1 when the string denominator parses to zero but the numerator is positive", ({ expect }) => {
+        test("It should return -1 when the string denominator parses to zero but the numerator is positive", ({
+            expect,
+        }) => {
             expect(safePercentage(10, "0")).toBe(-1)
         })
 

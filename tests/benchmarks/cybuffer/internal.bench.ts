@@ -1,5 +1,10 @@
 import { Bench, CyBuffer } from "@/backend"
 
+/**
+ * Runs the CyBuffer internal benchmarks.
+ * @param benchmarkInputSize The size of the buffers used in the benchmarks.
+ * @param benchmarkDuration The duration of each benchmark in milliseconds.
+ */
 export default function executeInternalBenchmark(benchmarkInputSize: number, benchmarkDuration: number) {
     // Test buffer instances
     const buffer = CyBuffer.alloc(benchmarkInputSize)

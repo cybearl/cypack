@@ -12,6 +12,10 @@ permissions:
   pull-requests: write
   id-token: write
 
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   semantic-release:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
@@ -20,7 +24,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 22.x ]
+        node-version: [22.x]
 
     steps:
       - name: Checkout repository

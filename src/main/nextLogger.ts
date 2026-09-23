@@ -15,9 +15,14 @@ export const NEXT_LOG_INDICATORS = {
  * Options accepted by each log method.
  */
 export type NextLoggerOptions = {
-    /** Overrides the logger's default prefix for this call. */
+    /**
+     * Overrides the logger's default prefix for this call.
+     */
     prefix?: string
-    /** Additional data to log alongside the message (e.g., an Error object). */
+
+    /**
+     * Additional data to log alongside the message (e.g., an Error object).
+     */
     data?: unknown
 }
 
@@ -25,11 +30,41 @@ export type NextLoggerOptions = {
  * A logger instance returned by `createNextLogger` or `withPrefix`.
  */
 export type NextLoggerInstance = {
+    /**
+     * Logs a success message.
+     * @param message The message to log.
+     * @param options The logging options (optional).
+     */
     success: (message: string, options?: NextLoggerOptions) => void
+
+    /**
+     * Logs a warning message.
+     * @param message The message to log.
+     * @param options The logging options (optional).
+     */
     warn: (message: string, options?: NextLoggerOptions) => void
+
+    /**
+     * Logs an error message.
+     * @param message The message to log.
+     * @param options The logging options (optional).
+     */
     error: (message: string, options?: NextLoggerOptions) => void
+
+    /**
+     * Logs an info message.
+     * @param message The message to log.
+     * @param options The logging options (optional).
+     */
     info: (message: string, options?: NextLoggerOptions) => void
+
+    /**
+     * Logs a debug message.
+     * @param message The message to log.
+     * @param options The logging options (optional).
+     */
     debug: (message: string, options?: NextLoggerOptions) => void
+
     /**
      * Returns a new logger instance with the given prefix fixed as its default.
      * @param prefix The prefix to use for the new logger instance.
@@ -46,8 +81,16 @@ export type NextLoggerInstance = {
  * @param defaultPrefix An optional prefix prepended to all messages as `[prefix]`.
  * @param prefixColumnWidth Total character width reserved for the `[prefix]` block (brackets included),
  * used to align messages across loggers with different prefix lengths (optional, defaults to 10).
+ * @returns A new logger instance.
  */
 export function createNextLogger(defaultPrefix?: string, prefixColumnWidth = 10): NextLoggerInstance {
+    /**
+     * Formats and emits a log message through the given console function.
+     * @param indicator The level indicator to display.
+     * @param fn The console function used to output the message.
+     * @param message The message to log.
+     * @param options The logging options (optional).
+     */
     function emit(indicator: string, fn: (...args: unknown[]) => void, message: string, options?: NextLoggerOptions) {
         const isClient = typeof window !== "undefined"
 

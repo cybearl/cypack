@@ -56,6 +56,7 @@ export default class Bench {
         let operationsPerSecond = 0
         let avgExecutionTime = 0
         let operations = 0
+
         let totalTime = 0n
         let t0 = 0n
         let t1 = 0n

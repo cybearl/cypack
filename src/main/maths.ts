@@ -41,10 +41,8 @@ export function safeAverage(total?: string | number, count?: string | number, de
 
 /**
  * Safely creates a percentage based on a numerator and denominator coming from
- * a Lucid ORM / SQL query result.
- *
- * Note: If the denominator is zero, this function will return `-1` if the
- * numerator is greater than zero, showing it as a growth from nothing to something.
+ * a Lucid ORM / SQL query result, returning `-1` for a zero denominator with a
+ * positive numerator (growth from nothing to something).
  * @param numerator The numerator value.
  * @param denominator The denominator value.
  * @param decimalPlaces The number of decimal places to round to (optional, defaults to 2).

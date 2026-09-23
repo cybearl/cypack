@@ -18,13 +18,10 @@ export type RequiredEnvVars = {
 /**
  * Checks for required environment variables and warns or throws if any are missing
  * or if private variables are leaking into the client bundle.
- *
- * Pass your app's required-var names as `requiredVars` and a flat record of their
- * actual runtime values as `runtimeValues`. The `runtimeValues` object must inline
- * `process.env.X` calls directly, dynamic key access (`process.env[name]`) is
- * dead-code eliminated by most bundlers and will not work.
  * @param requiredVars The required variable names split into `public` and `private`.
- * @param runtimeValues A flat map of the variable names.
+ * @param runtimeValues A flat map of the variable names to their runtime values, it must inline
+ * `process.env.X` calls directly as dynamic key access (`process.env[name]`) is
+ * dead-code eliminated by most bundlers and will not work.
  */
 export function checkEnvironmentVariables(
     requiredVars: RequiredEnvVars,
@@ -32,7 +29,7 @@ export function checkEnvironmentVariables(
 ): void {
     if (requiredVars.public.length === 0 && requiredVars.private.length === 0) return
 
-    // `typeof window` returns "undefined" on the server and "object" on the client
+    // "typeof window" returns "undefined" on the server and "object" on the client
     const environment = typeof window === "undefined" ? "server" : "client"
 
     // Determine which environment variables to check based on the current environment

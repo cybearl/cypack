@@ -1,5 +1,6 @@
 /**
  * Returns true if the code is running in a server environment.
+ * @returns True if running on the server, false otherwise.
  */
 export function isServer() {
     return typeof window === "undefined"
@@ -7,6 +8,7 @@ export function isServer() {
 
 /**
  * Returns true if the code is running in a client environment.
+ * @returns True if running on the client, false otherwise.
  */
 export function isClient() {
     return !isServer()
@@ -21,10 +23,9 @@ export function isClient() {
 export function arrayEqual(array1: Array<any>, array2: Array<any>): boolean {
     if (array1 === array2) return true
 
-    const { length } = array1
-    if (length !== array2.length) return false
+    if (array1.length !== array2.length) return false
 
-    for (let index = 0; index < length; index++) {
+    for (let index = 0; index < array1.length; index++) {
         if (array1[index] !== array2[index]) return false
     }
 
