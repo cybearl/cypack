@@ -11,6 +11,7 @@ describe("nextLogger", () => {
 
     beforeEach(() => {
         delete (globalThis as { window?: unknown }).window
+
         logSpy = vi.spyOn(console, "log").mockImplementation(() => null)
         warnSpy = vi.spyOn(console, "warn").mockImplementation(() => null)
         errorSpy = vi.spyOn(console, "error").mockImplementation(() => null)
@@ -49,7 +50,7 @@ describe("nextLogger", () => {
             const logger = createNextLogger("api")
             logger.success("hello")
 
-            // `[api]` is 5 chars, prefixColumnWidth defaults to 10 -> 5 trailing spaces
+            // "[api]" is 5 chars, prefixColumnWidth defaults to 10 -> 5 trailing spaces
             expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[api]     hello`)
         })
 
@@ -57,14 +58,14 @@ describe("nextLogger", () => {
             const logger = createNextLogger("api", 15)
             logger.success("hello")
 
-            // `[api]` is 5 chars, prefixColumnWidth 15 -> 10 trailing spaces
+            // "[api]" is 5 chars, prefixColumnWidth 15 -> 10 trailing spaces
             expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[api]          hello`)
         })
 
         test("It should keep at least one space when the prefix is longer than the column width", ({ expect }) => {
             const logger = createNextLogger("very-long-prefix", 5)
 
-            // `[very-long-prefix]` is 18 chars, prefixColumnWidth 5 -> clamps to 1 trailing space
+            // "[very-long-prefix]" is 18 chars, prefixColumnWidth 5 -> clamps to 1 trailing space
             expect(() => logger.success("hello")).not.toThrow()
             expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[very-long-prefix] hello`)
         })
@@ -73,7 +74,7 @@ describe("nextLogger", () => {
             const logger = createNextLogger("status", 0)
             logger.success("hello")
 
-            // prefixColumnWidth 0 would otherwise collapse the gap; clamps to 1 trailing space
+            // PrefixColumnWidth 0 would otherwise collapse the gap; clamps to 1 trailing space
             expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[status] hello`)
         })
 
@@ -125,7 +126,7 @@ describe("nextLogger", () => {
             const logger = createNextLogger("root", 15).withPrefix("child")
             logger.success("hello")
 
-            // `[child]` is 7 chars, inherited prefixColumnWidth 15 -> 8 trailing spaces
+            // "[child]" is 7 chars, inherited prefixColumnWidth 15 -> 8 trailing spaces
             expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[child]        hello`)
         })
 
@@ -133,7 +134,7 @@ describe("nextLogger", () => {
             const logger = createNextLogger("root").withPrefix("child", 20)
             logger.success("hello")
 
-            // `[child]` is 7 chars, override prefixColumnWidth 20 -> 13 trailing spaces
+            // "[child]" is 7 chars, override prefixColumnWidth 20 -> 13 trailing spaces
             expect(logSpy).toHaveBeenCalledWith(`${NEXT_LOG_INDICATORS.success}[child]             hello`)
         })
 

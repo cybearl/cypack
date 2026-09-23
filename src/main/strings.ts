@@ -14,6 +14,7 @@ export function convertErrorToString(error: unknown): string {
     }
 
     if (stringifiedError === "" || stringifiedError === "{}") stringifiedError = `${error}`
+
     return stringifiedError
 }
 

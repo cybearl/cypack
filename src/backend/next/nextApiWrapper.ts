@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
+import CyCONSTANTS from "@/main/constants"
 import { BaseErrors } from "@/main/errors"
 import type { ErrorObj, FailedRequest } from "@/main/types/requests"
 
@@ -123,12 +124,17 @@ export default class NextApiWrapper {
     }
 
     /**
-     * Returns a properly formatted success response.
+     * Returns a properly formatted success response, without a body for statuses that can't carry one (204, 304).
      * @param status Status code to be sent in the response.
      * @param data Data to be sent in the response (optional, defaults to `null`).
      */
-    successResponse(status: number, data?: unknown) {
-        return this._res.status(status).send({
+    successResponse(status: number, data?: unknown): void {
+        if (CyCONSTANTS.NO_BODY_HTTP_STATUSES.includes(status)) {
+            this._res.status(status).end()
+            return
+        }
+
+        this._res.status(status).send({
             success: true,
             data: this._checkDataValidity(data) ? data : null,
         })
@@ -139,6 +145,7 @@ export default class NextApiWrapper {
      * @param error Error code constant to be sent in the response.
      * @param data Additional data to be sent in the response (optional).
      * @param message Error message to be sent in the response (optional, defaults to the internal error message).
+     * @returns The result of sending the error response.
      */
     errorResponse(error: ErrorObj, data?: unknown, message?: string) {
         const response: FailedRequest = {
@@ -167,10 +174,35 @@ export default class NextApiWrapper {
     }
 
     /**
-     * Run and route the request to the appropriate method.
+     * Maps each HTTP method to its registered route method.
+     * @returns The route methods, keyed by HTTP method.
+     */
+    private _getMethodsByHttpMethod(): Record<string, NextApiMethod | NextApiMethodWithOptions | undefined> {
+        return {
+            GET: this._read,
+            POST: this._write,
+            PATCH: this._update,
+            PUT: this._replace,
+            DELETE: this._remove,
+        }
+    }
+
+    /**
+     * Run and route the request to the appropriate method, answering 405 (with an "Allow" header)
+     * when no method is registered for the request's HTTP method.
      * @returns The response from the method.
      */
     async run() {
+        const methodsByHttpMethod = this._getMethodsByHttpMethod()
+        const method = methodsByHttpMethod[this._req.method ?? ""]
+
+        if (!method) {
+            const allowedHttpMethods = Object.keys(methodsByHttpMethod).filter(key => methodsByHttpMethod[key])
+            this._res.setHeader("Allow", allowedHttpMethods.join(", "))
+
+            return this.errorResponse(BaseErrors.METHOD_NOT_ALLOWED)
+        }
+
         const methodInput: NextApiMethodInput = {
             req: this._req,
             res: this._res,
@@ -178,26 +210,11 @@ export default class NextApiWrapper {
         }
 
         try {
-            switch (this._req.method) {
-                case "GET":
-                    if (this._read) return await this._executeMethod(this._read, methodInput)
-                    break
-                case "POST":
-                    if (this._write) return await this._executeMethod(this._write, methodInput)
-                    break
-                case "PATCH":
-                    if (this._update) return await this._executeMethod(this._update, methodInput)
-                    break
-                case "PUT":
-                    if (this._replace) return await this._executeMethod(this._replace, methodInput)
-                    break
-                case "DELETE":
-                    if (this._remove) return await this._executeMethod(this._remove, methodInput)
-                    break
-                default:
-                    return this.errorResponse(BaseErrors.METHOD_NOT_ALLOWED)
-            }
+            return await this._executeMethod(method, methodInput)
         } catch (error) {
+            // The method may have already answered before throwing, a second response would throw too
+            if (this._res.headersSent) return false
+
             return this.errorResponse(BaseErrors.INTERNAL_SERVER_ERROR, error)
         }
     }

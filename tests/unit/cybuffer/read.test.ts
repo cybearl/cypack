@@ -87,6 +87,7 @@ describe("read", () => {
 
         beforeEach(() => {
             buffer = CyBuffer.alloc(1)
+
             for (let i = 0; i < buffer.length; i++) {
                 buffer.writeBit(bits[i], i)
             }
@@ -108,6 +109,7 @@ describe("read", () => {
 
         beforeEach(() => {
             buffer = CyBuffer.alloc(2)
+
             for (let i = 0; i < buffer.length; i++) {
                 buffer.writeUint8(uint8s[i], i)
             }
@@ -132,6 +134,7 @@ describe("read", () => {
 
         beforeEach(() => {
             buffer = CyBuffer.alloc(4)
+
             for (let i = 0; i < buffer.length; i++) {
                 buffer.writeUint8(uint16sByteValues[i], i)
             }
@@ -167,6 +170,7 @@ describe("read", () => {
 
         beforeEach(() => {
             buffer = CyBuffer.alloc(8)
+
             for (let i = 0; i < buffer.length; i++) {
                 buffer.writeUint8(uint32sByteValues[i], i)
             }
@@ -230,6 +234,7 @@ describe("read", () => {
 
         beforeEach(() => {
             buffer = CyBuffer.alloc(4)
+
             for (let i = 0; i < buffer.length; i++) {
                 buffer.writeUint8(uint16sByteValues[i], i)
             }
@@ -256,6 +261,7 @@ describe("read", () => {
 
         beforeEach(() => {
             buffer = CyBuffer.alloc(8)
+
             for (let i = 0; i < buffer.length; i++) {
                 buffer.writeUint8(uint32sByteValues[i], i)
             }
@@ -285,6 +291,7 @@ describe("read", () => {
 
         beforeEach(() => {
             buffer = CyBuffer.alloc(8)
+
             for (let i = 0; i < buffer.length; i++) {
                 buffer.writeUint8(bigIntByteValues[i], i)
             }

@@ -2,15 +2,26 @@ import { createCipheriv, createDecipheriv, randomBytes } from "node:crypto"
 
 /**
  * The return type of the `encrypt` function.
- * - `iv`: Base64-encoded initialization vector used for encryption (no need to store it securely).
- * - `ciphertext`: Base64-encoded ciphertext resulting from the encryption process.
- * - `tag`: Authentication tag as a Buffer, used for verifying the integrity of the ciphertext.
- * - `payload`: Full payload combining iv, ciphertext, and tag, formatted as "iv.ciphertext.tag".
  */
 export type CryptoAes256GcmEncryptResult = {
+    /**
+     * Base64-encoded initialization vector used for encryption (no need to store it securely).
+     */
     iv: string
+
+    /**
+     * Base64-encoded ciphertext resulting from the encryption process.
+     */
     ciphertext: string
+
+    /**
+     * Authentication tag as a Buffer, used for verifying the integrity of the ciphertext.
+     */
     tag: Buffer
+
+    /**
+     * Full payload combining iv, ciphertext, and tag, formatted as "iv.ciphertext.tag".
+     */
     payload: string
 }
 
@@ -35,7 +46,12 @@ function aes256GcmEncrypt(key: string, data: string): CryptoAes256GcmEncryptResu
     const tag = cipher.getAuthTag()
 
     const payload = `${iv}.${ciphertext}.${tag.toString("base64")}`
-    return { iv, ciphertext, tag, payload }
+    return {
+        iv,
+        ciphertext,
+        tag,
+        payload,
+    }
 }
 
 /**

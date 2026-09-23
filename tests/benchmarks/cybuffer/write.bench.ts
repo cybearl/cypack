@@ -1,5 +1,10 @@
 import { Bench, type Bit, CyBuffer } from "@/backend"
 
+/**
+ * Runs the CyBuffer write benchmarks.
+ * @param benchmarkInputSize The size of the buffers used in the benchmarks.
+ * @param benchmarkDuration The duration of each benchmark in milliseconds.
+ */
 export default function executeWriteBenchmark(benchmarkInputSize: number, benchmarkDuration: number) {
     // Test values
     const oneBitArray: Bit[] = [0]

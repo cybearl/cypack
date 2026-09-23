@@ -14,6 +14,7 @@ describe("static", () => {
 
         test("It should create a buffer with the specified length and fill value", ({ expect }) => {
             buffer = CyBuffer.alloc(length, 0xff)
+
             for (let i = 0; i < buffer.length; i++) {
                 expect(buffer.readUint8(i)).toBe(0xff)
             }
@@ -46,6 +47,7 @@ describe("static", () => {
 
         test("It should support the '0x' prefix", ({ expect }) => {
             buffer = CyBuffer.fromHexString(`0x${hexString}`)
+
             for (let i = 0; i < buffer.length; i++) {
                 expect(buffer.readUint8(i)).toBe(hexStringByteValues[i])
             }

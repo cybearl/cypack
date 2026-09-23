@@ -46,14 +46,12 @@ describe("internal", () => {
 
         test("It should throw if the offset is an invalid number", ({ expect }) => {
             expect(() => buffer.check(Number.NaN, 0)).toThrow()
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
             expect(() => buffer.check("Z", 0)).toThrow()
         })
 
         test("It should throw if the length is an invalid number", ({ expect }) => {
             expect(() => buffer.check(0, Number.NaN)).toThrow()
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
             expect(() => buffer.check(0, "Z")).toThrow()
         })

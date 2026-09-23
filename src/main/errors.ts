@@ -3,6 +3,10 @@ import type { ErrorObj, FailedRequest } from "@/main/types/requests"
 
 /**
  * Formats an `ErrorObj` into a standard error sent back by an API endpoint.
+ * @param error The `ErrorObj` object to format.
+ * @param customMessage Replaces the standard error message with a custom one (optional).
+ * @param additionalData Additional data to include in the error (optional).
+ * @returns The formatted error response.
  */
 export function formatErrorResponse(error: ErrorObj, customMessage?: string, additionalData?: unknown) {
     let err: ErrorObj
@@ -30,7 +34,12 @@ export function stringifyError(error: ErrorObj, message?: string, additionalData
     if (additionalData) err = { ...error, data: additionalData }
     else err = error
 
-    // Allow special keys in the JSON stringification
+    /**
+     * Allow special keys (functions and bigints) in the JSON stringification.
+     * @param _ The key being stringified (unused).
+     * @param value The value being stringified.
+     * @returns The value converted to a string if it is a function or a bigint, otherwise the value itself.
+     */
     const allowSpecialKeys = (_: string, value: unknown) => {
         if (typeof value === "function") return value.toString()
         if (typeof value === "bigint") return value.toString()
@@ -119,26 +128,7 @@ export function formatMessageAsStringifiedError(message: string, error?: unknown
 
 /**
  * Contains all the standard available errors for the application, it serves as a base
- * to extend with your custom errors.
- *
- * The recommended way is to create an `AppErrors` object that extends this one, preferably
- * at a place similar to `lib/utils/errors.ts`:
- * ```typescript
- * import { BaseErrors } from "..."
- *
- * export const AppErrors = {
- *     ...BaseErrors,
- *     //=====//
- *	    // 401 //
- *	    //=====//
- *     BLAH_BLAH: {
- *         status: 401,
- *         name: "BlahBlah",
- *         message: "Blah blah blah.",
- *         data: null,
- *     },
- * }
- * ```
+ * to extend with your custom errors (e.g. an "AppErrors" object spreading "BaseErrors").
  */
 export const BaseErrors = {
     //=====//

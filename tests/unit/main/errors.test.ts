@@ -11,7 +11,12 @@ import type { ErrorObj } from "@/main/types/requests"
 describe("errors", () => {
     describe("formatErrorResponse", () => {
         test("It should return a failed response with the error and its message", ({ expect }) => {
-            const error: ErrorObj = { status: 400, name: "BadRequest", message: "Bad request.", data: null }
+            const error: ErrorObj = {
+                status: 400,
+                name: "BadRequest",
+                message: "Bad request.",
+                data: null,
+            }
             expect(formatErrorResponse(error)).toStrictEqual({
                 success: false,
                 message: "Bad request.",
@@ -20,13 +25,23 @@ describe("errors", () => {
         })
 
         test("It should use the custom message when provided", ({ expect }) => {
-            const error: ErrorObj = { status: 400, name: "BadRequest", message: "Bad request.", data: null }
+            const error: ErrorObj = {
+                status: 400,
+                name: "BadRequest",
+                message: "Bad request.",
+                data: null,
+            }
             const result = formatErrorResponse(error, "Custom message")
             expect(result.message).toBe("Custom message")
         })
 
         test("It should attach additional data to the error when provided", ({ expect }) => {
-            const error: ErrorObj = { status: 400, name: "BadRequest", message: "Bad request.", data: null }
+            const error: ErrorObj = {
+                status: 400,
+                name: "BadRequest",
+                message: "Bad request.",
+                data: null,
+            }
             const result = formatErrorResponse(error, undefined, { detail: "extra" })
             expect(result.error.data).toStrictEqual({ detail: "extra" })
         })
@@ -34,14 +49,24 @@ describe("errors", () => {
 
     describe("stringifyError", () => {
         test("It should serialize an ErrorObj to a JSON string", ({ expect }) => {
-            const error: ErrorObj = { status: 400, name: "BadRequest", message: "Bad request.", data: null }
+            const error: ErrorObj = {
+                status: 400,
+                name: "BadRequest",
+                message: "Bad request.",
+                data: null,
+            }
             const result = stringifyError({ ...error })
             expect(typeof result).toBe("string")
             expect(JSON.parse(result)).toStrictEqual(error)
         })
 
         test("It should replace the message if a custom one is provided", ({ expect }) => {
-            const error: ErrorObj = { status: 400, name: "BadRequest", message: "Bad request.", data: null }
+            const error: ErrorObj = {
+                status: 400,
+                name: "BadRequest",
+                message: "Bad request.",
+                data: null,
+            }
             const result = stringifyError({ ...error }, "Custom message")
             expect(JSON.parse(result).message).toBe("Custom message")
         })
